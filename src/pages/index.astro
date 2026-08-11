@@ -9,22 +9,22 @@ import Services from "@components/Services/Services.astro";
 import SideBySide from "@components/SideBySide/SideBySide.astro";
 import SideBySideReverse from "@components/SideBySideReverse/SideBySideReverse.astro";
 import Gallery from "@components/Gallery/Gallery.astro";
-import Testimonials from "@components/Testimonials/Testimonials.astro";
+import TraceabilityArchive from "@components/TraceabilityArchive/TraceabilityArchive.astro";
 import FAQ from "@components/FAQ/FAQ.astro";
 import CTASimple from "@components/CTA/CTASimple.astro";
 
-// Optimize our landing image and pass it as props to the BaseLayout (for preloading) and Banner (for rendering)
-import heroImage from "@assets/images/hero/hero.jpg";
+// Optimize our landing image and pass it as props to the BaseLayout (for preloading) and Hero (for rendering)
+import heroImage from "@assets/images/factory/baicaoyuan-factory-exterior.png";
 const optimizedHeroImage = await getImage({ src: heroImage, format: "webp" });
 ---
 
-<BaseLayout title="Pixel Perfect Websites" description="Meta description for the page" heroImage={optimizedHeroImage}>
+<BaseLayout title="源头工厂 · 花草茶批发与 OEM/ODM" description="亳州市百草源花茶有限公司：药食同源花草茶源头工厂，面向批发、经销及品牌客户提供组合花茶、单一花材茶与 OEM/ODM 标准化生产服务。" heroImage={optimizedHeroImage}>
 	<Hero image={optimizedHeroImage} />
 	<Services />
 	<SideBySide />
 	<SideBySideReverse />
 	<Gallery />
-	<Testimonials />
+	<TraceabilityArchive />
 	<FAQ />
 	<CTASimple />
 </BaseLayout>

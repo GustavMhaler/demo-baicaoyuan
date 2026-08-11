@@ -3,6 +3,10 @@ import { getImage } from "astro:assets";
 import type { GetImageResult } from "astro";
 import { BUSINESS, OG, SITE } from "@data/client";
 
+// Demo protection: this site is a fictional-business demo.
+// No LocalBusiness/Product/Review/FAQ JSON-LD is emitted, and all pages are
+// noindex,nofollow. (localBusinessSchema.js remains in the repo but is not referenced.)
+
 // Props and Types
 type HeroImage = GetImageResult | ImageMetadata;
 
@@ -53,10 +57,6 @@ if (heroImage) {
 	socialImage = Astro.url.origin + OG.image;
 }
 ---
-
-// Demo protection: this site is a fictional-business demo.
-// No LocalBusiness/Product/Review/FAQ JSON-LD is emitted, and all pages are
-// noindex,nofollow. (localBusinessSchema.js remains in the repo but is not referenced.)
 
 <!-- Allow additional schemas from child layouts (e.g., BlogPosting for blog posts) -->
 <slot name="schema" />

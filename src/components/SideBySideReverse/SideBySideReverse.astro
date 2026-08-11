@@ -5,8 +5,8 @@
 import { Picture } from "astro:assets";
 
 // Images
-import construction from "@assets/images/services/construction.jpg";
-import cabinets2 from "@assets/images/services/cabinets2.jpg";
+import chrysanthemumBase from "@assets/images/hero/baicaoyuan-hero-chrysanthemum-base.png";
+import qualityLab from "@assets/images/factory/baicaoyuan-quality-lab.png";
 ---
 
 <section id="sbs-r">
@@ -14,16 +14,16 @@ import cabinets2 from "@assets/images/services/cabinets2.jpg";
     <!-- Left Image Section -->
     <div class="cs-left">
       <Picture
-        src={construction}
-        alt="house"
+        src={chrysanthemumBase}
+        alt="亳菊道地原料基地"
         width={400}
         height={560}
         formats={['avif', 'webp']}
         pictureAttributes={{ class: "cs-picture cs-picture1" }}
       />
       <Picture
-        src={cabinets2}
-        alt="cabinets"
+        src={qualityLab}
+        alt="百草源原料质检与仓储"
         width={400}
         height={560}
         formats={['avif', 'webp']}
@@ -32,23 +32,15 @@ import cabinets2 from "@assets/images/services/cabinets2.jpg";
     </div>
     <!-- Right Content Section-->
     <div class="cs-right">
-      <span class="cs-topper">SEO Ranking</span>
-      <h2 class="cs-title">Talk about a main service keyword</h2>
+      <span class="cs-topper">道地直采 · 三级品控</span>
+      <h2 class="cs-title">道地产区直采与三级品控</h2>
       <p class="cs-text">
-        In consequat tincidunt turpis sit amet imperdiet. Praesent Class
-        officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur
-        et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent
-        nonatourean olei aptent taciti sociosqu ad litora torquent per.
+        核心原料坚持道地产区直采：亳菊来自亳州十九里镇种植基地，金银花采自河南封丘，玫瑰花选自山东平阴，枸杞来自宁夏中宁——每一批原料都可溯源、可检测。
       </p>
       <p class="cs-text">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur,
-        iure nihil ipsam qui atque commodi id voluptatem nesciunt, quis animi
-        fuga cum doloribus! Eaque laboriosam, unde consectetur iure asperiores
-        ullam. Consequuntur debitis a voluptatibus vitae optio autem explicabo
-        quia neque est quas, in placeat. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Doloribus modi laudantium voluptatibus
-        rem libero error minus quia eligendi sapiente eos.
+        建立"原料入厂检验 → 生产过程巡检 → 成品出厂检验"三级品控体系，配备独立原料检验室与成品微生物检测室，每批原料入库前完成农残快检、水分检测与杂质筛选。
       </p>
+      <a href="/traceability/" class="cs-button-solid">查看原料溯源</a>
     </div>
   </div>
 </section>

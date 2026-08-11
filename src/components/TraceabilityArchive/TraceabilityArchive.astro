@@ -1,0 +1,189 @@
+---
+// TraceabilityArchive: homepage traceability process section.
+// New business-specific component; mother component is the Services card
+// (cs-container / cs-content / cs-topper / cs-title / cs-text structure,
+// white cards with 6px brand top border, 5px radius and the same soft shadow).
+// Static visual only in this round - no scroll animation, no script.
+---
+
+<section id="traceability-archive">
+	<div class="cs-container">
+		<div class="cs-content">
+			<span class="cs-topper">原料溯源</span>
+			<h2 class="cs-title">从入厂到交付，每一步都可追溯</h2>
+			<p class="cs-text">
+				四级品控流程与批次档案一一对应，示例批号：DEMO-2026-0812-003。
+			</p>
+		</div>
+		<div class="cs-archive-group">
+			<div class="cs-card cs-card1">
+				<span class="cs-step">01</span>
+				<h3 class="cs-card-title">入厂检验</h3>
+				<p class="cs-card-text">
+					农残快检、水分检测与杂质筛选，原料合格后分区入库。
+				</p>
+			</div>
+			<div class="cs-card cs-card2">
+				<span class="cs-step">02</span>
+				<h3 class="cs-card-title">生产巡检</h3>
+				<p class="cs-card-text">
+					十万级洁净车间作业，巡检记录按批次归档留痕。
+				</p>
+			</div>
+			<div class="cs-card cs-card3">
+				<span class="cs-step">03</span>
+				<h3 class="cs-card-title">出厂检验</h3>
+				<p class="cs-card-text">
+					微生物检测、净含量检测与感官评审，逐批完成放行。
+				</p>
+			</div>
+			<div class="cs-card cs-card4">
+				<span class="cs-step">04</span>
+				<h3 class="cs-card-title">交付</h3>
+				<p class="cs-card-text">
+					检测报告随货提供，批号可追溯至原料产地与批次。
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---    Traceability Archive   -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#traceability-archive {
+			padding: var(--sectionPadding);
+			background: var(--secondary);
+			position: relative;
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				row-gap: (40/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+				color: var(--primaryLight);
+			}
+
+			.cs-title {
+				/* 41px - 60px */
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+				color: var(--bodyTextColorWhite);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+				color: var(--bodyTextColorWhite);
+				opacity: 0.85;
+			}
+
+			.cs-archive-group {
+				width: 100%;
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-card {
+				/* mother: Services .card surface values */
+				width: 100%;
+				max-width: (357/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (50/16em) (20/16em);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-top: (6/16em) solid var(--primary);
+				border-radius: (5/16em);
+				display: block;
+				text-align: center;
+			}
+
+			.cs-step {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				letter-spacing: 0.1em;
+				color: var(--primaryLight);
+				display: block;
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-title {
+				font-size: (24/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				color: var(--headerColor);
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-text {
+				font-size: (15/16rem);
+				line-height: 1.6em;
+				width: 100%;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#traceability-archive {
+			.cs-card {
+				width: calc(50% - (24/16rem) / 2);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#traceability-archive {
+			.cs-card {
+				width: calc(25% - (24/16rem) * 3 / 4);
+				max-width: none;
+				margin: 0;
+			}
+
+			.cs-archive-group {
+				&:before {
+					/* subtle flow line behind the step markers */
+					content: "";
+					width: 100%;
+					height: 1px;
+					background: rgba(250, 250, 246, 0.35);
+					display: block;
+					position: absolute;
+					top: (32/16rem);
+					left: 0;
+					pointer-events: none;
+				}
+			}
+		}
+	}
+</style>

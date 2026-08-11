@@ -6,36 +6,36 @@ import { Icon } from "astro-icon/components";
 import { Picture } from "astro:assets";
 
 // Images
-import cabinets2 from "@assets/images/services/cabinets2.jpg";
-import construction from "@assets/images/services/construction.jpg";
+import factoryExterior from "@assets/images/factory/baicaoyuan-factory-exterior.png";
+import productionWorkshop from "@assets/images/factory/baicaoyuan-production-workshop.png";
 ---
 
 <section id="sbs">
 	<div class="cs-container">
 		<!-- Left Image Section -->
 		<div class="cs-left">
-			<Picture src={cabinets2} alt="cabinets" width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority />
-			<Picture src={construction} alt="house" width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority />
+			<Picture src={factoryExterior} alt="百草源工厂园区外景" width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority />
+			<Picture src={productionWorkshop} alt="百草源标准化生产车间" width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority />
 		</div>
 		<!-- Right Content Section-->
 		<div class="cs-right">
-			<span class="cs-topper">About Us</span>
-			<h2 class="cs-title">About Company Title</h2>
+			<span class="cs-topper">源头工厂</span>
+			<h2 class="cs-title">源头工厂与标准化生产</h2>
 			<p class="cs-text">
-				In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti
-				sociosqu ad litora torquent per.
+				亳州市百草源花茶有限公司坐落于"中华药都"安徽亳州谯城经济开发区，占地 15
+				亩，拥有 6000㎡ 标准化生产车间与 800㎡ 原料冷库，是一家集药材种植、花茶研发、标准化生产与全域销售于一体的代用茶企业。
 			</p>
 			<p class="cs-text">
-				In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti
-				sociosqu ad litora torquent per.
+				生产端配备全自动袋泡茶生产线 4 条、罐装线 2 条与礼盒包装线 1
+				条，通过 SC 食品生产许可认证；原料从入库到分装全流程不落地，车间执行十万级洁净标准。
 			</p>
 			<div class="cs-flex-group">
-				<p class="cs-flex-p">In consequat tincidunt turpis sit amet imperdiet. Praesent Classei consequat tincidunt turpis sit amet imperdiet for mind.</p>
-				<span class="cs-name">Justin Time</span>
-				<span class="cs-job">CEO-Founder</span>
+				<p class="cs-flex-p">做茶就是做良心，你用什么料，喝的人一泡就知道。</p>
+				<span class="cs-name">张保国</span>
+				<span class="cs-job">创始人 · 虚构企业人物</span>
 				<Icon name="quote-white" class="cs-quote-icon" />
 			</div>
-			<a href="/about/" class="cs-button-solid">More About Us</a>
+			<a href="/about/" class="cs-button-solid">关于我们</a>
 		</div>
 	</div>
 </section>

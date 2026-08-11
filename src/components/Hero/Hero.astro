@@ -19,26 +19,28 @@ const { image } = Astro.props as Props;
 <section id="hero">
 	<div class="cs-container">
 		<div class="cs-flex-group">
-			<span class="cs-topper">Intermediate Kit</span>
-			<h1 class="cs-title">Intermediate Astro v7 <br /> Decap CMS</h1>
+			<span class="cs-topper">亳州药食同源花草茶工厂</span>
+			<h1 class="cs-title">
+				从原料直采到成品交付 <br />
+				全链路可控
+			</h1>
 			<p class="cs-text">
-				This intermediate kit includes a pre-configured Astro
-				environment, which allows for repeated components, centralized
-				data and greater room to scale as your clients grow. Decap CMS
-				has been integrated to run a blog.
+				面向批发、经销及品牌客户，提供组合花茶、单一花材茶与
+				OEM/ODM 标准化生产服务。
 			</p>
-			<a href="/about/" class="cs-button-solid">Explore More</a>
-			<a href="/contact/" class="cs-button-transparent">
+			<a href="/oem/" class="cs-button-solid">查看 OEM/ODM 能力</a>
+			<a href="/products/" class="cs-button-transparent">
 				<Icon name="play" class="cs-img" />
-				Get in Touch
+				查看产品中心
 			</a>
+			<span class="cs-demo-tag">虚构企业 Demo</span>
 		</div>
 	</div>
 
 	<!-- Using the preloaded image from the props -->
 	<Picture
 		src={image.src}
-		alt="new home"
+		alt="百草源工厂园区外景"
 		width={image.attributes.width}
 		height={image.attributes.height}
 		formats={["avif", "webp"]}
@@ -54,53 +56,58 @@ const { image } = Astro.props as Props;
 
 	/* Mobile - 360px */
 	@media only screen and (min-width: 0em) {
-		#hero {
-			/* Centers button */
-			text-align: center;
-			/* changes on tablet */
-			padding: 0 (16/16rem);
-			padding-bottom: (100/16rem);
-			position: relative;
-			z-index: 1;
-			/* prevents overflow from the lines extending past the screen width */
-			overflow: hidden;
+	#hero {
+		/* Centers button */
+		text-align: center;
+		/* changes on tablet */
+		padding: 0 (16/16rem);
+		padding-bottom: (100/16rem);
+		position: relative;
+		z-index: 1;
+		/* prevents overflow from the lines extending past the screen width */
+		overflow: hidden;
+		/* Brand requirement: full-viewport first screen below the fixed header */
+		min-height: calc(100svh - 65px);
 
-			.cs-picture {
-				/* Background Image */
+		.cs-picture {
+			/* Background Image */
+			width: 100%;
+			height: 100%;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -2;
+
+			&:before {
+				/* Black Color Overlay */
+				content: "";
 				width: 100%;
 				height: 100%;
+				background: #000;
+				opacity: 0.7;
 				display: block;
 				position: absolute;
 				top: 0;
 				left: 0;
-				z-index: -2;
-
-				&:before {
-					/* Black Color Overlay */
-					content: "";
-					width: 100%;
-					height: 100%;
-					background: #000;
-					opacity: 0.7;
-					display: block;
-					position: absolute;
-					top: 0;
-					left: 0;
-					z-index: 1;
-					/* prevents the cursor from interacting with it */
-					pointer-events: none;
-				}
-
-				img {
-					width: 100%;
-					height: 100%;
-					/* Makes image act like a background-image */
-					object-fit: cover;
-					position: absolute;
-					top: 0;
-					left: 0;
-				}
+				z-index: 1;
+				/* prevents the cursor from interacting with it */
+				pointer-events: none;
 			}
+
+			img {
+				width: 100%;
+				height: 100%;
+				/* Makes image act like a background-image */
+				object-fit: cover;
+				/* Brand requirement: mobile focal point keeps the sign and
+				   factory buildings identifiable (sign sits ~28%/52%) */
+				object-position: 28% 48%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		}
 
 			.cs-container {
 				width: 100%;
@@ -226,6 +233,19 @@ const { image } = Astro.props as Props;
 					display: block;
 				}
 			}
+
+			.cs-demo-tag {
+				font-size: (13/16rem);
+				font-weight: 400;
+				line-height: 1em;
+				text-transform: none;
+				letter-spacing: 0.05em;
+				width: 100%;
+				margin-top: (24/16rem);
+				color: var(--bodyTextColorWhite);
+				opacity: 0.6;
+				display: block;
+			}
 		}
 	}
 
@@ -234,6 +254,14 @@ const { image } = Astro.props as Props;
 		#hero {
 			/* 32px - 40px */
 			padding: 0 clamp(2em, 5vw, 2.5em);
+
+			.cs-picture {
+				img {
+					/* Brand requirement: desktop focal point balances the sign
+					   (~28%) and the main factory building (~55%) */
+					object-position: 35% 50%;
+				}
+			}
 
 			.cs-container {
 				padding: clamp(7em, 27.95vw, 17.5em) 0
