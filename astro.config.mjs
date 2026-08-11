@@ -17,12 +17,29 @@ export default defineConfig({
 	},
 	fonts: [
 		{
-			provider: fontProviders.google(),
-			name: "Roboto",
+			provider: fontProviders.local(),
+			name: "MiSans",
 			cssVariable: "--font-primary",
-			fallbacks: ["Arial", "sans-serif"],
-			weights: [400, 700, 900],
+			fallbacks: [
+				"HarmonyOS Sans SC",
+				"PingFang SC",
+				"Microsoft YaHei",
+				"sans-serif",
+			],
+			weights: [400, 700],
 			styles: ["normal"],
+			options: {
+				variants: [
+					{
+						weight: 400,
+						src: ["./src/assets/fonts/MiSans-Regular.woff2"],
+					},
+					{
+						weight: 700,
+						src: ["./src/assets/fonts/MiSans-Bold.woff2"],
+					},
+				],
+			},
 		},
 	],
 });

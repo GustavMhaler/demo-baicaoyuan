@@ -1,6 +1,6 @@
 {
-  "name": "Starter Kit",
-  "short_name": "Starter Kit",
+  "name": "百草源花草茶",
+  "short_name": "百草源",
   "icons": [
     {
       "src": "/assets/favicons/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#fafaf6",
+  "background_color": "#fafaf6",
   "display": "standalone"
 }

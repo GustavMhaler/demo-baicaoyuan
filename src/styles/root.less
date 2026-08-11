@@ -86,13 +86,16 @@ h6 {
 @media only screen and (min-width: 0em) {
 	:root {
 		// Website colors
-		--primary: #aff425;
-		--primaryLight: #7aa329;
-		--secondary: #001f3f;
-		--secondaryLight: #001f3f;
-		--headerColor: #1a1a1a;
-		--bodyTextColor: #4e4b66;
-		--bodyTextColorWhite: #fafbfc;
+		// Baicaoyuan brand palette (replaces CodeStitch template palette):
+		//   deep green #173F35, craft green #2E6B57, copper gold #B08A45,
+		//   main text #18201D, light background #FAFAF6
+		--primary: #2e6b57;
+		--primaryLight: #b08a45;
+		--secondary: #173f35;
+		--secondaryLight: #173f35;
+		--headerColor: #18201d;
+		--bodyTextColor: #18201d;
+		--bodyTextColorWhite: #fafaf6;
 
 		/* 13px - 16px */
 		--topperFontSize: clamp(0.8125rem, 1.6vw, 1rem);
@@ -198,7 +201,9 @@ button {
 		padding: 0 (30/16rem);
 
 		// Transition Properties
-		color: #000;
+		// Brand change: text is white so it meets AA contrast on the craft-green
+		// primary background (template default #000 failed against #2e6b57)
+		color: #fff;
 		background-color: var(--primary);
 		display: inline-block;
 		position: relative;

@@ -2,7 +2,6 @@
 import { getImage } from "astro:assets";
 import type { GetImageResult } from "astro";
 import { BUSINESS, OG, SITE } from "@data/client";
-import { getLocalBusinessSchema } from "@js/localBusinessSchema.js";
 
 // Props and Types
 type HeroImage = GetImageResult | ImageMetadata;
@@ -16,7 +15,6 @@ interface Props {
 const { title = SITE.title, description = SITE.description, heroImage } = Astro.props;
 
 // Data
-const localBusinessSchema = getLocalBusinessSchema(Astro.url.origin);
 const canonical = Astro.url.href;
 
 // Detect home page for special title formatting
@@ -56,9 +54,9 @@ if (heroImage) {
 }
 ---
 
-<!-- LocalBusiness Schema (on ALL pages) - customize your JSON-LD structured data:
-     https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data  -->
-<script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+// Demo protection: this site is a fictional-business demo.
+// No LocalBusiness/Product/Review/FAQ JSON-LD is emitted, and all pages are
+// noindex,nofollow. (localBusinessSchema.js remains in the repo but is not referenced.)
 
 <!-- Allow additional schemas from child layouts (e.g., BlogPosting for blog posts) -->
 <slot name="schema" />
@@ -69,6 +67,7 @@ if (heroImage) {
 <!-- Standard Meta Tags -->
 <meta charset="utf-8" />
 <meta name="description" content={description} />
+<meta name="robots" content="noindex,nofollow" />
 <meta name="web_author" content={SITE.author} />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -100,5 +99,5 @@ if (heroImage) {
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png?v1" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
 <link rel="manifest" href="/assets/favicons/site.webmanifest" />
-<meta name="msapplication-TileColor" content="#da532c" />
-<meta name="theme-color" content="#ffffff" />
+<meta name="msapplication-TileColor" content="#173f35" />
+<meta name="theme-color" content="#fafaf6" />

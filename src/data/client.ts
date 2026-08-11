@@ -1,31 +1,32 @@
 // ===== SITE CONSTANTS =====
 export const SITE = {
-	title: "Code Stitch Web Designs",
-	tagline: "Professional Web Design Services",
-	description: "Code Stitch Web Designs offers top-tier web design and development services to meet all your project needs. Start exploring and contact our team for superior quality and reliability.",
-	url: "https://www.yourwebsite.com",
-	author: "Code Stitch Team",
-	locale: "en",
+	title: "百草源花草茶",
+	tagline: "药食同源花草茶源头工厂",
+	description:
+		"亳州市百草源花茶有限公司坐落于安徽亳州，提供组合花茶、单一花材茶与 OEM/ODM 标准化生产服务，面向批发、经销及品牌客户。",
+	url: "https://www.baicaoyuan-tea.com",
+	author: "百草源",
+	locale: "zh-CN",
 };
 
 // ===== BUSINESS INFO =====
 export const BUSINESS = {
-	name: SITE.title,
-	email: "help@codestitch.app",
-	phoneForTel: "555-779-4407",
-	phoneFormatted: "(555) 779-4407",
-	logo: "/assets/favicons/favicon.svg",
+	name: "亳州市百草源花茶有限公司",
+	email: "sales@baicaoyuan-tea.com",
+	phoneForTel: "0558558XXXX",
+	phoneFormatted: "0558-558XXXX",
+	logo: "/assets/favicons/favicon-32x32.png",
 	address: {
-		lineOne: "First Address Line",
-		lineTwo: "Second Address Line",
-		city: "Denver",
-		state: "CO",
-		zip: "80206",
-		mapLink: "https://goo.gl/maps/UAQn4vuGDiwv7DV39",
+		lineOne: "安徽省亳州市谯城经济开发区",
+		lineTwo: "花茶产业园合欢路18号",
+		city: "亳州市",
+		state: "谯城区",
+		zip: "236800",
+		mapLink: "",
 	},
 	socials: {
-		facebook: "https://www.facebook.com/",
-		instagram: "https://www.instagram.com/",
+		facebook: "",
+		instagram: "",
 	},
 };
 
@@ -37,6 +38,6 @@ export const SEO = {
 
 // ===== OPEN GRAPH DEFAULTS =====
 export const OG = {
-	locale: "en_US",
+	locale: "zh_CN",
 	image: "/assets/social.jpg", // Default fallback social image located in public/
 };

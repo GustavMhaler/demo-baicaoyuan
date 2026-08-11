@@ -1,36 +1,32 @@
 [
   {
-    "key": "Home",
-    "url": "/",
+    "key": "产品中心",
+    "url": "/products/",
     "children": []
   },
   {
-    "key": "About Us",
+    "key": "OEM/ODM",
+    "url": "/oem/",
+    "children": []
+  },
+  {
+    "key": "原料溯源",
+    "url": "/traceability/",
+    "children": []
+  },
+  {
+    "key": "工厂实力",
+    "url": "/factory/",
+    "children": []
+  },
+  {
+    "key": "关于我们",
     "url": "/about/",
     "children": []
   },
   {
-    "key": "Projects",
-    "url": "/projects/",
-    "children": [
-      {
-        "key": "Project 1",
-        "url": "/projects/project-1/"
-      },
-      {
-        "key": "Project 2",
-        "url": "/projects/project-2/"
-      }
-    ]
-  },
-  {
-    "key": "Reviews",
-    "url": "/reviews/",
+    "key": "联系询盘",
+    "url": "/contact/",
     "children": []
-  },
-  {
-    "key": "Blog",
-    "url": "/blog/",
-    "children": []     
   }
 ]
