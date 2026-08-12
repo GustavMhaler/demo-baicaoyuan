@@ -272,12 +272,16 @@ import logoImg from "@assets/images/logo/baicaoyuan-logo.png";
 				width: clamp(2.75rem, 6vw, 3rem);
 				height: clamp(2.75rem, 6vw, 3rem);
 				margin: 0 0 0 auto;
-				background-color: transparent;
+				/* brand fix: solid deep-green tile with white lines so the
+				   button stays high-contrast even when the OS inverts dark
+				   UI colors (e.g. Xiaomi/HyperOS global dark mode) */
+				background-color: var(--secondary);
 				border: none;
-				border-radius: (4/16rem);
+				border-radius: (8/16rem);
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				transition: background-color 0.3s;
 			}
 
 			.cs-active {
@@ -310,8 +314,8 @@ import logoImg from "@assets/images/logo/baicaoyuan-logo.png";
 			.cs-line {
 				width: 100%;
 				height: 2px;
-				/* pure black for maximum contrast against the white bar */
-				background-color: #000;
+				/* white lines on the deep-green tile */
+				background-color: #fff;
 				border-radius: 2px;
 				position: absolute;
 				left: 50%;
