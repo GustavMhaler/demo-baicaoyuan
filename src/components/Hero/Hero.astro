@@ -46,7 +46,7 @@ const { image } = Astro.props as Props;
 		formats={["avif", "webp"]}
 		priority
 		pictureAttributes={{ class: "cs-picture" }}
-	/>
+ fallbackFormat="jpeg"/>
 </section>
 
 <style lang="less">

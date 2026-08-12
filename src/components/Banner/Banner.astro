@@ -41,7 +41,7 @@ const { title, image, variant = "default", lead, tags = [] } = Astro.props as Pr
 		{lead && <p class="cs-lead">{lead}</p>}
 	</div>
 
-	<Picture src={image.src} width={image.attributes.width} height={image.attributes.height} formats={["avif", "webp"]} alt="" priority />
+	<Picture src={image.src} width={image.attributes.width} height={image.attributes.height} formats={["avif", "webp"]} alt="" priority fallbackFormat="jpeg"/>
 </section>
 
 <style lang="less">

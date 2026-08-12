@@ -57,7 +57,7 @@ const [heroProduct, ...classicRows] = classic;
 								height={420}
 								formats={["avif", "webp"]}
 								pictureAttributes={{ class: "cs-feature-img" }}
-							/>
+						 fallbackFormat="jpeg"/>
 						</div>
 					)
 				}
@@ -85,7 +85,7 @@ const [heroProduct, ...classicRows] = classic;
 									height={88}
 									formats={["avif", "webp"]}
 									pictureAttributes={{ class: "cs-thumb" }}
-								/>
+							 fallbackFormat="jpeg"/>
 							) : (
 								<span class="cs-thumb cs-thumb-empty" aria-hidden="true">
 									<Icon name="service1" width="32" height="32" aria-hidden="true" />
@@ -122,7 +122,7 @@ const [heroProduct, ...classicRows] = classic;
 									height={96}
 									formats={["avif", "webp"]}
 									pictureAttributes={{ class: "cs-thumb" }}
-								/>
+							 fallbackFormat="jpeg"/>
 							)
 						}
 						<div class="cs-archive-body">
@@ -154,7 +154,7 @@ const [heroProduct, ...classicRows] = classic;
 								height={420}
 								formats={["avif", "webp"]}
 								pictureAttributes={{ class: "cs-gift-img" }}
-							/>
+						 fallbackFormat="jpeg"/>
 							<div class="cs-gift-body">
 								<h4 class="cs-feature-name">{p.name}</h4>
 								<p class="cs-feature-ingredients">{p.ingredients}</p>

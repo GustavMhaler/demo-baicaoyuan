@@ -92,7 +92,7 @@ const { email, oemEmail, phones, address, hours, backgroundImage } = Astro.props
 			<span class="cs-link cs-hours">{hours}</span>
 
 			<!-- Background Image-->
-			<Picture src={backgroundImage} alt="" width={2500} height={1667} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-bg-picture" }} />
+			<Picture src={backgroundImage} alt="" width={2500} height={1667} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-bg-picture" }} fallbackFormat="jpeg"/>
 		</div>
 	</div>
 </section>

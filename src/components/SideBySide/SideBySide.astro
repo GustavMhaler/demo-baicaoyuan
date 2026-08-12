@@ -49,8 +49,8 @@ const {
 	<div class="cs-container">
 		<!-- Left Image Section -->
 		<div class="cs-left">
-			<Picture src={image1} alt={image1Alt} width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority />
-			<Picture src={image2} alt={image2Alt} width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority />
+			<Picture src={image1} alt={image1Alt} width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority fallbackFormat="jpeg"/>
+			<Picture src={image2} alt={image2Alt} width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority fallbackFormat="jpeg"/>
 		</div>
 		<!-- Right Content Section-->
 		<div class="cs-right">

@@ -39,7 +39,7 @@ const {
 		<p>{text}</p>
 		<a href={buttonUrl} class="cs-button-solid">{buttonText}</a>
 	</div>
-	<Picture src={image} alt="" layout="full-width" formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture" }} />
+	<Picture src={image} alt="" layout="full-width" formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture" }} fallbackFormat="jpeg"/>
 </section>
 
 <style lang="less">
