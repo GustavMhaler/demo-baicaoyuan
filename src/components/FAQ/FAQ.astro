@@ -1,46 +1,62 @@
 ---
-// No utils nor props for this component
+// Content-driven FAQ. DOM, scoped LESS, ARIA/keyboard behaviour and the
+// astro:page-load script are unchanged from the template; only the copy is
+// provided through props (defaults = homepage FAQ).
+interface FAQItem {
+	question: string;
+	answer: string;
+}
+
+interface Props {
+	topper?: string;
+	title?: string;
+	faqs?: FAQItem[];
+}
+
+const {
+	topper = "常见问题",
+	title = "批发与 OEM 合作常见疑问",
+	faqs = [
+		{
+			question: "你们的花茶是真正的亳州产地吗？",
+			answer:
+				"我们的工厂位于亳州谯城花茶产业园，核心原料亳菊、白芍、决明子等均来自亳州本地及周边道地产区，其他花材如玫瑰、枸杞、金银花则从全国最优产区直采。亳州作为全国最大的花茶集散地，拥有最完整的原料供应链和最成熟的加工工艺。",
+		},
+		{
+			question: "可以提供 OEM 贴牌加工吗？起订量多少？",
+			answer:
+				"可以。我们提供从配方研发、包装设计到生产发货的一站式 OEM 服务，袋泡茶最小起订量 5000 包，罐装最小起订量 2000 罐。常规产品 15-20 天交货，新品研发周期约 30 天。",
+		},
+		{
+			question: "产品有没有食品安全检测报告？",
+			answer:
+				"每款产品均有第三方检测机构出具的农残、微生物检测报告，可随货提供。公司自身也配备原料检验室，每批原料入厂和成品出厂都经过内部检测。",
+		},
+		{
+			question: "支持一件代发吗？",
+			answer:
+				"支持。1688 店铺已开通一件代发服务，与多家快递签订战略合作协议，亳州仓发货，全国大部分地区 3-5 天可达，日均发货能力 5 万单。",
+		},
+	],
+} = Astro.props as Props;
 ---
 
 <section id="faq-1741">
 	<div class="cs-container">
 		<div class="cs-content">
-			<span class="cs-topper">常见问题</span>
-			<h2 class="cs-title">批发与 OEM 合作常见疑问</h2>
+			<span class="cs-topper">{topper}</span>
+			<h2 class="cs-title">{title}</h2>
 		</div>
 		<div class="cs-flex-group">
 			<ul class="cs-faq-group">
-				<!-- Active class added as default -->
-				<li class="cs-faq-item active">
-					<button class="cs-button">
-						<span class="cs-button-text"> 你们的花茶是真正的亳州产地吗？ </span>
-					</button>
-					<p class="cs-item-text">
-						我们的工厂位于亳州谯城花茶产业园，核心原料亳菊、白芍、决明子等均来自亳州本地及周边道地产区，其他花材如玫瑰、枸杞、金银花则从全国最优产区直采。亳州作为全国最大的花茶集散地，拥有最完整的原料供应链和最成熟的加工工艺。
-					</p>
-				</li>
-				<li class="cs-faq-item">
-					<button class="cs-button">
-						<span class="cs-button-text"> 可以提供 OEM 贴牌加工吗？起订量多少？ </span>
-					</button>
-					<p class="cs-item-text">可以。我们提供从配方研发、包装设计到生产发货的一站式 OEM 服务，袋泡茶最小起订量 5000 包，罐装最小起订量 2000 罐。常规产品 15-20 天交货，新品研发周期约 30 天。</p>
-				</li>
-				<li class="cs-faq-item">
-					<button class="cs-button">
-						<span class="cs-button-text"> 产品有没有食品安全检测报告？ </span>
-					</button>
-					<p class="cs-item-text">
-						每款产品均有第三方检测机构出具的农残、微生物检测报告，可随货提供。公司自身也配备原料检验室，每批原料入厂和成品出厂都经过内部检测。
-					</p>
-				</li>
-				<li class="cs-faq-item">
-					<button class="cs-button">
-						<span class="cs-button-text"> 支持一件代发吗？ </span>
-					</button>
-					<p class="cs-item-text">
-						支持。1688 店铺已开通一件代发服务，与多家快递签订战略合作协议，亳州仓发货，全国大部分地区 3-5 天可达，日均发货能力 5 万单。
-					</p>
-				</li>
+				{faqs.map((item, index) => (
+					<li class:list={["cs-faq-item", { active: index === 0 }]}>
+						<button class="cs-button">
+							<span class="cs-button-text"> {item.question} </span>
+						</button>
+						<p class="cs-item-text">{item.answer}</p>
+					</li>
+				))}
 			</ul>
 		</div>
 	</div>

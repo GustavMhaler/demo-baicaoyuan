@@ -1,0 +1,237 @@
+---
+// Utils
+import { getImage } from "astro:assets";
+
+// Components
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Banner from "@components/Banner/Banner.astro";
+import SideBySide from "@components/SideBySide/SideBySide.astro";
+import FAQ from "@components/FAQ/FAQ.astro";
+import CTASimple from "@components/CTA/CTASimple.astro";
+
+// Images
+import bannerImage from "@assets/images/hero/baicaoyuan-hero-oem-production.png";
+import workshopImage from "@assets/images/factory/baicaoyuan-production-workshop.png";
+import labImage from "@assets/images/factory/baicaoyuan-quality-lab.png";
+const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
+---
+
+<BaseLayout title="OEM/ODM 代工" description="百草源 OEM/ODM 一站式代工：配方研发、包装设计、贴牌生产，袋泡茶最小起订量 5000 包，常规产品 15-20 天交货。">
+	<Banner title="OEM / ODM" image={optimizedBanner} />
+
+	<SideBySide
+		topper="OEM / ODM 服务"
+		title="一站式代工，从打样到交付"
+		texts={[
+			"为 30 余个电商品牌与连锁茶饮品牌提供代加工服务，涵盖配方研发、包装设计、贴牌生产全流程，代工客户复购率达 85%。",
+			"全自动袋泡茶生产线 4 条、罐装线 2 条、礼盒包装线 1 条，袋泡茶最小起订量 5000 包，罐装最小起订量 2000 罐；常规产品 15-20 天交货，新品研发周期约 30 天。",
+		]}
+		quote="从配方到包装全程可控，代工客户的数据与配方严格保密。"
+		name="李经理"
+		job="销售经理 · 虚构企业人物"
+		image1={workshopImage}
+		image1Alt="百草源标准化生产车间"
+		image2={labImage}
+		image2Alt="百草源质检与仓储"
+		ctaText="提交合作需求"
+		ctaUrl="/contact/"
+	/>
+
+	<section id="oem-process">
+		<div class="cs-container">
+			<div class="cs-content">
+				<span class="cs-topper">合作流程</span>
+				<h2 class="cs-title">四步完成你的专属产品</h2>
+				<p class="cs-text">从需求沟通到批量交付，每个节点都有专人对接、书面确认。</p>
+			</div>
+			<div class="cs-process-group">
+				<div class="cs-card cs-card1">
+					<span class="cs-step">01</span>
+					<h3 class="cs-card-title">需求沟通</h3>
+					<p class="cs-card-text">确认产品形态、配方方向、目标渠道与包装预算。</p>
+					<span class="cs-tag">1-3 天</span>
+				</div>
+				<div class="cs-card cs-card2">
+					<span class="cs-step">02</span>
+					<h3 class="cs-card-title">配方打样</h3>
+					<p class="cs-card-text">研发小样与试饮，调整口感、外观与成本平衡。</p>
+					<span class="cs-tag">约 30 天（新品）</span>
+				</div>
+				<div class="cs-card cs-card3">
+					<span class="cs-step">03</span>
+					<h3 class="cs-card-title">包装确认</h3>
+					<p class="cs-card-text">版面设计、材质打样与贴牌信息逐项书面确认。</p>
+					<span class="cs-tag">7-10 天</span>
+				</div>
+				<div class="cs-card cs-card4">
+					<span class="cs-step">04</span>
+					<h3 class="cs-card-title">生产交付</h3>
+					<p class="cs-card-text">标准化排产、三级品控放行，检测报告随货交付。</p>
+					<span class="cs-tag">15-20 天</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<FAQ
+		topper="OEM 常见问题"
+		title="关于代工合作，你可能想问"
+		faqs={[
+			{
+				question: "OEM 最小起订量是多少？",
+				answer: "袋泡茶最小起订量 5000 包，罐装最小起订量 2000 罐。礼盒类产品根据包装工艺单独评估，首次合作可沟通小批量试产方案。",
+			},
+			{
+				question: "可以只定制配方、不做包装吗？",
+				answer: "可以。我们支持三种合作模式：整包代工（配方+包装+生产）、半包（配方+生产，自备包装）、以及纯代工（使用我方既有配方，仅贴牌）。",
+			},
+			{
+				question: "新品研发周期要多久？",
+				answer: "常规配方打样约 2 周，新品（新原料或新剂型）研发到量产约 30 天。打样期间可同步进行包装设计，缩短整体交期。",
+			},
+			{
+				question: "是否可以提供样品给渠道客户？",
+				answer: "可以。样品按成本价供应，常规样品 3-5 天发出；批量订单确认后，样品费可在货款中抵扣。",
+			},
+		]}
+	/>
+
+	<CTASimple />
+</BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---        OEM Process        -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#oem-process {
+			padding: var(--sectionPadding);
+			background: var(--bodyTextColorWhite);
+			position: relative;
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (40/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-process-group {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-card {
+				/* mother: Services .card surface */
+				width: 100%;
+				max-width: (357/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (50/16em) (20/16em);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-top: (6/16em) solid var(--primary);
+				border-radius: (5/16em);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+			}
+
+			.cs-step {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				letter-spacing: 0.1em;
+				color: var(--primaryLight);
+				display: block;
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-title {
+				font-size: (24/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				color: var(--headerColor);
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-text {
+				font-size: (15/16rem);
+				line-height: 1.6em;
+				width: 100%;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+				flex: 1;
+			}
+
+			.cs-tag {
+				font-size: (13/16rem);
+				font-weight: 700;
+				line-height: (28/16rem);
+				margin-top: (16/16rem);
+				padding: 0 (14/16rem);
+				color: var(--secondary);
+				background-color: rgba(23, 63, 53, 0.08);
+				border-radius: (14/16rem);
+				display: inline-block;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#oem-process {
+			.cs-card {
+				width: calc(50% - 0.75rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#oem-process {
+			.cs-process-group {
+				flex-wrap: nowrap;
+			}
+
+			.cs-card {
+				width: calc(25% - 1.125rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+</style>

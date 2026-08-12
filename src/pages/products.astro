@@ -1,0 +1,292 @@
+---
+// Utils
+import { getImage, Picture } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+// Components
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Banner from "@components/Banner/Banner.astro";
+import CTASimple from "@components/CTA/CTASimple.astro";
+
+// Images
+import bannerImage from "@assets/images/hero/baicaoyuan-hero-origin-factory.png";
+import product1 from "@assets/images/products/baicaoyuan-juhua-juemingzi.png";
+import product2 from "@assets/images/products/baicaoyuan-hongzao-gouqi-jiangsi.png";
+import product3 from "@assets/images/products/baicaoyuan-meigui-luoshen.png";
+import product4 from "@assets/images/products/baicaoyuan-bozhou-chrysanthemum.png";
+import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.png";
+const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
+
+// Product catalog (fictional demo data). Four products without photos are
+// rendered as brand-colour tiles - no placeholder images are generated.
+interface Product {
+	name: string;
+	line: "经典组合茶" | "单一花材茶" | "礼盒系列";
+	ingredients: string;
+	spec: string;
+	price: string;
+	image?: ImageMetadata;
+}
+
+const products: Product[] = [
+	{ name: "菊花决明子茶", line: "经典组合茶", ingredients: "亳菊、决明子、枸杞、牛蒡根、金银花", spec: "5g×30包", price: "39.9", image: product1 },
+	{ name: "红枣枸杞姜丝茶", line: "经典组合茶", ingredients: "新疆红枣、宁夏枸杞、小黄姜、红糖", spec: "12g×20包", price: "49.9", image: product2 },
+	{ name: "玫瑰洛神花茶", line: "经典组合茶", ingredients: "平阴玫瑰、洛神花、陈皮、冰糖", spec: "6g×25包", price: "45.9", image: product3 },
+	{ name: "冬瓜荷叶茶", line: "经典组合茶", ingredients: "冬瓜干、荷叶、决明子、陈皮、玫瑰花", spec: "5g×30包", price: "36.9" },
+	{ name: "头采亳菊", line: "单一花材茶", ingredients: "亳州道地亳菊（地理标志产品）", spec: "50g/罐", price: "59.9", image: product4 },
+	{ name: "金银花茶", line: "单一花材茶", ingredients: "河南封丘金银花", spec: "40g/罐", price: "69.9" },
+	{ name: "玫瑰花茶", line: "单一花材茶", ingredients: "山东平阴重瓣红玫瑰", spec: "60g/罐", price: "55.9" },
+	{ name: "四季养生礼盒", line: "礼盒系列", ingredients: "含 4 款组合茶，共 100 包", spec: "礼盒装", price: "198", image: product5 },
+	{ name: "女性养颜礼盒", line: "礼盒系列", ingredients: "玫瑰茶、红枣茶、洛神花、桂圆", spec: "礼盒装", price: "168" },
+];
+---
+
+<BaseLayout title="产品中心" description="百草源产品体系：经典组合茶、单一花材茶与礼盒系列共 28 款 SKU，面向批发、经销与 OEM 客户供货。">
+	<Banner title="产品中心" image={optimizedBanner} />
+
+	<section id="product-grid">
+		<div class="cs-container">
+			<div class="cs-content">
+				<span class="cs-topper">产品体系</span>
+				<h2 class="cs-title">三大产品线，28 款 SKU</h2>
+				<p class="cs-text">
+					覆盖日常养生、女性调理与办公场景；所有配方遵循药食同源目录，支持批发、一件代发与 OEM 定制。
+				</p>
+			</div>
+			<div class="cs-product-grid">
+				{products.map((p) => (
+					<article class="cs-card">
+						{
+							p.image ? (
+								<Picture
+									src={p.image}
+									alt={p.name}
+									width={400}
+									height={400}
+									formats={["avif", "webp"]}
+									pictureAttributes={{ class: "cs-picture" }}
+								/>
+							) : (
+								<div class="cs-picture cs-picture-empty" aria-hidden="true">
+									<Icon name="service1" width="64" height="64" aria-hidden="true" />
+								</div>
+							)
+						}
+						<span class="cs-line">{p.line}</span>
+						<h3 class="cs-name">{p.name}</h3>
+						<p class="cs-ingredients">{p.ingredients}</p>
+						<div class="cs-meta">
+							<span class="cs-spec">{p.spec}</span>
+							<span class="cs-price">
+								建议零售价 ¥{p.price}
+							</span>
+						</div>
+						<a href="/contact/" class="cs-inquiry">提交询盘</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<CTASimple />
+</BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---       Product Grid        -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#product-grid {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (48/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				/* 41px - 60px */
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-product-grid {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (32/16rem);
+			}
+
+			.cs-card {
+				/* mother: Reviews .review surface + Services .card top bar */
+				width: 100%;
+				max-width: (357/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: 0 0 (24/16rem) 0;
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-top: (6/16em) solid var(--primary);
+				border-radius: (5/16em);
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				transition: transform 0.3s, box-shadow 0.3s;
+
+				&:hover {
+					transform: translateY(-4px);
+					box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.1);
+				}
+			}
+
+			.cs-picture {
+				width: 100%;
+				height: (300/16rem);
+				margin-bottom: (20/16rem);
+				display: block;
+				position: relative;
+				overflow: hidden;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			.cs-picture-empty {
+				background: var(--secondary);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				svg {
+					opacity: 0.5;
+				}
+			}
+
+			.cs-line {
+				font-size: (13/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				margin: 0 0 (8/16rem);
+				padding: 0 (24/16rem);
+				color: var(--primary);
+				display: block;
+			}
+
+			.cs-name {
+				font-size: (22/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				margin: 0 0 (10/16rem);
+				padding: 0 (24/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-ingredients {
+				font-size: (14/16rem);
+				line-height: 1.6em;
+				margin: 0 0 (20/16rem);
+				padding: 0 (24/16rem);
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+				flex: 1;
+			}
+
+			.cs-meta {
+				margin: 0 (24/16rem) (16/16rem);
+				padding-top: (16/16rem);
+				border-top: 1px solid #e7e7e7;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.cs-spec {
+				font-size: (14/16rem);
+				color: var(--bodyTextColor);
+				opacity: 0.8;
+			}
+
+			.cs-price {
+				font-size: (16/16rem);
+				font-weight: 700;
+				color: var(--secondary);
+			}
+
+			.cs-inquiry {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: (40/16rem);
+				text-align: center;
+				text-decoration: none;
+				width: auto;
+				height: (40/16rem);
+				margin: 0 (24/16rem);
+				padding: 0 (20/16rem);
+				color: var(--bodyTextColorWhite);
+				background-color: var(--secondary);
+				border-radius: (5/16rem);
+				display: block;
+				transition: background-color 0.3s;
+
+				&:hover {
+					background-color: var(--primary);
+				}
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#product-grid {
+			.cs-card {
+				width: calc(50% - 1rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#product-grid {
+			.cs-card {
+				width: calc(33.333% - 1.375rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+</style>

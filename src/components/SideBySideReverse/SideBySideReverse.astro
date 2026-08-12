@@ -4,9 +4,38 @@
 // Utils
 import { Picture } from "astro:assets";
 
-// Images
+// Images (homepage defaults)
 import chrysanthemumBase from "@assets/images/hero/baicaoyuan-hero-chrysanthemum-base.png";
 import qualityLab from "@assets/images/factory/baicaoyuan-quality-lab.png";
+
+// Content-driven mirror of SideBySide. DOM, scoped LESS and breakpoints are
+// unchanged from the template.
+interface Props {
+	topper?: string;
+	title?: string;
+	texts?: string[];
+	image1?: ImageMetadata;
+	image1Alt?: string;
+	image2?: ImageMetadata;
+	image2Alt?: string;
+	ctaText?: string;
+	ctaUrl?: string;
+}
+
+const {
+	topper = "道地直采 · 三级品控",
+	title = "道地产区直采与三级品控",
+	texts = [
+		"核心原料坚持道地产区直采：亳菊来自亳州十九里镇种植基地，金银花采自河南封丘，玫瑰花选自山东平阴，枸杞来自宁夏中宁——每一批原料都可溯源、可检测。",
+		"建立\u201C原料入厂检验 → 生产过程巡检 → 成品出厂检验\u201D三级品控体系，配备独立原料检验室与成品微生物检测室，每批原料入库前完成农残快检、水分检测与杂质筛选。",
+	],
+	image1 = chrysanthemumBase,
+	image1Alt = "亳菊道地原料基地",
+	image2 = qualityLab,
+	image2Alt = "百草源原料质检与仓储",
+	ctaText = "查看原料溯源",
+	ctaUrl = "/traceability/",
+} = Astro.props as Props;
 ---
 
 <section id="sbs-r">
@@ -14,16 +43,16 @@ import qualityLab from "@assets/images/factory/baicaoyuan-quality-lab.png";
     <!-- Left Image Section -->
     <div class="cs-left">
       <Picture
-        src={chrysanthemumBase}
-        alt="亳菊道地原料基地"
+        src={image1}
+        alt={image1Alt}
         width={400}
         height={560}
         formats={['avif', 'webp']}
         pictureAttributes={{ class: "cs-picture cs-picture1" }}
       />
       <Picture
-        src={qualityLab}
-        alt="百草源原料质检与仓储"
+        src={image2}
+        alt={image2Alt}
         width={400}
         height={560}
         formats={['avif', 'webp']}
@@ -32,15 +61,12 @@ import qualityLab from "@assets/images/factory/baicaoyuan-quality-lab.png";
     </div>
     <!-- Right Content Section-->
     <div class="cs-right">
-      <span class="cs-topper">道地直采 · 三级品控</span>
-      <h2 class="cs-title">道地产区直采与三级品控</h2>
-      <p class="cs-text">
-        核心原料坚持道地产区直采：亳菊来自亳州十九里镇种植基地，金银花采自河南封丘，玫瑰花选自山东平阴，枸杞来自宁夏中宁——每一批原料都可溯源、可检测。
-      </p>
-      <p class="cs-text">
-        建立"原料入厂检验 → 生产过程巡检 → 成品出厂检验"三级品控体系，配备独立原料检验室与成品微生物检测室，每批原料入库前完成农残快检、水分检测与杂质筛选。
-      </p>
-      <a href="/traceability/" class="cs-button-solid">查看原料溯源</a>
+      <span class="cs-topper">{topper}</span>
+      <h2 class="cs-title">{title}</h2>
+      {texts.map((t) => (
+        <p class="cs-text">{t}</p>
+      ))}
+      <a href={ctaUrl} class="cs-button-solid">{ctaText}</a>
     </div>
   </div>
 </section>

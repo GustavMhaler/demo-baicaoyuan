@@ -1,36 +1,51 @@
 ---
 // Utils
 import { Icon } from 'astro-icon/components';
+
+// Content-driven services row. DOM, scoped LESS and breakpoints are unchanged
+// from the template; only the three card entries come from props
+// (defaults = homepage services).
+interface ServiceItem {
+	icon: string; // icon name in src/icons/
+	title: string;
+	text: string;
+}
+
+interface Props {
+	items?: ServiceItem[];
+}
+
+const {
+	items = [
+		{
+			icon: "service1",
+			title: "产品供货",
+			text: "经典组合茶、单一花材茶与礼盒系列，配方成熟、规格齐全，支持批发与一件代发。",
+		},
+		{
+			icon: "service2",
+			title: "OEM/ODM",
+			text: "从配方打样、包装确认到标准化生产一站式交付，袋泡茶最小起订量 5000 包。",
+		},
+		{
+			icon: "service3",
+			title: "三级品控",
+			text: "原料入厂检验、生产过程巡检、成品出厂检验，每批产品检测报告留存 18 个月。",
+		},
+	],
+} = Astro.props as Props;
 ---
 
 <section id="services" class="services">
-  <div class="card">
-    <picture>
-      <Icon name="service1" width="48" height="48" aria-hidden="true" />
-    </picture>
-    <h2>产品供货</h2>
-    <p>
-      经典组合茶、单一花材茶与礼盒系列，配方成熟、规格齐全，支持批发与一件代发。
-    </p>
-  </div>
-  <div class="card">
-    <picture>
-      <Icon name="service2" width="48" height="48" aria-hidden="true" />
-    </picture>
-    <h2>OEM/ODM</h2>
-    <p>
-      从配方打样、包装确认到标准化生产一站式交付，袋泡茶最小起订量 5000 包。
-    </p>
-  </div>
-  <div class="card">
-    <picture>
-      <Icon name="service3" width="48" height="48" aria-hidden="true" />
-    </picture>
-    <h2>三级品控</h2>
-    <p>
-      原料入厂检验、生产过程巡检、成品出厂检验，每批产品检测报告留存 18 个月。
-    </p>
-  </div>
+  {items.map((item) => (
+    <div class="card">
+      <picture>
+        <Icon name={item.icon} width="48" height="48" aria-hidden="true" />
+      </picture>
+      <h2>{item.title}</h2>
+      <p>{item.text}</p>
+    </div>
+  ))}
 </section>
 
 <style lang="less">

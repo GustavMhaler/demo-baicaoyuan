@@ -1,0 +1,188 @@
+---
+// Utils
+import { getImage } from "astro:assets";
+
+// Components
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Banner from "@components/Banner/Banner.astro";
+import TraceabilityArchive from "@components/TraceabilityArchive/TraceabilityArchive.astro";
+import FAQ from "@components/FAQ/FAQ.astro";
+import CTASimple from "@components/CTA/CTASimple.astro";
+
+// Images
+import bannerImage from "@assets/images/hero/baicaoyuan-hero-chrysanthemum-base.png";
+const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
+
+// Sourcing channels (fictional demo data from 基本信息.md)
+const sources = [
+	{ name: "亳菊", origin: "亳州市谯城区十九里镇", mode: "与 3 家种植合作社签订年度直供协议，花期集中采收" },
+	{ name: "金银花", origin: "河南封丘县", mode: "产地合作社直采，每批附带农残检测报告" },
+	{ name: "玫瑰花", origin: "山东平阴县", mode: "重瓣红玫瑰，花蕾期人工采摘，低温烘干" },
+	{ name: "枸杞", origin: "宁夏中宁县", mode: "头茬特优级，每年 7-9 月集中采购入库" },
+	{ name: "决明子", origin: "河北、安徽本地", mode: "炒熟决明子，色选机筛选后入库" },
+	{ name: "红枣", origin: "新疆若羌、和田", mode: "一级灰枣，去核切片后烘干" },
+];
+---
+
+<BaseLayout title="原料溯源" description="百草源坚持道地产区直采：亳菊、金银花、玫瑰、枸杞等核心原料均可溯源、可检测，批号贯穿入厂到交付全流程。">
+	<Banner title="原料溯源" image={optimizedBanner} />
+
+	<section id="sourcing">
+		<div class="cs-container">
+			<div class="cs-content">
+				<span class="cs-topper">道地直采</span>
+				<h2 class="cs-title">核心原料，产地直供</h2>
+				<p class="cs-text">六类核心原料均建立定点采购渠道，每一批原料入库前完成农残快检、水分检测与杂质筛选。</p>
+			</div>
+			<div class="cs-source-grid">
+				{sources.map((s) => (
+					<article class="cs-source">
+						<h3 class="cs-source-name">{s.name}</h3>
+						<span class="cs-source-origin">{s.origin}</span>
+						<p class="cs-source-mode">{s.mode}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<TraceabilityArchive />
+
+	<FAQ
+		topper="溯源与检测"
+		title="关于溯源与检测，你可能想问"
+		faqs={[
+			{
+				question: "如何验证原料是否来自道地产区？",
+				answer: "每批原料入库时同步登记产地、供应商与采收批次，采购台账与检测记录一一对应；核心原料的产地直供协议与农残快检结果可向采购客户出示。",
+			},
+			{
+				question: "产品检测报告多久出一次？",
+				answer: "成品出厂前逐批进行微生物检测、净含量检测与感官评审，检测报告随货提供并留存 18 个月备查；第三方农残、微生物报告可按批次索取。",
+			},
+			{
+				question: "批号可以查到哪些信息？",
+				answer: "批号对应原料产地、入厂检验结果、生产班组、巡检记录与出厂检验报告，实现从原料到成品的正向追溯与反向查证。",
+			},
+			{
+				question: "可以到工厂实地验厂吗？",
+				answer: "可以。批发与 OEM 客户可在预约后到厂参观原料仓、生产车间与检验室，我们也会配合提供验厂所需的生产记录与资质文件。",
+			},
+		]}
+	/>
+
+	<CTASimple />
+</BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---        Sourcing Grid      -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#sourcing {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (48/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-source-grid {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-source {
+				/* mother: Reviews .review surface (rows of sourcing channels) */
+				width: 100%;
+				max-width: (410/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (28/16rem) (28/16rem);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-left: (5/16em) solid var(--primary);
+				border-radius: (5/16em);
+				display: flex;
+				flex-direction: column;
+			}
+
+			.cs-source-name {
+				font-size: (22/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				margin-bottom: (6/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-source-origin {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.4em;
+				margin-bottom: (10/16rem);
+				color: var(--primary);
+			}
+
+			.cs-source-mode {
+				font-size: (15/16rem);
+				line-height: 1.6em;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#sourcing {
+			.cs-source {
+				width: calc(50% - 0.75rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#sourcing {
+			.cs-source {
+				width: calc(33.333% - 1rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+</style>

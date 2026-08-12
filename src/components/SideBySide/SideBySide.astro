@@ -5,37 +5,69 @@ import { Icon } from "astro-icon/components";
 // Utils
 import { Picture } from "astro:assets";
 
-// Images
+// Images (homepage defaults)
 import factoryExterior from "@assets/images/factory/baicaoyuan-factory-exterior.png";
 import productionWorkshop from "@assets/images/factory/baicaoyuan-production-workshop.png";
+
+// Content-driven. DOM, scoped LESS, offset-stacked imagery and breakpoints are
+// unchanged from the template; only the copy and images come from props.
+interface Props {
+	topper?: string;
+	title?: string;
+	texts?: string[];
+	quote?: string;
+	name?: string;
+	job?: string;
+	image1?: ImageMetadata;
+	image1Alt?: string;
+	image2?: ImageMetadata;
+	image2Alt?: string;
+	ctaText?: string;
+	ctaUrl?: string;
+}
+
+const {
+	topper = "源头工厂",
+	title = "源头工厂与标准化生产",
+	texts = [
+		"亳州市百草源花茶有限公司坐落于\u201C中华药都\u201D安徽亳州谯城经济开发区，占地 15 亩，拥有 6000㎡ 标准化生产车间与 800㎡ 原料冷库，是一家集药材种植、花茶研发、标准化生产与全域销售于一体的代用茶企业。",
+		"生产端配备全自动袋泡茶生产线 4 条、罐装线 2 条与礼盒包装线 1 条，通过 SC 食品生产许可认证；原料从入库到分装全流程不落地，车间执行十万级洁净标准。",
+	],
+	quote = "做茶就是做良心，你用什么料，喝的人一泡就知道。",
+	name = "张保国",
+	job = "创始人 · 虚构企业人物",
+	image1 = factoryExterior,
+	image1Alt = "百草源工厂园区外景",
+	image2 = productionWorkshop,
+	image2Alt = "百草源标准化生产车间",
+	ctaText = "关于我们",
+	ctaUrl = "/about/",
+} = Astro.props as Props;
 ---
 
 <section id="sbs">
 	<div class="cs-container">
 		<!-- Left Image Section -->
 		<div class="cs-left">
-			<Picture src={factoryExterior} alt="百草源工厂园区外景" width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority />
-			<Picture src={productionWorkshop} alt="百草源标准化生产车间" width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority />
+			<Picture src={image1} alt={image1Alt} width={522} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture1" }} priority />
+			<Picture src={image2} alt={image2Alt} width={390} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture cs-picture2" }} priority />
 		</div>
 		<!-- Right Content Section-->
 		<div class="cs-right">
-			<span class="cs-topper">源头工厂</span>
-			<h2 class="cs-title">源头工厂与标准化生产</h2>
-			<p class="cs-text">
-				亳州市百草源花茶有限公司坐落于"中华药都"安徽亳州谯城经济开发区，占地 15
-				亩，拥有 6000㎡ 标准化生产车间与 800㎡ 原料冷库，是一家集药材种植、花茶研发、标准化生产与全域销售于一体的代用茶企业。
-			</p>
-			<p class="cs-text">
-				生产端配备全自动袋泡茶生产线 4 条、罐装线 2 条与礼盒包装线 1
-				条，通过 SC 食品生产许可认证；原料从入库到分装全流程不落地，车间执行十万级洁净标准。
-			</p>
-			<div class="cs-flex-group">
-				<p class="cs-flex-p">做茶就是做良心，你用什么料，喝的人一泡就知道。</p>
-				<span class="cs-name">张保国</span>
-				<span class="cs-job">创始人 · 虚构企业人物</span>
-				<Icon name="quote-white" class="cs-quote-icon" />
-			</div>
-			<a href="/about/" class="cs-button-solid">关于我们</a>
+			<span class="cs-topper">{topper}</span>
+			<h2 class="cs-title">{title}</h2>
+			{texts.map((t) => (
+				<p class="cs-text">{t}</p>
+			))}
+			{quote && (
+				<div class="cs-flex-group">
+					<p class="cs-flex-p">{quote}</p>
+					<span class="cs-name">{name}</span>
+					<span class="cs-job">{job}</span>
+					<Icon name="quote-white" class="cs-quote-icon" />
+				</div>
+			)}
+			<a href={ctaUrl} class="cs-button-solid">{ctaText}</a>
 		</div>
 	</div>
 </section>

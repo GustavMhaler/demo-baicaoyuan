@@ -1,0 +1,292 @@
+---
+// Utils
+import { getImage } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+// Components
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Banner from "@components/Banner/Banner.astro";
+import SideBySide from "@components/SideBySide/SideBySide.astro";
+import FAQ from "@components/FAQ/FAQ.astro";
+import CTASimple from "@components/CTA/CTASimple.astro";
+
+// Images
+import bannerImage from "@assets/images/factory/baicaoyuan-production-workshop.png";
+import exteriorImage from "@assets/images/factory/baicaoyuan-factory-exterior.png";
+import labImage from "@assets/images/factory/baicaoyuan-quality-lab.png";
+const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
+
+// Capabilities (fictional demo data from 基本信息.md)
+const capabilities = [
+	{ title: "全自动袋泡茶包装机", detail: "NX-168 型 4 台" },
+	{ title: "三角包立体包装机", detail: "2 台" },
+	{ title: "微波杀菌隧道", detail: "1 条" },
+	{ title: "金属探测与 X 光异物检测", detail: "各 1 台" },
+];
+
+const certifications = [
+	"食品生产许可证（SC）——代用茶类别",
+	"ISO 22000 食品安全管理体系认证",
+	"安徽省花茶行业协会理事单位",
+	"2024 年度亳州花茶\u201C十佳诚信企业\u201D",
+	"亳菊地理标志产品授权使用企业",
+	"阿里巴巴 1688 实力商家（第 9 年）",
+];
+---
+
+<BaseLayout title="工厂实力" description="百草源工厂占地 15 亩，标准化生产车间 6000㎡，全自动袋泡茶生产线 4 条，十万级洁净车间，SC 与 ISO 22000 双认证。">
+	<Banner title="工厂实力" image={optimizedBanner} />
+
+	<section id="capability">
+		<div class="cs-container">
+			<div class="cs-content">
+				<span class="cs-topper">生产能力</span>
+				<h2 class="cs-title">15 亩厂区，6000㎡ 洁净车间</h2>
+				<p class="cs-text">袋泡茶日产能 50 万包、罐装花茶 3 万罐、组合茶礼盒 1 万盒；原料处理区配备风选机、色选机、振动筛与臭氧清洗设备，全流程不落地生产。</p>
+			</div>
+			<div class="cs-cap-grid">
+				{capabilities.map((c) => (
+					<article class="cs-cap">
+						<h3 class="cs-cap-title">{c.title}</h3>
+						<p class="cs-cap-detail">{c.detail}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<SideBySide
+		topper="品控体系"
+		title="十万级洁净标准与三级品控"
+		texts={[
+			"生产车间执行十万级洁净标准，员工进入需经过更衣、风淋、手部消毒三道程序；独立原料检验室与成品微生物检测室覆盖入厂到出厂全环节。",
+			"建立\u201C原料入厂检验 → 生产过程巡检 → 成品出厂检验\u201D三级品控体系，每批成品逐批检测，检测报告留存 18 个月备查。",
+		]}
+		quote="检测不是成本，是给客户的基本承诺。"
+		name="王质检"
+		job="品控主管 · 虚构企业人物"
+		image1={exteriorImage}
+		image1Alt="百草源工厂园区外景"
+		image2={labImage}
+		image2Alt="百草源质检与仓储"
+		ctaText="查看原料溯源"
+		ctaUrl="/traceability/"
+	/>
+
+	<section id="certification">
+		<div class="cs-container">
+			<div class="cs-content">
+				<span class="cs-topper">资质认证</span>
+				<h2 class="cs-title">合规资质，齐全可验</h2>
+			</div>
+			<ul class="cs-cert-list">
+				{certifications.map((c) => (
+					<li class="cs-cert-item">
+						<Icon name="check" width="22" height="22" aria-hidden="true" />
+						<span>{c}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<FAQ
+		topper="工厂与产能"
+		title="关于工厂实力，你可能想问"
+		faqs={[
+			{
+				question: "你们的 SC 资质覆盖哪些产品类别？",
+				answer: "食品生产许可证（SC）覆盖代用茶类别，支持组合花茶、单一花材茶与袋泡茶等常见形态的生产；证书编号与明细可向客户出示核验。",
+			},
+			{
+				question: "高峰期产能跟得上吗？",
+				answer: "袋泡茶日产能 50 万包、罐装花茶 3 万罐、礼盒 1 万盒。中秋、年货等旺季通常提前 1 个月排产，OEM 客户我们会预留产能档期。",
+			},
+			{
+				question: "十万级洁净车间是什么标准？",
+				answer: "车间按十万级洁净标准运行，员工更衣、风淋、手部消毒三道程序后进入；原料处理与分装区域分区管理，全流程不落地。",
+			},
+			{
+				question: "如何安排验厂？",
+				answer: "批发与 OEM 客户可在预约后到厂，参观原料仓、生产车间与检验室；我们提供生产记录、检测报告与资质原件供核对。",
+			},
+		]}
+	/>
+
+	<CTASimple />
+</BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---      Capability Grid      -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#capability {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (48/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-cap-grid {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-cap {
+				/* mother: Services .card surface */
+				width: 100%;
+				max-width: (357/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (36/16rem) (24/16rem);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-top: (6/16em) solid var(--primary);
+				border-radius: (5/16em);
+				text-align: center;
+			}
+
+			.cs-cap-title {
+				font-size: (20/16rem);
+				font-weight: 700;
+				line-height: 1.3em;
+				margin-bottom: (8/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-cap-detail {
+				font-size: (15/16rem);
+				line-height: 1.5em;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#capability {
+			.cs-cap {
+				width: calc(50% - 0.75rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#capability {
+			.cs-cap {
+				width: calc(25% - 1.125rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/*-- -------------------------- -->
+	<---     Certification List    -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#certification {
+			padding: var(--sectionPadding);
+			background: var(--secondary);
+			position: relative;
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (40/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+				color: var(--primaryLight);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				color: var(--bodyTextColorWhite);
+			}
+
+			.cs-cert-list {
+				width: 100%;
+				max-width: (800/16rem);
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: (16/16rem);
+			}
+
+			.cs-cert-item {
+				font-size: (16/16rem);
+				line-height: 1.5em;
+				box-sizing: border-box;
+				padding: (16/16rem) (20/16rem);
+				background: rgba(250, 250, 246, 0.06);
+				border: 1px solid rgba(250, 250, 246, 0.18);
+				border-radius: (5/16rem);
+				color: var(--bodyTextColorWhite);
+				display: flex;
+				align-items: center;
+				gap: (14/16rem);
+
+				svg {
+					flex-shrink: 0;
+					color: var(--primaryLight);
+				}
+			}
+		}
+	}
+</style>

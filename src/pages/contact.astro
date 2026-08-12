@@ -10,78 +10,107 @@ import Banner from "@components/Banner/Banner.astro";
 import { BUSINESS } from "@data/client";
 
 // Images
-import landingImage from "@assets/images/landing.jpg"; // <-- THE PATH TO THE ASSET YOU WANT TO PRELOAD - The asset must live in src
-import skyscraperImage from "@assets/images/gallery/skyscraper.jpg";
-const optimizedImage = await getImage({ src: landingImage, format: "webp" });
+import bannerImage from "@assets/images/hero/baicaoyuan-hero-origin-factory.png";
+import infoImage from "@assets/images/hero/baicaoyuan-hero-oem-production.png";
+const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
 ---
 
-<BaseLayout title="Contact" description="Meta description for the page" heroImage={optimizedImage}>
-	<Banner title="Contact" image={optimizedImage} />
+<BaseLayout title="联系询盘" description="提交合作需求：产品目录、报价与 OEM 打样方案由销售团队一对一对接。">
+	<Banner title="联系询盘" image={optimizedBanner} />
 
 	<section id="cs-contact">
 		<div class="cs-container">
-			<form id="cs-form" name="Contact Form" method="post">
+			<form id="cs-form" name="Inquiry Form" method="post">
 				<div class="cs-content">
-					<span class="cs-topper">Contact</span>
-					<h2 class="cs-title">Get in Touch</h2>
-					<p class="cs-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ridiculus elementum ullamcorper ipsum porttitor aliquam. Id magna urna ultrices odio pulvinar. Sed ut.</p>
+					<span class="cs-topper">联系询盘</span>
+					<h2 class="cs-title">留下需求，一对一对接</h2>
+					<p class="cs-text">批发、经销、一件代发与 OEM/ODM 合作均可提交；演示站表单不会实际发送，提交后仅显示确认提示。</p>
 				</div>
 				<label>
-					Name
-					<input required type="text" id="name" name="name" placeholder="Name" />
+					姓名
+					<input required type="text" id="name" name="name" placeholder="您的姓名" />
 				</label>
 				<label>
-					Email
-					<input required type="text" id="email" name="email" placeholder="Email" />
+					公司 / 店铺
+					<input type="text" id="company" name="company" placeholder="公司或店铺名称" />
 				</label>
 				<label>
-					Phone
-					<input required type="text" id="phone" name="phone" placeholder="Phone" />
+					邮箱
+					<input required type="email" id="email" name="email" placeholder="邮箱地址" />
 				</label>
 				<label>
-					How Did You Find Us
-					<input type="text" id="find" name="find-us" placeholder="How did you find us?" />
+					电话
+					<input type="tel" id="phone" name="phone" placeholder="联系电话" />
+				</label>
+				<label>
+					合作类型
+					<select id="intent" name="intent">
+						<option value="wholesale">产品批发</option>
+						<option value="oem">OEM / ODM 代工</option>
+						<option value="drop-ship">一件代发</option>
+						<option value="other">其他合作</option>
+					</select>
 				</label>
 				<label class="cs-label-message">
-					Message
-					<textarea required name="Message" id="message" placeholder="Write message..."></textarea>
+					需求描述
+					<textarea required name="message" id="message" placeholder="请描述产品需求、意向数量或定制要求…"></textarea>
 				</label>
-				<button class="cs-button-solid" type="submit">Submit Message</button>
+				<button class="cs-button-solid" type="submit">提交询盘</button>
+				<p id="cs-form-status" class="cs-form-status" role="status" aria-live="polite" hidden></p>
 			</form>
 			<div class="cs-right-section">
 				<!--Email-->
-				<span class="cs-header">Email</span>
+				<span class="cs-header">商务邮箱</span>
 				<a class="cs-link" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+				<!--OEM-->
+				<span class="cs-header">OEM 咨询</span>
+				<a class="cs-link" href="mailto:oem@baicaoyuan-tea.com">oem@baicaoyuan-tea.com</a>
 				<!--Phone-->
-				<span class="cs-header">Phone</span>
-				<a class="cs-link" href={`tel:${BUSINESS.phoneForTel}`}>{BUSINESS.phoneFormatted}</a>
+				<span class="cs-header">电话</span>
+				<a class="cs-link" href={`tel:${BUSINESS.phoneForTel}`}>{BUSINESS.phoneFormatted}（总机 / 销售经理）</a>
 				<!--Address-->
-				<span class="cs-header">Address</span>
-				<a class="cs-link" href={BUSINESS.address.mapLink}>
-					{BUSINESS.address.lineOne},
+				<span class="cs-header">地址</span>
+				<a class="cs-link" href="/contact/">
+					{BUSINESS.address.lineOne}，
 					<br />
-					{BUSINESS.address.lineTwo},
+					{BUSINESS.address.lineTwo}，
 					<br />
 					<span class="cs-block">
 						{BUSINESS.address.city}
 						{BUSINESS.address.state}
-						{BUSINESS.address.zip}
 					</span>
 				</a>
+				<span class="cs-header">工作时间</span>
+				<span class="cs-link cs-hours">周一至周六 8:30 - 17:30</span>
 
 				<!-- Background Image-->
-				<Picture src={skyscraperImage} alt="building" width={2500} height={1667} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-bg-picture" }} />
+				<Picture src={infoImage} alt="" width={2500} height={1667} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-bg-picture" }} />
 			</div>
 		</div>
 	</section>
 </BaseLayout>
 
+<script>
+	// Demo-only form handler: no real submission happens on this fictional site.
+	document.addEventListener("astro:page-load", () => {
+		const form = document.getElementById("cs-form");
+		const status = document.getElementById("cs-form-status");
+		if (!form || !status) return;
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			status.textContent =
+				"演示站已收到您的询盘（不会实际发送）。正式上线后此表单将对接真实提交通道。";
+			status.hidden = false;
+		});
+	});
+</script>
+
 <style lang="less">
 	/* PAGE-SPECIFIC STYLES FOR THE CONTACT PAGE */
 
 	/*-- -------------------------- -->
-<---          Contact           -->
-<--- -------------------------- -*/
+	<---          Contact           -->
+	<--- -------------------------- -*/
 
 	/* Mobile - 360px */
 	@media only screen and (min-width: 0em) {
@@ -140,7 +169,8 @@ const optimizedImage = await getImage({ src: landingImage, format: "webp" });
 				}
 
 				input,
-				textarea {
+				textarea,
+				select {
 					font-size: (16/16rem);
 					width: 100%;
 					height: (64/16rem);
@@ -157,6 +187,10 @@ const optimizedImage = await getImage({ src: landingImage, format: "webp" });
 					}
 				}
 
+				select {
+					background-color: #fff;
+				}
+
 				textarea {
 					font-family: inherit;
 					min-height: (120/16rem);
@@ -167,10 +201,20 @@ const optimizedImage = await getImage({ src: landingImage, format: "webp" });
 					width: 100%;
 					border: none;
 				}
+
+				.cs-form-status {
+					font-size: (14/16rem);
+					line-height: 1.6em;
+					margin-top: (16/16rem);
+					padding: (12/16rem) (16/16rem);
+					color: var(--secondary);
+					background-color: rgba(23, 63, 53, 0.08);
+					border-radius: (5/16rem);
+				}
 			}
 
 			.cs-right-section {
-				height: (320/16rem);
+				height: (380/16rem);
 				/* 24px - 40px top & bottom */
 				/* 20px - 40px left & right */
 				padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem);
@@ -228,6 +272,10 @@ const optimizedImage = await getImage({ src: landingImage, format: "webp" });
 				&:last-of-type {
 					margin-bottom: 0;
 				}
+			}
+
+			.cs-hours {
+				opacity: 0.9;
 			}
 
 			.cs-block {
@@ -368,7 +416,8 @@ const optimizedImage = await getImage({ src: landingImage, format: "webp" });
 				#cs-form {
 					label,
 					input,
-					textarea {
+					textarea,
+					select {
 						color: var(--bodyTextColorWhite);
 						background-color: transparent;
 

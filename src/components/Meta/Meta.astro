@@ -25,7 +25,7 @@ const canonical = Astro.url.href;
 const isHomePage = Astro.url.pathname === "/";
 
 // Format page title with business name (and location if home page)
-const pageTitle = isHomePage ? `${title} | ${BUSINESS.name} | ${BUSINESS.address.city}, ${BUSINESS.address.state}` : `${title} | ${BUSINESS.name}`;
+const pageTitle = isHomePage ? `${title} | ${BUSINESS.name} | ${BUSINESS.address.city}·${BUSINESS.address.state}` : `${title} | ${BUSINESS.name}`;
 
 // OG type is hardcoded since it rarely changes
 const ogType = "website";
