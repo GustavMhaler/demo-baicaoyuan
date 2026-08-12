@@ -19,7 +19,7 @@ const { posts } = Astro.props;
 
 <section class="blog-container">
 	<section class="main-content">
-		{posts.length === 0 && <h1>No Recent Posts</h1>}
+		{posts.length === 0 && <h1>暂无文章，敬请期待</h1>}
 		{
 			posts.length >= 1 &&
 				posts.map((post) => (

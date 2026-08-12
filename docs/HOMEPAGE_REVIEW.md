@@ -114,16 +114,40 @@
 2. **品牌时间线重构**：年份+标题+正文合并为完整事件块同侧排列（桌面整块左右交替、移动统一在竖线右侧）；竖线加粗至 3px 且从首节点连续到尾节点；节点改为"浅色外环+深绿实心"双环；年份改为品牌浅金小号粗体置于标题上方；文案"十年间"→"十余年间"（2008–2026 为十八年）；新增轻量滚动表现（竖线自上而下绘制 + 事件块 140ms 错开淡入上移 14px，reveal 层保障无 JS/reduced-motion 可见）。
 3. **首页 Gallery 悬停交互**：五张产品图包裹为指向 /products/ 的链接；细指针设备（hover:hover + pointer:fine）下容器上移 7px、图片缩放 1.03、阴影增强，0.36s cubic-bezier(0.22,1,0.36,1)，transform 无布局位移；键盘 focus-visible 提供相同反馈（outline）；prefers-reduced-motion 下禁用位移缩放；无漂浮/3D/追踪类效果。
 
-## 未施工页面清单（保持模板状态，不在本轮范围）
+## 已完工业务页面清单
 
-- 产品中心（/products/）、OEM/ODM（/oem/）、原料溯源（/traceability/）、工厂实力（/factory/）、关于我们（/about/）、联系询盘（/contact/）——导航与首页 CTA 已指向这些路由，页面尚未建设。
-- 博客与 Decap CMS、admin、既有模板页面（projects/reviews/contact/about）未品牌化（首页不引用它们；/about/ 等仍为模板英文内容，下一阶段处理）。
+| 路由 | 内容 | 状态 |
+|---|---|---|
+| `/` | 首页（Hero/Services/错位双图/Gallery/溯源档案/FAQ/CTA） | ✅ 品牌基线 |
+| `/products/` | 产品中心（三产品线差异化构图，9 款） | ✅ 完工 |
+| `/oem/` | OEM/ODM（横向流程线 + 专属 FAQ） | ✅ 完工 |
+| `/traceability/` | 原料溯源（产地关系图 + 四阶段档案 + 专属 FAQ） | ✅ 完工 |
+| `/factory/` | 工厂实力（设备能力带 + 资质清单 + 专属 FAQ） | ✅ 完工 |
+| `/about/` | 关于我们（品牌时间轴 + 错位图 + 企业文化 + 专属 CTA） | ✅ 完工 |
+| `/contact/` | 联系询盘（中文表单 + 演示提交 + 信息卡） | ✅ 完工 |
+| `/blog/` | 博客列表（空态"暂无文章，敬请期待"） | ✅ 架构保留 |
 
-## 构建与检查结果
+## 保留的 CMS 能力
+
+- `/admin/`（Decap CMS 管理台）、`public/admin/config.yml`、`src/content.config.ts`（blog collection schema）原样保留，未移除。
+- 模板示例文章已清除；后续启用博客时在 `src/content/blog/` 新建文章即可，无需改动架构。
+
+## 未对外开放的上游页面（已停止生成）
+
+- `/projects/`、`/projects/project-1/`、`/projects/project-2/`、`/reviews/`、`/_template/` 及两篇模板博客文章：源码已删除，路由返回 404，不再进入 sitemap。
+- 相关组件（Reviews、FeaturedPost、TableOfContents 等）与图片保留在仓库但不再被引用（"停止引用，不删除"原则）。
+
+## 最终构建与验收结果
 
 | 项 | 结果 |
 |---|---|
-| `npm run build` | ✅ exit 0，11 页，无错误 |
+| `npm run build` | ✅ exit 0，9 页（8 业务路由 + /admin/），需在删除内容源后清 `node_modules/.astro` 缓存重建 |
+| sitemap | ✅ 仅含 8 个正式业务页面（https://demo1-shaojiang61.site/*） |
+| 废弃路由 | ✅ /projects/、/reviews/、/_template/、模板博文均 404 |
+| 冒烟 | ✅ 7 个业务页 1440×1000 与 390×844 无 console/page error、无横向溢出、图片全部加载 |
+| 动效验收 | ✅ reveal 层（无 JS/reduced-motion 可见）、三处编排动效、Gallery hover 交互 |
+| 网络字体 | ✅ @font-face 全部本站请求，仅预载 400 字重 |
+| 最新提交 | `89972bc`（收尾修复），分支 `feat/baicaoyuan-demo` |
 | 首页桌面冒烟（1440×1000） | ✅ 无 console/pageerror，全部图片 `naturalWidth>0` |
 | 首页移动冒烟（390×844） | ✅ 同上 |
 | 键盘导航 | ✅ 首个 Tab 焦点为 skip 链接"跳转到主要内容"；30 次 Tab 循环无卡死；FAQ 第二项 Enter 可展开 |
