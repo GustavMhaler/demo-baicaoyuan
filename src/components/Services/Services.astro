@@ -37,8 +37,8 @@ const {
 ---
 
 <section id="services" class="services">
-  {items.map((item) => (
-    <div class="card">
+  {items.map((item, index) => (
+    <div class="card" data-reveal style={`--reveal-delay: ${index * 120}ms`}>
       <picture>
         <Icon name={item.icon} width="48" height="48" aria-hidden="true" />
       </picture>
@@ -47,6 +47,24 @@ const {
     </div>
   ))}
 </section>
+
+<style lang="less">
+  /* Reveal: staggered entrance for the three cards (motion layer) */
+  .card[data-reveal] {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+
+    &.cs-reveal-pending {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    &.cs-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
 
 <style lang="less">
   /*-- -------------------------- -->

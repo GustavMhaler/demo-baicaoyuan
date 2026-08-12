@@ -385,7 +385,8 @@ const [heroProduct, ...classicRows] = classic;
 				border-radius: (5/16rem);
 				display: flex;
 				align-items: center;
-				gap: (16/16rem);
+				flex-wrap: wrap;
+				gap: (8/16rem) (16/16rem);
 			}
 
 			.cs-thumb {
@@ -444,6 +445,7 @@ const [heroProduct, ...classicRows] = classic;
 				font-size: (13/16rem);
 				color: var(--bodyTextColor);
 				opacity: 0.8;
+				margin-left: auto;
 				flex: none;
 			}
 
@@ -484,11 +486,16 @@ const [heroProduct, ...classicRows] = classic;
 					border-bottom: 1px solid #e7e7e7;
 					display: flex;
 					align-items: center;
-					gap: (16/16rem);
+					flex-wrap: wrap;
+					gap: (8/16rem) (16/16rem);
 
 					.cs-thumb {
 						width: (56/16rem);
 						height: (56/16rem);
+					}
+
+					.cs-item-spec {
+						margin-left: auto;
 					}
 				}
 			}

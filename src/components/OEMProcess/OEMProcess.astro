@@ -25,9 +25,9 @@ const { steps } = Astro.props as Props;
 			<h2 class="cs-title">四步完成你的专属产品</h2>
 			<p class="cs-text">从需求沟通到批量交付，每个节点都有专人对接、书面确认。</p>
 		</div>
-		<ol class="cs-flow">
-			{steps.map((s) => (
-				<li class="cs-node">
+		<ol class="cs-flow" data-reveal>
+			{steps.map((s, i) => (
+				<li class="cs-node" data-reveal style={`--reveal-delay: ${300 + i * 180}ms`}>
 					<span class="cs-node-dot" aria-hidden="true">{s.step}</span>
 					<div class="cs-node-body">
 						<h3 class="cs-node-title">{s.title}</h3>
@@ -166,6 +166,37 @@ const { steps } = Astro.props as Props;
 				border-radius: (14/16rem);
 				display: inline-block;
 			}
+
+			/* motion layer: nodes rise in sequence */
+			.cs-node[data-reveal] {
+				transition: opacity 0.55s ease, transform 0.55s ease;
+				transition-delay: var(--reveal-delay, 0ms);
+
+				&.cs-reveal-pending {
+					opacity: 0;
+					transform: translateY(16px);
+				}
+
+				&.cs-revealed {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* motion layer: the rail itself grows with the sequence */
+			.cs-flow[data-reveal] {
+				&:before {
+					transform: scaleY(0);
+					transform-origin: top;
+					transition: transform 0.9s ease 0.15s;
+				}
+
+				&.cs-revealed {
+					&:before {
+						transform: scaleY(1);
+					}
+				}
+			}
 		}
 	}
 
@@ -215,6 +246,21 @@ const { steps } = Astro.props as Props;
 
 			.cs-node-body {
 				padding-top: (20/16rem);
+			}
+
+			/* motion layer: horizontal line extends left to right */
+			.cs-flow[data-reveal] {
+				&:before {
+					transform: scaleX(0);
+					transform-origin: left;
+					transition: transform 0.9s ease 0.15s;
+				}
+
+				&.cs-revealed {
+					&:before {
+						transform: scaleX(1);
+					}
+				}
 			}
 		}
 	}

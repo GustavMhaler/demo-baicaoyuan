@@ -12,32 +12,32 @@
 			<span class="cs-topper">原料溯源</span>
 			<h2 class="cs-title">从入厂到交付，每一步都可追溯</h2>
 			<p class="cs-text">
-				四阶段批次溯源与三级品控一一对应，示例批号：DEMO-2026-0812-003。
+				四阶段批次溯源与三级品控一一对应，批号贯穿原料、生产与成品环节。
 			</p>
 		</div>
-		<div class="cs-archive-group">
-			<div class="cs-card cs-card1">
+		<div class="cs-archive-group" data-reveal>
+			<div class="cs-card cs-card1" data-reveal style="--reveal-delay: 200ms">
 				<span class="cs-step">01</span>
 				<h3 class="cs-card-title">入厂检验</h3>
 				<p class="cs-card-text">
 					农残快检、水分检测与杂质筛选，原料合格后分区入库。
 				</p>
 			</div>
-			<div class="cs-card cs-card2">
+			<div class="cs-card cs-card2" data-reveal style="--reveal-delay: 360ms">
 				<span class="cs-step">02</span>
 				<h3 class="cs-card-title">生产巡检</h3>
 				<p class="cs-card-text">
 					十万级洁净车间作业，巡检记录按批次归档留痕。
 				</p>
 			</div>
-			<div class="cs-card cs-card3">
+			<div class="cs-card cs-card3" data-reveal style="--reveal-delay: 520ms">
 				<span class="cs-step">03</span>
 				<h3 class="cs-card-title">出厂检验</h3>
 				<p class="cs-card-text">
 					微生物检测、净含量检测与感官评审，逐批完成放行。
 				</p>
 			</div>
-			<div class="cs-card cs-card4">
+			<div class="cs-card cs-card4" data-reveal style="--reveal-delay: 680ms">
 				<span class="cs-step">04</span>
 				<h3 class="cs-card-title">交付</h3>
 				<p class="cs-card-text">
@@ -45,6 +45,9 @@
 				</p>
 			</div>
 		</div>
+		<p class="cs-batch" data-reveal style="--reveal-delay: 900ms">
+			批次状态：已交付 · 示例批号 DEMO-2026-0812-003
+		</p>
 	</div>
 </section>
 
@@ -97,6 +100,21 @@
 				opacity: 0.85;
 			}
 
+			.cs-batch {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.6em;
+				letter-spacing: 0.05em;
+				text-align: center;
+				width: auto;
+				margin: 0;
+				padding: (10/16rem) (18/16rem);
+				color: var(--primaryLight);
+				border: 1px solid rgba(214, 178, 118, 0.5);
+				border-radius: (18/16rem);
+				display: inline-block;
+			}
+
 			.cs-archive-group {
 				width: 100%;
 				position: relative;
@@ -147,6 +165,37 @@
 				color: var(--bodyTextColor);
 				opacity: 0.75;
 			}
+
+			/* motion layer: stages light up in sequence */
+			.cs-card[data-reveal] {
+				transition: opacity 0.55s ease, transform 0.55s ease;
+				transition-delay: var(--reveal-delay, 0ms);
+
+				&.cs-reveal-pending {
+					opacity: 0;
+					transform: translateY(18px);
+				}
+
+				&.cs-revealed {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.cs-batch[data-reveal] {
+				transition: opacity 0.6s ease, transform 0.6s ease;
+				transition-delay: var(--reveal-delay, 0ms);
+
+				&.cs-reveal-pending {
+					opacity: 0;
+					transform: translateY(12px);
+				}
+
+				&.cs-revealed {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
 		}
 	}
 
@@ -190,6 +239,21 @@
 					top: (32/16rem);
 					left: 0;
 					pointer-events: none;
+				}
+
+				/* motion layer: the flow line draws across with the stages */
+				&[data-reveal] {
+					&:before {
+						transform: scaleX(0);
+						transform-origin: left;
+						transition: transform 1s ease 0.1s;
+					}
+
+					&.cs-revealed {
+						&:before {
+							transform: scaleX(1);
+						}
+					}
 				}
 			}
 		}
