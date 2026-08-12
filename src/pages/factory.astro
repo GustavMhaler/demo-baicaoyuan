@@ -6,7 +6,7 @@ import { Icon } from "astro-icon/components";
 // Components
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Banner from "@components/Banner/Banner.astro";
-import FactoryCapabilities from "@components/FactoryCapabilities/FactoryCapabilities.astro";
+import FactoryCapabilities, { type CapabilityItem } from "@components/FactoryCapabilities/FactoryCapabilities.astro";
 import SideBySide from "@components/SideBySide/SideBySide.astro";
 import FAQ from "@components/FAQ/FAQ.astro";
 import CTASimple from "@components/CTA/CTASimple.astro";
@@ -17,12 +17,13 @@ import exteriorImage from "@assets/images/factory/baicaoyuan-factory-exterior.pn
 import labImage from "@assets/images/factory/baicaoyuan-quality-lab.png";
 const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
 
-// Capabilities (fictional demo data from 基本信息.md)
-const capabilities = [
-	{ title: "全自动袋泡茶包装机", detail: "NX-168 型 4 台" },
-	{ title: "三角包立体包装机", detail: "2 台" },
-	{ title: "微波杀菌隧道", detail: "1 条" },
-	{ title: "金属探测与 X 光异物检测", detail: "各 1 台" },
+// Capabilities (fictional demo data from 基本信息.md) - typed against the
+// component contract so a missing field fails the build.
+const capabilities: CapabilityItem[] = [
+	{ number: "4", unit: "台", name: "全自动袋泡茶包装机", detail: "NX-168 型" },
+	{ number: "2", unit: "台", name: "三角包立体包装机", detail: "适配尼龙与玉米纤维三角包" },
+	{ number: "1", unit: "条", name: "微波杀菌隧道", detail: "覆盖连续式原料处理" },
+	{ number: "2", unit: "套", name: "异物检测设备", detail: "金属探测与 X 光检测各 1 台" },
 ];
 
 // Certifications - all fictional demo credentials

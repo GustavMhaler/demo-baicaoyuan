@@ -15,6 +15,19 @@ interface Props {
 }
 
 const { capabilities } = Astro.props as Props;
+
+// Build-time guard: a missing field must fail the build instead of silently
+// rendering empty nodes (SSR runs during `astro build`).
+const requiredFields = ["number", "unit", "name", "detail"] as const;
+for (const item of capabilities) {
+	for (const field of requiredFields) {
+		if (item[field] === undefined || item[field] === "") {
+			throw new Error(
+				`FactoryCapabilities: capability "${item.name || "(unnamed)"}" is missing required field "${field}"`,
+			);
+		}
+	}
+}
 ---
 
 <section id="capability">

@@ -1,7 +1,9 @@
 ---
 // BrandTimeline: brand story milestones for the about page.
-// Vertical timeline with year markers; desktop alternates sides,
-// mobile keeps a single rail. All styles are scoped.
+// Each milestone is one complete event block (year + title + text) on the
+// same side of the rail; desktop alternates whole blocks left/right, mobile
+// keeps everything on the right of a single continuous rail.
+// Editorial, flat style - no card wall. All styles are scoped.
 
 interface Milestone {
 	year: string;
@@ -21,14 +23,14 @@ const { milestones } = Astro.props as Props;
 		<div class="cs-content">
 			<span class="cs-topper">品牌故事</span>
 			<h2 class="cs-title">从 20 平米摊位到 6000㎡ 工厂</h2>
-			<p class="cs-text">十年间，百草源从药材商行成长为具备完整 SC 生产资质的现代化花茶工厂。</p>
+			<p class="cs-text">十余年间，百草源从药材商行成长为具备完整 SC 生产资质的现代化花茶工厂。</p>
 		</div>
-		<ol class="cs-timeline">
+		<ol class="cs-timeline" data-reveal>
 			{milestones.map((m, i) => (
-				<li class:list={["cs-milestone", { "cs-even": i % 2 === 1 }]}>
-					<span class="cs-year" aria-hidden="true">{m.year}</span>
+				<li class:list={["cs-milestone", { "cs-even": i % 2 === 1 }]} data-reveal style={`--reveal-delay: ${i * 140}ms`}>
 					<span class="cs-dot" aria-hidden="true"></span>
 					<div class="cs-milestone-body">
+						<span class="cs-year">{m.year}</span>
 						<h3 class="cs-milestone-title">{m.title}</h3>
 						<p class="cs-milestone-text">{m.text}</p>
 					</div>
@@ -43,7 +45,7 @@ const { milestones } = Astro.props as Props;
 	<---      Brand Timeline       -->
 	<--- -------------------------- -*/
 
-	/* Mobile - 360px */
+	/* Mobile - 360px: single left rail, all blocks on the right */
 	@media only screen and (min-width: 0em) {
 		#brand-timeline {
 			padding: var(--sectionPadding);
@@ -81,30 +83,43 @@ const { milestones } = Astro.props as Props;
 
 			.cs-timeline {
 				width: 100%;
-				max-width: (720/16rem);
+				max-width: (640/16rem);
 				margin: 0;
-				padding: (8/16rem) 0 0 0;
+				padding: 0 0 0 (32/16rem);
 				list-style: none;
 				position: relative;
 
 				&:before {
+					/* continuous rail: first dot to last dot */
 					content: "";
-					width: 2px;
-					height: calc(100% - (24/16rem));
-					background: rgba(23, 63, 53, 0.18);
+					width: 3px;
+					height: calc(100% - (18/16rem));
+					background: rgba(23, 63, 53, 0.3);
 					display: block;
 					position: absolute;
-					top: (12/16rem);
-					left: (23/16rem);
+					top: (9/16rem);
+					left: (9/16rem);
+				}
+
+				/* motion layer (mobile): rail draws top-down */
+				&[data-reveal] {
+					&:before {
+						transform: scaleY(0);
+						transform-origin: top;
+						transition: transform 1s ease 0.1s;
+					}
+
+					&.cs-revealed {
+						&:before {
+							transform: scaleY(1);
+						}
+					}
 				}
 			}
 
 			.cs-milestone {
 				position: relative;
-				display: flex;
-				align-items: flex-start;
-				gap: (24/16rem);
-				padding-bottom: (44/16rem);
+				padding-bottom: (40/16rem);
 
 				&:last-of-type {
 					padding-bottom: 0;
@@ -112,39 +127,37 @@ const { milestones } = Astro.props as Props;
 			}
 
 			.cs-dot {
-				width: (12/16rem);
-				height: (12/16rem);
-				flex: none;
-				margin-top: (6/16rem);
-				background-color: var(--primary);
-				border: 3px solid var(--bodyTextColorWhite);
+				/* light outer ring + solid deep-green core */
+				width: (18/16rem);
+				height: (18/16rem);
+				background-color: var(--secondary);
+				border: 4px solid rgba(23, 63, 53, 0.18);
+				background-clip: padding-box;
 				border-radius: 50%;
-				box-shadow: 0 0 0 2px var(--primary);
 				display: block;
-				position: relative;
-				z-index: 1;
-			}
-
-			.cs-year {
-				font-size: (16/16rem);
-				font-weight: 700;
-				line-height: 1.2em;
-				width: (72/16rem);
-				flex: none;
-				margin-left: 0;
-				color: var(--primaryLight);
-				display: block;
-				position: relative;
-				z-index: 1;
+				position: absolute;
+				top: (2/16rem);
+				left: (-32/16rem);
 			}
 
 			.cs-milestone-body {
-				flex: 1;
-				padding-top: (2/16rem);
+				max-width: (560/16rem);
+				padding: 0 0 0 (16/16rem);
+			}
+
+			.cs-year {
+				/* brand gold, small bold, above the title */
+				font-size: (15/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				letter-spacing: 0.08em;
+				margin-bottom: (6/16rem);
+				color: var(--primaryLight);
+				display: block;
 			}
 
 			.cs-milestone-title {
-				font-size: (20/16rem);
+				font-size: (21/16rem);
 				font-weight: 700;
 				line-height: 1.3em;
 				margin-bottom: (8/16rem);
@@ -153,18 +166,19 @@ const { milestones } = Astro.props as Props;
 
 			.cs-milestone-text {
 				font-size: (15/16rem);
-				line-height: 1.7em;
+				line-height: 1.75em;
 				color: var(--bodyTextColor);
 				opacity: 0.78;
 			}
 		}
 	}
 
-	/* Desktop - 1024px: alternating sides */
+	/* Desktop - 1024px: whole blocks alternate around the centre rail */
 	@media only screen and (min-width: 64rem) {
 		#brand-timeline {
 			.cs-timeline {
 				max-width: (980/16rem);
+				padding: 0;
 
 				&:before {
 					left: 50%;
@@ -173,43 +187,69 @@ const { milestones } = Astro.props as Props;
 			}
 
 			.cs-milestone {
-				width: 100%;
-				align-items: flex-start;
+				width: 50%;
+				padding-bottom: (52/16rem);
+				padding-right: (64/16rem);
 
 				.cs-dot {
-					position: absolute;
-					left: 50%;
-					margin-left: (-6/16rem);
-					margin-top: (4/16rem);
-				}
-
-				.cs-year {
-					width: calc(50% - 2.5rem);
-					text-align: right;
-					margin-right: 2.5rem;
+					right: (-9/16rem);
+					left: auto;
 				}
 
 				.cs-milestone-body {
-					width: calc(50% - 2.5rem);
-					flex: none;
-					margin-left: 2.5rem;
+					max-width: (420/16rem);
+					margin-left: auto;
+					padding: 0;
+					text-align: right;
 				}
 
 				&.cs-even {
-					.cs-year {
-						order: 2;
-						text-align: left;
-						margin-left: 2.5rem;
-						margin-right: 0;
+					margin-left: 50%;
+					padding-right: 0;
+					padding-left: (64/16rem);
+
+					.cs-dot {
+						left: (-9/16rem);
+						right: auto;
 					}
 
 					.cs-milestone-body {
-						order: 1;
-						text-align: right;
 						margin-left: 0;
-						margin-right: 2.5rem;
+						margin-right: auto;
+						text-align: left;
 					}
 				}
+			}
+
+			/* motion layer (desktop): keep the rail centred while drawing */
+			.cs-timeline[data-reveal] {
+				&:before {
+					transform: translateX(-50%) scaleY(0);
+				}
+
+				&.cs-revealed {
+					&:before {
+						transform: translateX(-50%) scaleY(1);
+					}
+				}
+			}
+		}
+	}
+
+	/* Motion layer: blocks fade in and rise 12-16px */
+	@media only screen and (min-width: 0em) {
+		.cs-milestone[data-reveal] {
+			transition: opacity 0.6s ease, transform 0.6s ease;
+			transition-delay: var(--reveal-delay, 0ms);
+
+			&.cs-reveal-pending {
+				opacity: 0;
+				transform: translateY(14px);
+			}
+
+			&.cs-revealed {
+				opacity: 1;
+				transform: translateY(0);
 			}
 		}
 	}

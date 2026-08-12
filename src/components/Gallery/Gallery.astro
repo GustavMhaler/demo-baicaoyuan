@@ -21,49 +21,59 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
     <div class="cs-image-group">
       <!-- Row 1-->
       <div class="cs-row cs-row-1">
-        <Picture
-          src={product1}
-          alt="菊花决明子茶"
-          width={400}
-          height={560}
-          formats={['avif', 'webp']}
-          pictureAttributes={{ class: "cs-picture cs-picture1" }}
-        />
-        <Picture
-          src={product2}
-          alt="红枣枸杞姜丝茶"
-          width={400}
-          height={560}
-          formats={['avif', 'webp']}
-          pictureAttributes={{ class: "cs-picture cs-picture2" }}
-        />
-        <Picture
-          src={product3}
-          alt="玫瑰洛神花茶"
-          width={400}
-          height={560}
-          formats={['avif', 'webp']}
-          pictureAttributes={{ class: "cs-picture cs-picture3" }}
-        />
+        <a href="/products/" class="cs-gallery-link" aria-label="查看菊花决明子茶等全部产品">
+          <Picture
+            src={product1}
+            alt="菊花决明子茶"
+            width={400}
+            height={560}
+            formats={['avif', 'webp']}
+            pictureAttributes={{ class: "cs-picture cs-picture1" }}
+          />
+        </a>
+        <a href="/products/" class="cs-gallery-link" aria-label="查看红枣枸杞姜丝茶等全部产品">
+          <Picture
+            src={product2}
+            alt="红枣枸杞姜丝茶"
+            width={400}
+            height={560}
+            formats={['avif', 'webp']}
+            pictureAttributes={{ class: "cs-picture cs-picture2" }}
+          />
+        </a>
+        <a href="/products/" class="cs-gallery-link" aria-label="查看玫瑰洛神花茶等全部产品">
+          <Picture
+            src={product3}
+            alt="玫瑰洛神花茶"
+            width={400}
+            height={560}
+            formats={['avif', 'webp']}
+            pictureAttributes={{ class: "cs-picture cs-picture3" }}
+          />
+        </a>
       </div>
       <!-- Row 2 -->
       <div class="cs-row cs-row-2">
-        <Picture
-          src={product4}
-          alt="头采亳菊"
-          width={400}
-          height={560}
-          formats={['avif', 'webp']}
-          pictureAttributes={{ class: "cs-picture cs-picture1" }}
-        />
-        <Picture
-          src={product5}
-          alt="四季养生礼盒"
-          width={400}
-          height={560}
-          formats={['avif', 'webp']}
-          pictureAttributes={{ class: "cs-picture cs-picture2" }}
-        />
+        <a href="/products/" class="cs-gallery-link" aria-label="查看头采亳菊等全部产品">
+          <Picture
+            src={product4}
+            alt="头采亳菊"
+            width={400}
+            height={560}
+            formats={['avif', 'webp']}
+            pictureAttributes={{ class: "cs-picture cs-picture1" }}
+          />
+        </a>
+        <a href="/products/" class="cs-gallery-link" aria-label="查看四季养生礼盒等全部产品">
+          <Picture
+            src={product5}
+            alt="四季养生礼盒"
+            width={400}
+            height={560}
+            formats={['avif', 'webp']}
+            pictureAttributes={{ class: "cs-picture cs-picture2" }}
+          />
+        </a>
       </div>
     </div>
     <a href="/products/" class="cs-button-solid">查看全部 9 款产品</a>
@@ -71,131 +81,194 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 </section>
 
 <style lang="less">
-  /*-- -------------------------- -->
+	/*-- -------------------------- -->
 <---          Gallery           -->
 <--- -------------------------- -*/
 
-  /* Mobile - 360px - Contains hover animation */
-  @media only screen and (min-width: 0em) {
-    #gallery {
-      /* Centers button */
-      text-align: center;
-      padding: var(--sectionPadding);
-      position: relative;
-      /* Prevents overflow from the image going off screen */
-      overflow: hidden;
-      .cs-container {
-        width: 100%;
-        max-width: (1322/16em);
-        margin: auto;
-      }
+	/* Mobile - 360px - Contains hover animation */
+	@media only screen and (min-width: 0em) {
+		#gallery {
+			/* Centers button */
+			text-align: center;
+			padding: var(--sectionPadding);
+			position: relative;
+			/* Prevents overflow from the image going off screen */
+			overflow: hidden;
 
-      .cs-topper {
-        text-align: center;
-        margin-bottom: (16/16rem);
-      }
+			.cs-container {
+				width: 100%;
+				max-width: (1322/16em);
+				margin: auto;
+			}
 
-      .cs-title {
-        text-align: center;
-        max-width: (621/16rem);
-        margin-bottom: (40/16rem);
-      }
+			.cs-topper {
+				text-align: center;
+				margin-bottom: (16/16rem);
+			}
 
-      .cs-image-group {
-        /* used rem so it doesn't scale with the font size of on parent */
-        font-size: ~"min(1.1vw, 1em)";
-        width: 100%;
-        max-width: (1322/16em);
-        margin: 0 auto (60/16rem);
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: (30/16em);
-      }
+			.cs-title {
+				text-align: center;
+				max-width: (621/16rem);
+				margin-bottom: (40/16rem);
+			}
 
-      .cs-row {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: (30/16em);
-      }
+			.cs-image-group {
+				/* used rem so it doesn't scale with the font size of on parent */
+				font-size: ~"min(1.1vw, 1em)";
+				width: 100%;
+				max-width: (1322/16em);
+				margin: 0 auto (60/16rem);
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				gap: (30/16em);
+			}
 
-      .cs-picture {
-        display: block;
-        position: relative;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-      }
+			.cs-row {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+				gap: (30/16em);
+			}
 
-      .cs-row-1 {
-        .cs-picture1 {
-          width: (420/16em);
-          height: (567/16em);
-        }
+			.cs-picture {
+				display: block;
+				position: relative;
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
 
-        .cs-picture2 {
-          width: (420/16em);
-          height: (629/16em);
-        }
+			.cs-row-1 {
+				.cs-picture1 {
+					width: (420/16em);
+					height: (567/16em);
+				}
 
-        .cs-picture3 {
-          width: (420/16em);
-          height: (512/16em);
-        }
-      }
+				.cs-picture2 {
+					width: (420/16em);
+					height: (629/16em);
+				}
 
-      .cs-row-2 {
-        .cs-picture1 {
-          width: (420/16em);
-          height: (492/16em);
-        }
+				.cs-picture3 {
+					width: (420/16em);
+					height: (512/16em);
+				}
+			}
 
-        .cs-picture2 {
-          width: (420/16em);
-          height: (517/16em);
-        }
+			.cs-row-2 {
+				.cs-picture1 {
+					width: (420/16em);
+					height: (492/16em);
+				}
 
-        .cs-picture3 {
-          width: (420/16em);
-          height: (629/16em);
-        }
-      }
+				.cs-picture2 {
+					width: (420/16em);
+					height: (517/16em);
+				}
 
-      .cs-row-3 {
-        .cs-picture1 {
-          width: (420/16em);
-          height: (625/16em);
-        }
+				.cs-picture3 {
+					width: (420/16em);
+					height: (629/16em);
+				}
+			}
 
-        .cs-picture2 {
-          width: (420/16em);
-          height: (452/16em);
-        }
+			.cs-row-3 {
+				.cs-picture1 {
+					width: (420/16em);
+					height: (625/16em);
+				}
 
-        .cs-picture3 {
-          width: (420/16em);
-          height: (629/16em);
-        }
-      }
-    }
-  }
+				.cs-picture2 {
+					width: (420/16em);
+					height: (452/16em);
+				}
 
-  /* Dark mode */
-  @media only screen and (min-width: 0em) {
-    body.dark-mode {
-      #gallery {
-        .cs-title {
-          color: var(--bodyTextColorWhite);
-        }
-      }
-    }
-  }
+				.cs-picture3 {
+					width: (420/16em);
+					height: (629/16em);
+				}
+			}
+
+			/* product image links: block sizing matches the picture boxes */
+			.cs-gallery-link {
+				display: block;
+				position: relative;
+				outline: none;
+			}
+		}
+	}
+
+	/* Hover interaction - fine pointer devices only */
+	@media only screen and (hover: hover) and (pointer: fine) {
+		#gallery {
+			.cs-gallery-link {
+				transition:
+					transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+					box-shadow 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+
+				img {
+					transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+					will-change: transform;
+				}
+
+				&:hover {
+					transform: translateY(-7px);
+					box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.12);
+
+					img {
+						transform: scale(1.03);
+					}
+				}
+
+				&:focus-visible {
+					transform: translateY(-7px);
+					box-shadow: 0px 24px 48px rgba(0, 0, 0, 0.12);
+					outline: 3px solid var(--primary);
+					outline-offset: 4px;
+
+					img {
+						transform: scale(1.03);
+					}
+				}
+			}
+		}
+	}
+
+	/* Reduced motion: no lift or zoom, static hover feedback only */
+	@media (prefers-reduced-motion: reduce) {
+		#gallery {
+			.cs-gallery-link,
+			.cs-gallery-link img {
+				transition: none;
+			}
+
+			.cs-gallery-link:hover,
+			.cs-gallery-link:focus-visible {
+				transform: none;
+
+				img {
+					transform: none;
+				}
+			}
+		}
+	}
+
+	/* Dark mode */
+	@media only screen and (min-width: 0em) {
+		body.dark-mode {
+			#gallery {
+				.cs-title {
+					color: var(--bodyTextColorWhite);
+				}
+			}
+		}
+	}
 </style>
