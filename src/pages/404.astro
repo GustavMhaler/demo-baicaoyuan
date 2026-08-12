@@ -1,0 +1,66 @@
+---
+// Custom 404 page. Cloudflare Pages serves this as 404.html for unmatched
+// paths (without it, Pages falls back to index.html with a 200 status).
+
+// Utils
+import { getImage } from "astro:assets";
+
+// Components
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+// Images
+import notFoundImage from "@assets/images/hero/baicaoyuan-hero-origin-factory.png";
+const optimizedImage = await getImage({ src: notFoundImage, format: "webp" });
+---
+
+<BaseLayout title="页面不存在" description="您访问的页面不存在。返回百草源首页继续浏览。" heroImage={optimizedImage}>
+	<section id="cs-404">
+		<div class="cs-container">
+			<span class="cs-topper">404 · Demo</span>
+			<h1 class="cs-title">页面不存在</h1>
+			<p class="cs-text">您访问的地址可能已变更或从未存在，返回首页继续浏览。</p>
+			<a href="/" class="cs-button-solid">返回首页</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---            404            -->
+	<--- -------------------------- -*/
+
+	@media only screen and (min-width: 0em) {
+		#cs-404 {
+			min-height: 70vh;
+			padding: var(--sectionPadding);
+			display: flex;
+			align-items: center;
+
+			.cs-container {
+				width: 100%;
+				max-width: (720/16rem);
+				margin: auto;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				font-size: (14/16rem);
+				letter-spacing: 0.2em;
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				font-size: clamp(2.5rem, 6vw, 4rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (480/16rem);
+				margin-bottom: (36/16rem);
+			}
+		}
+	}
+</style>
