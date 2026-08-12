@@ -1,13 +1,13 @@
 {
-	"name": "intermediate-astro-decap-cms-starter-kit",
+	"name": "baicaoyuan-demo",
 	"type": "module",
 	"version": "4.0.0",
-	"description": "An Astro v7 starter kit with five pre-built pages, a Decap CMS blog, LESS preprocessing, dark mode, SEO (Open Graph, JSON-LD, sitemap), Astro image optimization, and View Transitions. While this starter kit was built for CodeStitch users and agency owners in mind, it can be used with your OWN HTML and CSS. ",
+	"description": "百草源花草茶企业展示 Demo 站（虚构企业）。基于 CodeStitch Intermediate Astro kit（Astro v7 + Decap CMS + LESS + 图片优化 + View Transitions），全站简体中文、noindex，静态构建输出 dist/，计划部署于 Cloudflare Pages（demo1-shaojiang61.site）。上游模板关系见 docs/UPSTREAM.md。",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/CodeStitchOfficial/Intermediate-Astro-Decap-CMS"
+		"url": "https://github.com/GustavMhaler/demo-baicaoyuan"
 	},
-	"homepage": "https://intermediate-astro-kit-decap-cms.netlify.app",
+	"homepage": "https://demo1-shaojiang61.site",
 	"keywords": [
 		"withastro",
 		"astro-theme",

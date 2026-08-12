@@ -41,9 +41,9 @@
 | Hero scoped | `.cs-demo-tag` | 提示词要求 Hero 中放小型"虚构企业 Demo"标识 |
 | TraceabilityArchive（新组件，全部 scoped） | `.cs-container/.cs-content/.cs-topper/.cs-title/.cs-text` + `.cs-archive-group/.cs-card/.cs-step` 及 0/48/64rem 断点 | 唯一新增展示组件；样式全部 scoped，未向 root.less 添加任何通用规则 |
 | root.less | `.cs-button-solid` 默认文字色 #000→#fff | 品牌必要：工艺绿 #2E6B57 底上黑色 3.4:1 不达 AA，白色 6.3:1 达标 |
-| Footer scoped | 链接 hover/下划线 `var(--primary)`→`var(--primaryLight)`（铜金） | 深色页脚上工艺绿 2.7:1 不达 AA，铜金 6.4:1 达标；`.disclaimer` 段落样式（虚构声明） |
+| Footer scoped | 链接 hover/下划线 `var(--primary)`→`var(--primaryLight)`（浅金） | 深色页脚上工艺绿 2.7:1 不达 AA，浅金达标；`.disclaimer` 段落样式（虚构声明） |
 
-其余品牌色全部经 `root.less` `:root` 变量替换（深绿 #173F35→`--secondary`，工艺绿 #2E6B57→`--primary`，铜金 #B08A45→`--primaryLight`，主文本 #18201D→`--headerColor`/`--bodyTextColor`，浅背景 #FAFAF6→`--bodyTextColorWhite`），未另建 tokens 文件。
+其余品牌色全部经 `root.less` `:root` 变量替换（深绿 #173F35→`--secondary`，工艺绿 #2E6B57→`--primary`，铜金（后调亮为浅金 #D6B276）→`--primaryLight`，主文本 #18201D→`--headerColor`/`--bodyTextColor`，浅背景 #FAFAF6→`--bodyTextColorWhite`），未另建 tokens 文件。
 
 ## 自研展示组件清单
 
@@ -66,7 +66,16 @@
 
 ## 与原模板相比是否存在品质退化
 
-无退化。结构与动效均保持模板原样，品牌化通过内容/图片/颜色/字体完成；新增 CSS 均为提示词要求的 Hero 高度/焦点/标识与对比度修正。唯一需留意的既有矛盾：Hero topper 使用 `--primary`（工艺绿）在深色遮罩上对比度约 3.3:1（提示词仅要求"白字"达 AA，已达标；topper 为小号标签，留待人工审批时裁决是否调整）。
+无退化。结构与动效均保持模板原样，品牌化通过内容/图片/颜色/字体完成；新增 CSS 均为提示词要求的 Hero 高度/焦点/标识与对比度修正。
+
+### 后续调整记录（2026-08-12，用户反馈驱动）
+
+1. **Hero topper 颜色**：初版复用 `var(--primary)`（工艺绿，深色遮罩上约 3.3:1，仅"白字"达标）→ 用户反馈对比度不足，先改为铜金 `var(--primaryLight)`（#B08A45）→ 用户复看仍偏低 → 将 `--primaryLight` 调亮为浅金 **#D6B276**（明度 L 0.27→0.48）。Hero topper 现为浅金，深色底上清晰可读；白底区块 topper 仍用深绿 `--secondary`，不受影响。
+2. **Hero 装饰竖线**：模板左右渐变细线在品牌视觉中观感突兀，用户确认后已移除（`.cs-container:before/:after`）。
+3. **TraceabilityArchive 桌面布局**：修复母版 `max-width:357px` 未清除导致 ≥1440px 视口折成 2×2 的问题（现 64rem 起 `flex-wrap:nowrap` + `width: calc(25% - 1.125rem)`；另修正 calc() 内 `(24/16rem)` 非法表达式为字面 rem 值）；现 1024/1440/1920px 均一行四列，768px 两列，移动端单列。
+4. **LOGO**：替换为用户提供的透明底裁边版（1212×446，`resource/logo/baicaoyuan-logo-touming.png`），导航/页脚 object-fit 自适应（导航 236×65、页脚 109×40）。
+5. **站点域名**：改为 `https://demo1-shaojiang61.site`（astro.config.mjs、client.ts、admin config.yml），计划 Cloudflare Pages 纯静态托管（dist/ 为输出目录）。
+6. **Footer credit**：改为"Design & Demo by 一勺数字禅"。
 
 ## 未施工页面清单（保持模板状态，不在本轮范围）
 
