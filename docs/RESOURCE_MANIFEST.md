@@ -8,7 +8,8 @@
 
 | 路径 | 尺寸 | 用途 | 来源状态 |
 |---|---|---|---|
-| `resource/logo/baicaoyuan-logo.png` | 1536×1024 | 横版品牌 LOGO（深绿/米白/金色），导航与页脚 | 用户提供，待核验 |
+| `resource/logo/baicaoyuan-logo.png` | 1536×1024 | 旧版横版 LOGO（米白底、四周留白），已停用 | 用户提供，待核验 |
+| `resource/logo/baicaoyuan-logo-touming.png` | 1212×446（透明底） | **现行 LOGO**（四周裁边、内容紧贴，2.7:1），导航与页脚使用 | 用户提供（2026-08-12），待核验 |
 
 ## 工厂/公司实景
 
