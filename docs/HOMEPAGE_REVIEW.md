@@ -77,6 +77,18 @@
 5. **站点域名**：改为 `https://demo1-shaojiang61.site`（astro.config.mjs、client.ts、admin config.yml），计划 Cloudflare Pages 纯静态托管（dist/ 为输出目录）。
 6. **Footer credit**：改为"Design & Demo by 一勺数字禅"。
 
+### 业务页面阶段记录（2026-08-12，页面差异化前）
+
+**页面构建**（`f9d7180`）：/products/（三列产品网格）、/oem/（SideBySide + 四步卡 + FAQ）、/traceability/（六产地卡 + TraceabilityArchive 复用）、/factory/（设备卡 + 资质深绿清单 + FAQ）、/about/（品牌故事双叠图 + 使命/价值观/愿景 + FAQ）、/contact/（中文询盘表单 + 演示提交）。FAQ/Services/SideBySide(SideBySideReverse) 参数化（DOM/LESS/断点/脚本零改动，默认=首页内容）；页面级区块全部 scoped。
+
+**事实与结构修正**（`Phase 1`，视觉不变回归）：
+- "四级品控流程"→"四阶段批次溯源与三级品控"（TraceabilityArchive）。
+- 联系页电话分行：总机 0558-558XXXX / 销售经理 1385678XXXX（李经理）（client.ts 新增 phoneSales 字段）。
+- 工厂资质统一"演示资质"小型标签；SC 编号标注"演示编号 SC11434160206XXX"。
+- 基本信息.md 补充 OEM 商务细节（1–2 个工作日响应、包装确认 7–10 天、样品 3–5 天发出、样品费货款抵扣等）。
+- 联系信息卡遮罩改为方向性深绿→黑渐变，解决白字落在浅色车间背景上的对比度问题。
+- 业务模块提取为 scoped 业务组件：ProductCatalog / OEMProcess / SourcingAtlas / FactoryCapabilities / InquiryForm / BrandTimeline（P2 创建）；页面仅保留组合与数据；未建立全局 .card/.grid 系统。
+
 ## 未施工页面清单（保持模板状态，不在本轮范围）
 
 - 产品中心（/products/）、OEM/ODM（/oem/）、原料溯源（/traceability/）、工厂实力（/factory/）、关于我们（/about/）、联系询盘（/contact/）——导航与首页 CTA 已指向这些路由，页面尚未建设。

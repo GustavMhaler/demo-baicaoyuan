@@ -1,0 +1,454 @@
+---
+// InquiryForm: Chinese inquiry form + contact info card for the contact page.
+// Extracted from the template contact page; the #cs-contact DOM, scoped LESS
+// and breakpoints follow the template exactly. Submission is demo-only.
+
+// Utils
+import { Picture } from "astro:assets";
+
+interface PhoneEntry {
+	label?: string;
+	tel: string;
+	display: string;
+}
+
+interface Props {
+	email: string;
+	oemEmail: string;
+	phones: PhoneEntry[];
+	address: { lineOne: string; lineTwo: string; city: string; state: string };
+	hours: string;
+	backgroundImage: ImageMetadata;
+}
+
+const { email, oemEmail, phones, address, hours, backgroundImage } = Astro.props as Props;
+---
+
+<section id="cs-contact">
+	<div class="cs-container">
+		<form id="cs-form" name="Inquiry Form" method="post">
+			<div class="cs-content">
+				<span class="cs-topper">联系询盘</span>
+				<h2 class="cs-title">留下需求，一对一对接</h2>
+				<p class="cs-text">批发、经销、一件代发与 OEM/ODM 合作均可提交；演示站表单不会实际发送，提交后仅显示确认提示。</p>
+			</div>
+			<label>
+				姓名
+				<input required type="text" id="name" name="name" placeholder="您的姓名" />
+			</label>
+			<label>
+				公司 / 店铺
+				<input type="text" id="company" name="company" placeholder="公司或店铺名称" />
+			</label>
+			<label>
+				邮箱
+				<input required type="email" id="email" name="email" placeholder="邮箱地址" />
+			</label>
+			<label>
+				电话
+				<input type="tel" id="phone" name="phone" placeholder="联系电话" />
+			</label>
+			<label>
+				合作类型
+				<select id="intent" name="intent">
+					<option value="wholesale">产品批发</option>
+					<option value="oem">OEM / ODM 代工</option>
+					<option value="drop-ship">一件代发</option>
+					<option value="other">其他合作</option>
+				</select>
+			</label>
+			<label class="cs-label-message">
+				需求描述
+				<textarea required name="message" id="message" placeholder="请描述产品需求、意向数量或定制要求…"></textarea>
+			</label>
+			<button class="cs-button-solid" type="submit">提交询盘</button>
+			<p id="cs-form-status" class="cs-form-status" role="status" aria-live="polite" hidden></p>
+		</form>
+		<div class="cs-right-section">
+			<!--Email-->
+			<span class="cs-header">商务邮箱</span>
+			<a class="cs-link" href={`mailto:${email}`}>{email}</a>
+			<!--OEM-->
+			<span class="cs-header">OEM 咨询</span>
+			<a class="cs-link" href={`mailto:${oemEmail}`}>{oemEmail}</a>
+			<!--Phone-->
+			<span class="cs-header">电话</span>
+			{phones.map((p) => (
+				<a class="cs-link" href={`tel:${p.tel}`}>{p.display}</a>
+			))}
+			<!--Address-->
+			<span class="cs-header">地址</span>
+			<span class="cs-link cs-address">
+				{address.lineOne}，
+				<br />
+				{address.lineTwo}，
+				<br />
+				<span class="cs-block">
+					{address.city}
+					{address.state}
+				</span>
+			</span>
+			<span class="cs-header">工作时间</span>
+			<span class="cs-link cs-hours">{hours}</span>
+
+			<!-- Background Image-->
+			<Picture src={backgroundImage} alt="" width={2500} height={1667} formats={["avif", "webp"]} pictureAttributes={{ class: "cs-bg-picture" }} />
+		</div>
+	</div>
+</section>
+
+<script>
+	// Demo-only form handler: no real submission happens on this fictional site.
+	document.addEventListener("astro:page-load", () => {
+		const form = document.getElementById("cs-form");
+		const status = document.getElementById("cs-form-status");
+		if (!form || !status) return;
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			status.textContent =
+				"演示站已收到您的询盘（不会实际发送）。正式上线后此表单将对接真实提交通道。";
+			status.hidden = false;
+		});
+	});
+</script>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---          Contact           -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#cs-contact {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				/* changes to 1280px at desktop */
+				max-width: (800/16rem);
+				margin: auto;
+			}
+
+			.cs-content {
+				width: 100%;
+			}
+
+			.cs-topper {
+				text-align: left;
+				/* 8px - 12px */
+				margin-bottom: clamp(0.5rem, 1.4vw, 0.75rem);
+			}
+
+			.cs-title {
+				text-align: left;
+				max-width: (800/16rem);
+			}
+
+			.cs-text {
+				text-align: left;
+				/* 404px - 522px */
+				max-width: clamp(25.25rem, 30vw, 32.625rem);
+				margin: 0 auto 0 0;
+				/* 40px - 48px */
+				margin-bottom: clamp(2.5rem, 6.3vw, 3rem);
+			}
+
+			#cs-form {
+				margin-bottom: (40/16rem);
+				label {
+					font-size: (16/16rem);
+					font-weight: 700;
+					line-height: 1.5em;
+					/* 12px - 20px */
+					margin-bottom: clamp(0.75rem, 1.3em, 1.25rem);
+					color: var(--headerColor);
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: flex-start;
+				}
+
+				.cs-label-message {
+					/* 32px - 48px */
+					margin-bottom: clamp(2rem, 6.3vw, 3rem);
+				}
+
+				input,
+				textarea,
+				select {
+					font-size: (16/16rem);
+					width: 100%;
+					height: (64/16rem);
+					margin-top: (4/16rem);
+					/* prevents border & padding from affecting height */
+					box-sizing: border-box;
+					padding-left: (20/16rem);
+					border: 1px solid #b4b2c7;
+					border-radius: (8/16rem);
+					transition: border 0.3s;
+
+					&:hover {
+						border: 1px solid var(--primary);
+					}
+				}
+
+				select {
+					background-color: #fff;
+				}
+
+				textarea {
+					font-family: inherit;
+					min-height: (120/16rem);
+					padding-top: (20/16rem);
+				}
+
+				.cs-button-solid {
+					width: 100%;
+					border: none;
+				}
+
+				.cs-form-status {
+					font-size: (14/16rem);
+					line-height: 1.6em;
+					margin-top: (16/16rem);
+					padding: (12/16rem) (16/16rem);
+					color: var(--secondary);
+					background-color: rgba(23, 63, 53, 0.08);
+					border-radius: (5/16rem);
+				}
+			}
+
+			.cs-right-section {
+				height: (380/16rem);
+				/* 24px - 40px top & bottom */
+				/* 20px - 40px left & right */
+				padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem);
+				border-radius: (8/16rem);
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: flex-start;
+				position: relative;
+				/* cuts off corners on img tag */
+				overflow: hidden;
+			}
+
+			.cs-header {
+				/* 16px - 20px */
+				font-size: clamp(1rem, 3vw, 1.25rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				margin-bottom: (8/16rem);
+				color: var(--bodyTextColorWhite);
+				display: block;
+			}
+
+			.cs-link {
+				/* 16px - 20px */
+				font-size: clamp(1rem, 3vw, 1.25rem);
+				line-height: 1.2em;
+				text-decoration: none;
+				margin-bottom: (20/16rem);
+				color: var(--bodyTextColorWhite);
+				display: block;
+				position: relative;
+
+				&:before {
+					/* Animated underline */
+					content: "";
+					width: 0%;
+					height: 2px;
+					/* current color of the parent */
+					background: currentColor;
+					opacity: 1;
+					display: block;
+					position: absolute;
+					bottom: (-2/16rem);
+					left: 0;
+					transition: width 0.3s;
+				}
+
+				&:hover {
+					&:before {
+						width: 100%;
+					}
+				}
+
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+
+			.cs-hours {
+				opacity: 0.9;
+			}
+
+			.cs-block {
+				/* sends second address line to the bottom on its own line */
+				display: block;
+			}
+
+			.cs-bg-picture {
+				width: 100%;
+				height: 100%;
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: -1;
+				transition: transform 0.6s;
+
+				&:before {
+					/* background color overlay */
+					content: "";
+					width: 100%;
+					height: 100%;
+					/* brand fix: stronger directional gradient so white text
+					   stays readable over the bright workshop photo */
+					background: linear-gradient(
+						180deg,
+						rgba(23, 63, 53, 0.15) 0%,
+						rgba(0, 0, 0, 0.92) 55%,
+						rgba(0, 0, 0, 0.96) 100%
+					);
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: 1;
+				}
+
+				img {
+					width: 100%;
+					height: 100%;
+					/* Makes img tag act as a background image */
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+
+	/* Tablet - 700px */
+	@media only screen and (min-width: 43.75em) {
+		#cs-contact {
+			#cs-form {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				flex-wrap: wrap;
+
+				label {
+					width: 48%;
+				}
+
+				.cs-label-message {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	/* Small Desktop - 1024px */
+	@media only screen and (min-width: 64em) {
+		#cs-contact {
+			.cs-container {
+				max-width: (1280/16rem);
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-start;
+				gap: (80/16rem);
+			}
+
+			#cs-form {
+				max-width: (630/16rem);
+				label {
+					width: 100%;
+				}
+			}
+
+			.cs-right-section {
+				width: 40%;
+				max-width: (542/16rem);
+				/* changes to 578px at 1300px wide */
+				height: (686/16rem);
+				/* prevents flexbox from squishing it */
+				flex: none;
+
+				&:hover {
+					.cs-bg-picture {
+						transform: scale(1.1);
+					}
+				}
+			}
+
+			.cs-block {
+				/* goes back to inline so it stays "in line" with the rest of the text */
+				display: inline-block;
+			}
+		}
+	}
+
+	/* Small Desktop - 1300px */
+	@media only screen and (min-width: 81.25em) {
+		#cs-contact {
+			#cs-form {
+				column-gap: (0/16rem);
+				label {
+					width: 48%;
+					max-width: (305/16rem);
+				}
+
+				.cs-label-message {
+					max-width: 100%;
+				}
+			}
+
+			.cs-right-section {
+				height: (578/16rem);
+			}
+		}
+	}
+
+	/* Dark Mode */
+	@media only screen and (min-width: 0em) {
+		body.dark-mode {
+			#cs-contact {
+				.cs-text,
+				.cs-title {
+					color: var(--bodyTextColorWhite);
+				}
+
+				.cs-topper {
+					color: var(--primaryLight);
+				}
+
+				#cs-form {
+					label,
+					input,
+					textarea,
+					select {
+						color: var(--bodyTextColorWhite);
+						background-color: transparent;
+
+						&::placeholder {
+							/* lighten up the color of the text by 40%*/
+							filter: brightness(1.4);
+						}
+					}
+				}
+
+				.cs-bg-picture {
+					background-color: #000;
+
+					img {
+						/* lets parent background-color bleed through and darken it */
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+	}
+</style>

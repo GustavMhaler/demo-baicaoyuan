@@ -1,0 +1,175 @@
+---
+// OEMProcess: OEM cooperation steps section.
+// Business-specific component; card surface follows the Services mother
+// values. All styles are scoped.
+
+interface ProcessStep {
+	step: string;
+	title: string;
+	text: string;
+	tag: string;
+}
+
+interface Props {
+	steps: ProcessStep[];
+}
+
+const { steps } = Astro.props as Props;
+---
+
+<section id="oem-process">
+	<div class="cs-container">
+		<div class="cs-content">
+			<span class="cs-topper">合作流程</span>
+			<h2 class="cs-title">四步完成你的专属产品</h2>
+			<p class="cs-text">从需求沟通到批量交付，每个节点都有专人对接、书面确认。</p>
+		</div>
+		<div class="cs-process-group">
+			{steps.map((s) => (
+				<div class="cs-card">
+					<span class="cs-step">{s.step}</span>
+					<h3 class="cs-card-title">{s.title}</h3>
+					<p class="cs-card-text">{s.text}</p>
+					<span class="cs-tag">{s.tag}</span>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---        OEM Process        -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#oem-process {
+			padding: var(--sectionPadding);
+			background: var(--bodyTextColorWhite);
+			position: relative;
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (40/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-process-group {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-card {
+				/* mother: Services .card surface */
+				width: 100%;
+				max-width: (357/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (50/16em) (20/16em);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-top: (6/16em) solid var(--primary);
+				border-radius: (5/16em);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+			}
+
+			.cs-step {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				letter-spacing: 0.1em;
+				color: var(--primaryLight);
+				display: block;
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-title {
+				font-size: (24/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				color: var(--headerColor);
+				margin-bottom: (12/16rem);
+			}
+
+			.cs-card-text {
+				font-size: (15/16rem);
+				line-height: 1.6em;
+				width: 100%;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+				flex: 1;
+			}
+
+			.cs-tag {
+				font-size: (13/16rem);
+				font-weight: 700;
+				line-height: (28/16rem);
+				margin-top: (16/16rem);
+				padding: 0 (14/16rem);
+				color: var(--secondary);
+				background-color: rgba(23, 63, 53, 0.08);
+				border-radius: (14/16rem);
+				display: inline-block;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#oem-process {
+			.cs-card {
+				width: calc(50% - 0.75rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#oem-process {
+			.cs-process-group {
+				flex-wrap: nowrap;
+			}
+
+			.cs-card {
+				width: calc(25% - 1.125rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+</style>

@@ -1,0 +1,150 @@
+---
+// SourcingAtlas: sourcing channel cards for the traceability page.
+// Business-specific component; card surface follows the Reviews mother
+// values (white, soft shadow, 5px radius, 5px brand left bar).
+// All styles are scoped.
+
+interface SourceItem {
+	name: string;
+	origin: string;
+	mode: string;
+}
+
+interface Props {
+	sources: SourceItem[];
+}
+
+const { sources } = Astro.props as Props;
+---
+
+<section id="sourcing">
+	<div class="cs-container">
+		<div class="cs-content">
+			<span class="cs-topper">道地直采</span>
+			<h2 class="cs-title">核心原料，产地直供</h2>
+			<p class="cs-text">六类核心原料均建立定点采购渠道，每一批原料入库前完成农残快检、水分检测与杂质筛选。</p>
+		</div>
+		<div class="cs-source-grid">
+			{sources.map((s) => (
+				<article class="cs-source">
+					<h3 class="cs-source-name">{s.name}</h3>
+					<span class="cs-source-origin">{s.origin}</span>
+					<p class="cs-source-mode">{s.mode}</p>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---        Sourcing Grid      -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#sourcing {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (48/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-source-grid {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: stretch;
+				flex-wrap: wrap;
+				gap: (24/16rem);
+			}
+
+			.cs-source {
+				/* mother: Reviews .review surface (rows of sourcing channels) */
+				width: 100%;
+				max-width: (410/16em);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (28/16rem) (28/16rem);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-left: (5/16em) solid var(--primary);
+				border-radius: (5/16em);
+				display: flex;
+				flex-direction: column;
+			}
+
+			.cs-source-name {
+				font-size: (22/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				margin-bottom: (6/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-source-origin {
+				font-size: (14/16rem);
+				font-weight: 700;
+				line-height: 1.4em;
+				margin-bottom: (10/16rem);
+				color: var(--primary);
+			}
+
+			.cs-source-mode {
+				font-size: (15/16rem);
+				line-height: 1.6em;
+				color: var(--bodyTextColor);
+				opacity: 0.75;
+			}
+		}
+	}
+
+	/* Tablet - 768px */
+	@media only screen and (min-width: 48rem) {
+		#sourcing {
+			.cs-source {
+				width: calc(50% - 0.75rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#sourcing {
+			.cs-source {
+				width: calc(33.333% - 1rem);
+				max-width: none;
+				margin: 0;
+			}
+		}
+	}
+</style>

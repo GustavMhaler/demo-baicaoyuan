@@ -15,6 +15,8 @@ export const BUSINESS = {
 	email: "sales@baicaoyuan-tea.com",
 	phoneForTel: "0558558XXXX",
 	phoneFormatted: "0558-558XXXX",
+	phoneSalesForTel: "1385678XXXX",
+	phoneSalesFormatted: "1385678XXXX（销售经理 李经理）",
 	logo: "/assets/favicons/favicon-32x32.png",
 	address: {
 		lineOne: "安徽省亳州市谯城经济开发区",
