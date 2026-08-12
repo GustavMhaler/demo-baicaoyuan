@@ -88,9 +88,6 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 	/* Mobile - 360px - Contains hover animation */
 	@media only screen and (min-width: 0em) {
 		#gallery {
-			/* brand fix: square product tiles on mobile so the 1:1 product
-			   photos display in full (desktop keeps the template staggered
-			   proportions via the 64rem overrides below) */
 			/* Centers button */
 			text-align: center;
 			padding: var(--sectionPadding);
@@ -116,24 +113,24 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 			}
 
 			.cs-image-group {
-				/* used rem so it doesn't scale with the font size of on parent */
-				font-size: ~"min(1.1vw, 1em)";
 				width: 100%;
 				max-width: (1322/16em);
 				margin: 0 auto (60/16rem);
 				padding: 0;
 				display: flex;
+				flex-direction: column;
 				justify-content: center;
 				align-items: flex-start;
-				gap: (30/16em);
+				gap: (30/16rem);
 			}
 
 			.cs-row {
+				width: 100%;
 				display: flex;
 				flex-direction: column;
 				justify-content: flex-start;
 				align-items: center;
-				gap: (30/16em);
+				gap: (30/16rem);
 			}
 
 			.cs-picture {
@@ -151,68 +148,83 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 
 			.cs-row-1 {
 				.cs-picture1 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture2 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture3 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 			}
 
 			.cs-row-2 {
 				.cs-picture1 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture2 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture3 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 			}
 
 			.cs-row-3 {
 				.cs-picture1 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture2 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
 
 				.cs-picture3 {
-					width: (420/16em);
-					height: (420/16em);
+					width: min(100%, (420/16rem));
+					aspect-ratio: 1;
 				}
-			}
-
-			/* brand fix: staggered rhythm kept on square tiles by offsetting
-			   the middle photo of each row (template heights were staggered) */
-			.cs-row-1 .cs-picture2,
-			.cs-row-2 .cs-picture2,
-			.cs-row-3 .cs-picture2 {
-				margin-top: (56/16em);
 			}
 
 			/* product image links: block sizing matches the picture boxes */
 			.cs-gallery-link {
+				width: min(100%, (420/16rem));
 				display: block;
 				position: relative;
 				outline: none;
+			}
+		}
+	}
+
+	/* Tablet and desktop: restore the two-column gallery composition. */
+	@media only screen and (min-width: 40rem) {
+		#gallery {
+			.cs-image-group {
+				flex-direction: row;
+				gap: (30/16rem);
+			}
+
+			.cs-row {
+				width: auto;
+				flex: 1 1 0;
+				gap: (30/16rem);
+			}
+
+			.cs-row-1 .cs-picture2,
+			.cs-row-2 .cs-picture2,
+			.cs-row-3 .cs-picture2 {
+				margin-top: (56/16rem);
 			}
 		}
 	}
