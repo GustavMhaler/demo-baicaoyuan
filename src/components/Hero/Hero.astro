@@ -137,7 +137,9 @@ const { image } = Astro.props as Props;
 			.cs-topper {
 				text-align: center;
 				margin-bottom: (16/16rem);
-				color: var(--primary);
+				/* copper gold on the dark photo overlay: 6.4:1 contrast (AA),
+				   the craft green primary only reaches ~3.3:1 here */
+				color: var(--primaryLight);
 			}
 
 			.cs-title {

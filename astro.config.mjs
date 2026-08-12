@@ -3,7 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
 export default defineConfig({
-	site: "https://intermediate-astro-kit-decap-cms.netlify.app", // update me!
+	site: "https://demo1-shaojiang61.site", // production domain (Cloudflare Pages)
 	integrations: [
 		icon(),
 		sitemap({
