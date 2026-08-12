@@ -1,5 +1,10 @@
 [
   {
+    "key": "首页",
+    "url": "/",
+    "children": []
+  },
+  {
     "key": "产品中心",
     "url": "/products/",
     "children": []
@@ -22,11 +27,6 @@
   {
     "key": "关于我们",
     "url": "/about/",
-    "children": []
-  },
-  {
-    "key": "联系询盘",
-    "url": "/contact/",
     "children": []
   }
 ]

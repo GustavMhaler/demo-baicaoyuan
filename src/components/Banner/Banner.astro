@@ -17,7 +17,6 @@ const { title, image } = Astro.props;
 ---
 
 <section id="int-hero">
-	<a href="/" class="cs-home-link">← 返回首页</a>
 	<h1 id="home-h">{title}</h1>
 
 	<Picture src={image.src} width={image.attributes.width} height={image.attributes.height} formats={["avif", "webp"]} alt="" priority />
@@ -81,32 +80,6 @@ const { title, image } = Astro.props;
 				margin-bottom: (30/16rem);
 				color: #fff;
 				position: relative;
-			}
-
-			.cs-home-link {
-				/* brand addition: back-to-home link on interior banners */
-				font-size: (14/16rem);
-				font-weight: 700;
-				line-height: (40/16rem);
-				text-decoration: none;
-				width: auto;
-				height: (40/16rem);
-				margin-top: (110/16rem);
-				padding: 0 (20/16rem);
-				box-sizing: border-box;
-				color: var(--bodyTextColorWhite);
-				background-color: transparent;
-				border: 1px solid var(--bodyTextColorWhite);
-				border-radius: (5/16rem);
-				display: inline-block;
-				position: relative;
-				z-index: 1;
-				transition: background-color 0.3s, color 0.3s;
-
-				&:hover {
-					background-color: var(--bodyTextColorWhite);
-					color: var(--secondary);
-				}
 			}
 
 			p {
