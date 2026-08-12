@@ -4,7 +4,7 @@ export const SITE = {
 	tagline: "药食同源花草茶源头工厂",
 	description:
 		"亳州市百草源花茶有限公司坐落于安徽亳州，提供组合花茶、单一花材茶与 OEM/ODM 标准化生产服务，面向批发、经销及品牌客户。",
-	url: "https://demo1-shaojiang61.site",
+	url: "https://demo1.shaojiang61.site",
 	author: "百草源",
 	locale: "zh-CN",
 };

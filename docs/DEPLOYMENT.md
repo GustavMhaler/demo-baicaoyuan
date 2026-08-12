@@ -1,6 +1,6 @@
 # 部署指南 Deployment（Cloudflare Pages）
 
-> 目标：将百草源 Demo 以纯静态站点托管到 Cloudflare Pages，域名 `demo1-shaojiang61.site`。
+> 目标：将百草源 Demo 以纯静态站点托管到 Cloudflare Pages，域名 `demo1.shaojiang61.site`。
 
 ## 站点性质
 
@@ -12,7 +12,7 @@
 
 | 项 | 值 |
 |---|---|
-| 生产域名 | `https://demo1-shaojiang61.site`（astro.config.mjs `site`、client.ts `SITE.url`、admin config `site_url` 已统一） |
+| 生产域名 | `https://demo1.shaojiang61.site`（astro.config.mjs `site`、client.ts `SITE.url`、admin config `site_url` 已统一） |
 | 构建命令 | `npm run build`（产物 `dist/`，约 27MB） |
 | 输出目录 | `dist` |
 | Node 版本 | 20+（本机 v26.5.0；Cloudflare Pages 默认 22 可用） |
@@ -33,8 +33,8 @@
    - Node.js version：`22`
 
 4. **自定义域名**：
-   - Pages 项目 → Custom domains → Add `demo1-shaojiang61.site`
-   - 在域名注册商处添加 DNS 记录（Cloudflare 建议 CNAME：`demo1-shaojiang61.site` → `<project>.pages.dev`；若域名已托管在 Cloudflare 则自动完成）
+   - Pages 项目 → Custom domains → Add `demo1.shaojiang61.site`
+   - 在域名注册商处添加 DNS 记录（Cloudflare 建议 CNAME：`demo1.shaojiang61.site` → `<project>.pages.dev`；若域名已托管在 Cloudflare 则自动完成）
 
 5. **首次构建注意**：
    - `npm install` 会下载 esbuild/sharp 二进制（构建环境网络需可达 npm registry）；
@@ -43,7 +43,7 @@
 
 ## 部署后验收
 
-- 访问 `https://demo1-shaojiang61.site/` 及各业务页（/products/ /oem/ /traceability/ /factory/ /about/ /contact/）；
+- 访问 `https://demo1.shaojiang61.site/` 及各业务页（/products/ /oem/ /traceability/ /factory/ /about/ /contact/）；
 - 页脚虚构声明正常显示；
 - 页面 `<meta name="robots" content="noindex,nofollow">` 存在；
 - 字体请求全部来自本站（DevTools → Network，无 googleapis 等外部请求）；

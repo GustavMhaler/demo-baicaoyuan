@@ -26,7 +26,7 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
             src={product1}
             alt="菊花决明子茶"
             width={400}
-            height={560}
+            height={400}
             formats={['avif', 'webp']}
             pictureAttributes={{ class: "cs-picture cs-picture1" }}
           fallbackFormat="jpeg"/>
@@ -36,7 +36,7 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
             src={product2}
             alt="红枣枸杞姜丝茶"
             width={400}
-            height={560}
+            height={400}
             formats={['avif', 'webp']}
             pictureAttributes={{ class: "cs-picture cs-picture2" }}
           fallbackFormat="jpeg"/>
@@ -46,7 +46,7 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
             src={product3}
             alt="玫瑰洛神花茶"
             width={400}
-            height={560}
+            height={400}
             formats={['avif', 'webp']}
             pictureAttributes={{ class: "cs-picture cs-picture3" }}
           fallbackFormat="jpeg"/>
@@ -59,7 +59,7 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
             src={product4}
             alt="头采亳菊"
             width={400}
-            height={560}
+            height={400}
             formats={['avif', 'webp']}
             pictureAttributes={{ class: "cs-picture cs-picture1" }}
           fallbackFormat="jpeg"/>
@@ -69,7 +69,7 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
             src={product5}
             alt="四季养生礼盒"
             width={400}
-            height={560}
+            height={400}
             formats={['avif', 'webp']}
             pictureAttributes={{ class: "cs-picture cs-picture2" }}
           fallbackFormat="jpeg"/>
@@ -88,6 +88,9 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 	/* Mobile - 360px - Contains hover animation */
 	@media only screen and (min-width: 0em) {
 		#gallery {
+			/* brand fix: square product tiles on mobile so the 1:1 product
+			   photos display in full (desktop keeps the template staggered
+			   proportions via the 64rem overrides below) */
 			/* Centers button */
 			text-align: center;
 			padding: var(--sectionPadding);
@@ -149,52 +152,60 @@ import product5 from "@assets/images/products/baicaoyuan-four-seasons-giftbox.pn
 			.cs-row-1 {
 				.cs-picture1 {
 					width: (420/16em);
-					height: (567/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture2 {
 					width: (420/16em);
-					height: (629/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture3 {
 					width: (420/16em);
-					height: (512/16em);
+					height: (420/16em);
 				}
 			}
 
 			.cs-row-2 {
 				.cs-picture1 {
 					width: (420/16em);
-					height: (492/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture2 {
 					width: (420/16em);
-					height: (517/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture3 {
 					width: (420/16em);
-					height: (629/16em);
+					height: (420/16em);
 				}
 			}
 
 			.cs-row-3 {
 				.cs-picture1 {
 					width: (420/16em);
-					height: (625/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture2 {
 					width: (420/16em);
-					height: (452/16em);
+					height: (420/16em);
 				}
 
 				.cs-picture3 {
 					width: (420/16em);
-					height: (629/16em);
+					height: (420/16em);
 				}
+			}
+
+			/* brand fix: staggered rhythm kept on square tiles by offsetting
+			   the middle photo of each row (template heights were staggered) */
+			.cs-row-1 .cs-picture2,
+			.cs-row-2 .cs-picture2,
+			.cs-row-3 .cs-picture2 {
+				margin-top: (56/16em);
 			}
 
 			/* product image links: block sizing matches the picture boxes */

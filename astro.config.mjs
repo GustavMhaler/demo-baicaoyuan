@@ -3,7 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
 export default defineConfig({
-	site: "https://demo1-shaojiang61.site", // production domain (Cloudflare Pages)
+	site: "https://demo1.shaojiang61.site", // production domain (Cloudflare Pages)
 	integrations: [
 		icon(),
 		sitemap({

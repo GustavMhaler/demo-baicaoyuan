@@ -74,7 +74,7 @@
 2. **Hero 装饰竖线**：模板左右渐变细线在品牌视觉中观感突兀，用户确认后已移除（`.cs-container:before/:after`）。
 3. **TraceabilityArchive 桌面布局**：修复母版 `max-width:357px` 未清除导致 ≥1440px 视口折成 2×2 的问题（现 64rem 起 `flex-wrap:nowrap` + `width: calc(25% - 1.125rem)`；另修正 calc() 内 `(24/16rem)` 非法表达式为字面 rem 值）；现 1024/1440/1920px 均一行四列，768px 两列，移动端单列。
 4. **LOGO**：替换为用户提供的透明底裁边版（1212×446，`resource/logo/baicaoyuan-logo-touming.png`），导航/页脚 object-fit 自适应（导航 236×65、页脚 109×40）。
-5. **站点域名**：改为 `https://demo1-shaojiang61.site`（astro.config.mjs、client.ts、admin config.yml），计划 Cloudflare Pages 纯静态托管（dist/ 为输出目录）。
+5. **站点域名**：改为 `https://demo1.shaojiang61.site`（astro.config.mjs、client.ts、admin config.yml），计划 Cloudflare Pages 纯静态托管（dist/ 为输出目录）。
 6. **Footer credit**：改为"Design & Demo by 一勺数字禅"。
 
 ### 业务页面阶段记录（2026-08-12，页面差异化前）
@@ -142,7 +142,7 @@
 | 项 | 结果 |
 |---|---|
 | `npm run build` | ✅ exit 0，9 页（8 业务路由 + /admin/），需在删除内容源后清 `node_modules/.astro` 缓存重建 |
-| sitemap | ✅ 仅含 8 个正式业务页面（https://demo1-shaojiang61.site/*） |
+| sitemap | ✅ 仅含 8 个正式业务页面（https://demo1.shaojiang61.site/*） |
 | 废弃路由 | ✅ /projects/、/reviews/、/_template/、模板博文均 404 |
 | 冒烟 | ✅ 7 个业务页 1440×1000 与 390×844 无 console/page error、无横向溢出、图片全部加载 |
 | 动效验收 | ✅ reveal 层（无 JS/reduced-motion 可见）、三处编排动效、Gallery hover 交互 |

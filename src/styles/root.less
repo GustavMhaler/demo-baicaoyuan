@@ -117,6 +117,10 @@ html {
 	font-family: var(--font-primary);
 	font-size: 100%;
 	color: var(--bodyTextColor);
+	/* keep the light theme even when the OS/browser forces dark mode
+	   (e.g. WeChat/Android webviews otherwise dim the white header and
+	   the hamburger button blends into the background) */
+	color-scheme: light;
 }
 
 body {
