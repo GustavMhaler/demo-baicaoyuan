@@ -5,10 +5,8 @@ import { getImage } from "astro:assets";
 // Components
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Banner from "@components/Banner/Banner.astro";
+import BrandTimeline from "@components/BrandTimeline/BrandTimeline.astro";
 import SideBySide from "@components/SideBySide/SideBySide.astro";
-import SideBySideReverse from "@components/SideBySideReverse/SideBySideReverse.astro";
-import Services from "@components/Services/Services.astro";
-import FAQ from "@components/FAQ/FAQ.astro";
 import CTA from "@components/CTA/CTASimple.astro";
 
 // Images
@@ -16,17 +14,50 @@ import bannerImage from "@assets/images/factory/baicaoyuan-factory-exterior.png"
 import chrysanthemumBase from "@assets/images/hero/baicaoyuan-hero-chrysanthemum-base.png";
 import originFactory from "@assets/images/hero/baicaoyuan-hero-origin-factory.png";
 const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
+
+// Brand story milestones (fictional demo data)
+const milestones = [
+	{
+		year: "2008",
+		title: "百草源药材商行",
+		text: "创始人张保国在亳州康美中药城租下不到 20 平米的摊位，主营菊花、枸杞、玫瑰花等药食同源药材批发。",
+	},
+	{
+		year: "2012",
+		title: "首笔组合花茶订单",
+		text: "电商客户提出按固定比例配好分装的需求，让百草源意识到组合花茶才是未来的方向，开始走访产地、确认配方安全性。",
+	},
+	{
+		year: "2015",
+		title: "公司注册与 SC 生产体系",
+		text: "亳州市百草源花茶有限公司正式成立，取得谯城区较早的一批代用茶 SC 生产许可证，从批发商行转型为生产工厂。",
+	},
+	{
+		year: "2026",
+		title: "6000㎡ 标准化工厂（Demo）",
+		text: "工厂占地 15 亩，全自动袋泡茶生产线 4 条，十万级洁净车间与独立检验室齐备，产品覆盖全国 27 个省市。",
+	},
+];
+
+// Core values rendered as plain rows (not cards)
+const values = [
+	{ term: "企业使命", desc: "让药食同源的养生智慧，走进每一杯日常茶饮。" },
+	{ term: "核心价值观", desc: "真材实料、配伍有度、诚信为本。" },
+	{ term: "企业愿景", desc: "成为亳州花茶产业品质升级的标杆企业，让\u201C百草源\u201D成为消费者信赖的国民养生茶品牌。" },
+];
 ---
 
 <BaseLayout title="关于我们" description="亳州市百草源花茶有限公司：从 20 平米的药材摊位到 6000㎡ 标准化工厂，十余年深耕药食同源花草茶。">
-	<Banner title="关于我们" image={optimizedBanner} />
+	<Banner title="关于我们" image={optimizedBanner} variant="editorial" lead="从 20 平米的药材摊位到 6000㎡ 的标准化工厂，十余年只做一件事：把药食同源的养生智慧，装进每一杯日常茶饮。" />
+
+	<BrandTimeline milestones={milestones} />
 
 	<SideBySide
-		topper="品牌故事"
-		title="从 20 平米摊位到 6000㎡ 工厂"
+		topper="今日百草源"
+		title="真材实料，配伍有度"
 		texts={[
-			"百草源的创始人张保国是土生土长的亳州人，家里三代经营中药材生意。2008 年，他在康美中药城租下不到 20 平米的摊位，主营菊花、枸杞、玫瑰花等药食同源药材的批发。",
-			"2012 年一位电商客户的组合花茶订单让他意识到方向，跑遍亳州及周边药材产地、请教老中医确认配方安全性后，2015 年公司正式注册成立，拿到谯城区较早的一批代用茶 SC 生产许可证。",
+			"公司前身为 2008 年成立的百草源药材商行，依托亳州康美中药城与全国最大中药材集散中心的原料优势，深耕花草茶领域十余年。",
+			"目前产品覆盖全国 27 个省市的茶叶批发市场、连锁药房与商超系统，并为 30 余个电商品牌提供 OEM 代加工服务，2025 年全渠道销售额突破 8000 万元。",
 		]}
 		quote="做茶就是做良心，你用什么料，喝的人一泡就知道。"
 		name="张保国"
@@ -39,63 +70,105 @@ const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
 		ctaUrl="/products/"
 	/>
 
-	<SideBySideReverse
-		topper="企业文化"
-		title="真材实料，配伍有度"
-		texts={[
-			"公司前身为 2008 年成立的百草源药材商行，依托亳州康美中药城与全国最大中药材集散中心的原料优势，深耕花草茶领域十余年，从药材批发商户转型为具备完整 SC 生产资质的现代化花茶工厂。",
-			"目前产品覆盖全国 27 个省市的茶叶批发市场、连锁药房与商超系统，并为 30 余个电商品牌提供 OEM 代加工服务。",
-		]}
-		image1={originFactory}
-		image1Alt="百草源工厂外景与药材底蕴"
-		image2={chrysanthemumBase}
-		image2Alt="亳菊原料基地"
-		ctaText="查看工厂实力"
-		ctaUrl="/factory/"
-	/>
+	<section id="values">
+		<div class="cs-container">
+			<span class="cs-topper">企业文化</span>
+			<h2 class="cs-title">三个词，一份坚持</h2>
+			<dl class="cs-values">
+				{values.map((v) => (
+					<div class="cs-value">
+						<dt>{v.term}</dt>
+						<dd>{v.desc}</dd>
+					</div>
+				))}
+			</dl>
+		</div>
+	</section>
 
-	<Services
-		items={[
-			{
-				icon: "service1",
-				title: "企业使命",
-				text: "让药食同源的养生智慧，走进每一杯日常茶饮。",
-			},
-			{
-				icon: "service2",
-				title: "核心价值观",
-				text: "真材实料、配伍有度、诚信为本。",
-			},
-			{
-				icon: "service3",
-				title: "企业愿景",
-				text: "成为亳州花茶产业品质升级的标杆企业，让\u201C百草源\u201D成为消费者信赖的国民养生茶品牌。",
-			},
-		]}
+	<CTA
+		title="想了解更多"
+		titleLineTwo="关于百草源？"
+		text="联系我们的销售团队，获取产品目录、工厂资料与样品方案。"
+		buttonText="联系询盘"
 	/>
-
-	<FAQ
-		topper="关于我们"
-		title="你可能还想了解"
-		faqs={[
-			{
-				question: "百草源是什么时候成立的？",
-				answer: "公司前身为 2008 年成立的百草源药材商行，2015 年 3 月亳州市百草源花茶有限公司正式注册成立，并取得谯城区较早的一批代用茶 SC 生产许可证。",
-			},
-			{
-				question: "公司现在有多少员工？",
-				answer: "正式员工 86 人，其中生产人员 52 人、品控 8 人、研发 5 人，覆盖原料、生产、质检、研发与销售全链条。",
-			},
-			{
-				question: "产品主要销往哪里？",
-				answer: "线下覆盖全国 27 个省市的茶叶批发市场，与 120 余家区域经销商合作，入驻连锁药房与商超系统；线上有天猫旗舰店、京东自营与 1688 批发店铺。",
-			},
-			{
-				question: "如何与百草源建立合作？",
-				answer: "批发、经销与 OEM 合作均可通过联系询盘页面提交需求，销售团队会在 1-2 个工作日内对接，提供产品目录、报价与打样方案。",
-			},
-		]}
-	/>
-
-	<CTA />
 </BaseLayout>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---          Values           -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#values {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (40/16rem);
+			}
+
+			.cs-values {
+				width: 100%;
+				max-width: (900/16rem);
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: (12/16rem);
+			}
+
+			.cs-value {
+				display: flex;
+				flex-direction: column;
+				gap: (6/16rem);
+				padding: (20/16rem) (24/16rem);
+				background: var(--bodyTextColorWhite);
+				border-left: (4/16rem) solid var(--primary);
+				border-radius: (5/16rem);
+
+				dt {
+					font-size: (16/16rem);
+					font-weight: 700;
+					line-height: 1.4em;
+					color: var(--headerColor);
+				}
+
+				dd {
+					font-size: (15/16rem);
+					line-height: 1.7em;
+					margin: 0;
+					color: var(--bodyTextColor);
+					opacity: 0.8;
+				}
+			}
+		}
+	}
+
+	/* Desktop - 1024px */
+	@media only screen and (min-width: 64rem) {
+		#values {
+			.cs-values {
+				flex-direction: row;
+				align-items: stretch;
+			}
+
+			.cs-value {
+				flex: 1;
+			}
+		}
+	}
+</style>

@@ -1,6 +1,7 @@
 ---
 /**
  * * Simplified CTA component using Astro's built-in Picture component
+ * * Content is provided through props (defaults = homepage CTA)
  **/
 
 // Utils
@@ -8,19 +9,37 @@ import { Picture } from "astro:assets";
 
 // Images
 import ctaImage from "@assets/images/hero/baicaoyuan-hero-oem-production.png";
+
+interface Props {
+	title?: string;
+	titleLineTwo?: string;
+	text?: string;
+	buttonText?: string;
+	buttonUrl?: string;
+	image?: ImageMetadata;
+}
+
+const {
+	title = "需要产品目录",
+	titleLineTwo = "或 OEM 方案？",
+	text = "留下合作需求，产品目录、配方打样与报价方案将由销售团队一对一对接。",
+	buttonText = "提交合作需求",
+	buttonUrl = "/contact/",
+	image = ctaImage,
+} = Astro.props as Props;
 ---
 
 <section id="cta">
 	<div class="container">
 		<h2 class="title">
-			需要产品目录
+			{title}
 			<br />
-			或 OEM 方案？
+			{titleLineTwo}
 		</h2>
-		<p>留下合作需求，产品目录、配方打样与报价方案将由销售团队一对一对接。</p>
-		<a href="/contact/" class="cs-button-solid">提交合作需求</a>
+		<p>{text}</p>
+		<a href={buttonUrl} class="cs-button-solid">{buttonText}</a>
 	</div>
-	<Picture src={ctaImage} alt="" layout="full-width" formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture" }} />
+	<Picture src={image} alt="" layout="full-width" formats={["avif", "webp"]} pictureAttributes={{ class: "cs-picture" }} />
 </section>
 
 <style lang="less">

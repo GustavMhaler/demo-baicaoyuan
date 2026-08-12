@@ -1,7 +1,8 @@
 ---
-// OEMProcess: OEM cooperation steps section.
-// Business-specific component; card surface follows the Services mother
-// values. All styles are scoped.
+// OEMProcess: OEM cooperation steps as a true flow line.
+// Desktop: four nodes on one horizontal connector line (no cards).
+// Mobile/tablet: vertical timeline. The sequence is structural, not four
+// white cards. All styles are scoped.
 
 interface ProcessStep {
 	step: string;
@@ -24,16 +25,18 @@ const { steps } = Astro.props as Props;
 			<h2 class="cs-title">四步完成你的专属产品</h2>
 			<p class="cs-text">从需求沟通到批量交付，每个节点都有专人对接、书面确认。</p>
 		</div>
-		<div class="cs-process-group">
+		<ol class="cs-flow">
 			{steps.map((s) => (
-				<div class="cs-card">
-					<span class="cs-step">{s.step}</span>
-					<h3 class="cs-card-title">{s.title}</h3>
-					<p class="cs-card-text">{s.text}</p>
-					<span class="cs-tag">{s.tag}</span>
-				</div>
+				<li class="cs-node">
+					<span class="cs-node-dot" aria-hidden="true">{s.step}</span>
+					<div class="cs-node-body">
+						<h3 class="cs-node-title">{s.title}</h3>
+						<p class="cs-node-text">{s.text}</p>
+						<span class="cs-tag">{s.tag}</span>
+					</div>
+				</li>
 			))}
-		</div>
+		</ol>
 	</div>
 </section>
 
@@ -42,7 +45,7 @@ const { steps } = Astro.props as Props;
 	<---        OEM Process        -->
 	<--- -------------------------- -*/
 
-	/* Mobile - 360px */
+	/* Mobile - 360px: vertical timeline */
 	@media only screen and (min-width: 0em) {
 		#oem-process {
 			padding: var(--sectionPadding);
@@ -80,64 +83,83 @@ const { steps } = Astro.props as Props;
 				max-width: (750/16rem);
 			}
 
-			.cs-process-group {
+			.cs-flow {
 				width: 100%;
+				max-width: (600/16rem);
+				margin: 0;
+				padding: (8/16rem) 0 0 0;
+				list-style: none;
+				position: relative;
+
+				&:before {
+					/* vertical timeline rail */
+					content: "";
+					width: 2px;
+					height: calc(100% - (32/16rem));
+					background: rgba(23, 63, 53, 0.18);
+					display: block;
+					position: absolute;
+					top: (16/16rem);
+					left: (23/16rem);
+				}
+			}
+
+			.cs-node {
+				position: relative;
 				display: flex;
-				justify-content: center;
-				align-items: stretch;
-				flex-wrap: wrap;
+				align-items: flex-start;
 				gap: (24/16rem);
+				padding-bottom: (36/16rem);
+
+				&:last-of-type {
+					padding-bottom: 0;
+				}
 			}
 
-			.cs-card {
-				/* mother: Services .card surface */
-				width: 100%;
-				max-width: (357/16em);
-				margin: auto;
-				box-sizing: border-box;
-				padding: (50/16em) (20/16em);
-				background: #fff;
-				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
-				border-top: (6/16em) solid var(--primary);
-				border-radius: (5/16em);
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				text-align: center;
-			}
-
-			.cs-step {
+			.cs-node-dot {
+				/* mother: Services icon circle sizing */
 				font-size: (14/16rem);
 				font-weight: 700;
-				line-height: 1.2em;
-				letter-spacing: 0.1em;
-				color: var(--primaryLight);
+				line-height: (48/16rem);
+				text-align: center;
+				width: (48/16rem);
+				height: (48/16rem);
+				flex: none;
+				color: var(--bodyTextColorWhite);
+				background-color: var(--secondary);
+				border: 3px solid var(--bodyTextColorWhite);
+				border-radius: 50%;
+				box-shadow: 0 0 0 2px var(--primary);
 				display: block;
-				margin-bottom: (12/16rem);
+				position: relative;
+				z-index: 1;
 			}
 
-			.cs-card-title {
-				font-size: (24/16rem);
+			.cs-node-body {
+				flex: 1;
+				padding-top: (6/16rem);
+			}
+
+			.cs-node-title {
+				font-size: (20/16rem);
 				font-weight: 700;
-				line-height: 1.2em;
+				line-height: 1.3em;
+				margin-bottom: (8/16rem);
 				color: var(--headerColor);
-				margin-bottom: (12/16rem);
 			}
 
-			.cs-card-text {
+			.cs-node-text {
 				font-size: (15/16rem);
 				line-height: 1.6em;
-				width: 100%;
+				margin-bottom: (12/16rem);
 				color: var(--bodyTextColor);
 				opacity: 0.75;
-				flex: 1;
 			}
 
 			.cs-tag {
 				font-size: (13/16rem);
 				font-weight: 700;
 				line-height: (28/16rem);
-				margin-top: (16/16rem);
 				padding: 0 (14/16rem);
 				color: var(--secondary);
 				background-color: rgba(23, 63, 53, 0.08);
@@ -147,28 +169,52 @@ const { steps } = Astro.props as Props;
 		}
 	}
 
-	/* Tablet - 768px */
+	/* Tablet - 768px: keep timeline, two-column nodes */
 	@media only screen and (min-width: 48rem) {
 		#oem-process {
-			.cs-card {
-				width: calc(50% - 0.75rem);
-				max-width: none;
-				margin: 0;
+			.cs-flow {
+				max-width: (800/16rem);
 			}
 		}
 	}
 
-	/* Desktop - 1024px */
+	/* Desktop - 1024px: horizontal flow line */
 	@media only screen and (min-width: 64rem) {
 		#oem-process {
-			.cs-process-group {
-				flex-wrap: nowrap;
+			.cs-flow {
+				max-width: none;
+				padding: (8/16rem) 0 0 0;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: (32/16rem);
+
+				&:before {
+					/* horizontal connector line through the node dots
+					   (from first dot centre to last dot centre) */
+					content: "";
+					width: calc(100% - 3rem);
+					height: 2px;
+					background: rgba(23, 63, 53, 0.18);
+					display: block;
+					position: absolute;
+					top: (23/16rem);
+					left: 1.5rem;
+				}
 			}
 
-			.cs-card {
-				width: calc(25% - 1.125rem);
-				max-width: none;
-				margin: 0;
+			.cs-node {
+				/* four columns: (25% - 3/4 of the 32px gap) */
+				width: calc(25% - 1.5rem);
+				flex: none;
+				padding-bottom: 0;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+			}
+
+			.cs-node-body {
+				padding-top: (20/16rem);
 			}
 		}
 	}

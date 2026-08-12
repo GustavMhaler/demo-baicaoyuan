@@ -1,8 +1,10 @@
 ---
-// ProductCatalog: product grid section for the products page.
-// Business-specific component; card surface follows the Services/Reviews
-// mother values (white, 6px brand top bar, 5px radius, soft shadow).
-// All styles are scoped - no global card/grid rules are added.
+// ProductCatalog: differentiated compositions per product line.
+// - 经典组合茶: one hero product (large image + copy) + catalog rows
+// - 单一花材茶: archival-style ingredient records
+// - 礼盒系列  : wide format cards
+// Products without photos use compact brand-colour tiles, never big
+// placeholder blocks. All styles are scoped.
 
 // Utils
 import { Picture } from "astro:assets";
@@ -22,60 +24,174 @@ interface Props {
 }
 
 const { products } = Astro.props as Props;
+
+const classic = products.filter((p) => p.line === "经典组合茶");
+const single = products.filter((p) => p.line === "单一花材茶");
+const gift = products.filter((p) => p.line === "礼盒系列");
+const [heroProduct, ...classicRows] = classic;
 ---
 
-<section id="product-grid">
+<section id="product-catalog">
 	<div class="cs-container">
 		<div class="cs-content">
 			<span class="cs-topper">产品体系</span>
 			<h2 class="cs-title">三大产品线，28 款 SKU</h2>
-			<p class="cs-text">
-				覆盖日常养生、女性调理与办公场景；所有配方遵循药食同源目录，支持批发、一件代发与 OEM 定制。
-			</p>
+			<p class="cs-text">覆盖日常养生、女性调理与办公场景；所有配方遵循药食同源目录，支持批发、一件代发与 OEM 定制。</p>
 		</div>
-		<div class="cs-product-grid">
-			{products.map((p) => (
-				<article class="cs-card">
-					{
-						p.image ? (
+
+		<!-- 经典组合茶 -->
+		<div class="cs-line-block">
+			<div class="cs-line-head">
+				<span class="cs-topper">经典组合茶</span>
+				<h3 class="cs-line-title">药食同源，按方配伍</h3>
+			</div>
+
+			<div class="cs-feature">
+				{
+					heroProduct.image && (
+						<div class="cs-feature-picture">
+							<Picture
+								src={heroProduct.image}
+								alt={heroProduct.name}
+								width={560}
+								height={420}
+								formats={["avif", "webp"]}
+								pictureAttributes={{ class: "cs-feature-img" }}
+							/>
+						</div>
+					)
+				}
+				<div class="cs-feature-body">
+					<span class="cs-feature-tag">主推</span>
+					<h4 class="cs-feature-name">{heroProduct.name}</h4>
+					<p class="cs-feature-ingredients">{heroProduct.ingredients}</p>
+					<div class="cs-feature-meta">
+						<span class="cs-spec">{heroProduct.spec}</span>
+						<span class="cs-price">建议零售价 ¥{heroProduct.price}</span>
+					</div>
+					<a href="/contact/" class="cs-inquiry">提交询盘</a>
+				</div>
+			</div>
+
+			<ul class="cs-catalog-list">
+				{classicRows.map((p) => (
+					<li class="cs-catalog-item">
+						{
+							p.image ? (
+								<Picture
+									src={p.image}
+									alt={p.name}
+									width={88}
+									height={88}
+									formats={["avif", "webp"]}
+									pictureAttributes={{ class: "cs-thumb" }}
+								/>
+							) : (
+								<span class="cs-thumb cs-thumb-empty" aria-hidden="true">
+									<Icon name="service1" width="32" height="32" aria-hidden="true" />
+								</span>
+							)
+						}
+						<div class="cs-item-body">
+							<h4 class="cs-item-name">{p.name}</h4>
+							<p class="cs-item-ingredients">{p.ingredients}</p>
+						</div>
+						<span class="cs-item-spec">{p.spec}</span>
+						<span class="cs-item-price">¥{p.price}</span>
+						<a href="/contact/" class="cs-item-inquiry">询盘</a>
+					</li>
+				))}
+			</ul>
+		</div>
+
+		<!-- 单一花材茶 -->
+		<div class="cs-line-block cs-line-archival">
+			<div class="cs-line-head">
+				<span class="cs-topper">单一花材茶</span>
+				<h3 class="cs-line-title">道地花材，档案级溯源</h3>
+			</div>
+			<ul class="cs-archive-list">
+				{single.map((p) => (
+					<li class="cs-archive-item">
+						{
+							p.image && (
+								<Picture
+									src={p.image}
+									alt={p.name}
+									width={96}
+									height={96}
+									formats={["avif", "webp"]}
+									pictureAttributes={{ class: "cs-thumb" }}
+								/>
+							)
+						}
+						<div class="cs-archive-body">
+							<h4 class="cs-item-name">{p.name}</h4>
+							<p class="cs-item-ingredients">{p.ingredients}</p>
+						</div>
+						<span class="cs-item-spec">{p.spec}</span>
+						<span class="cs-item-price">¥{p.price}</span>
+						<a href="/contact/" class="cs-item-inquiry">询盘</a>
+					</li>
+				))}
+			</ul>
+		</div>
+
+		<!-- 礼盒系列 -->
+		<div class="cs-line-block">
+			<div class="cs-line-head">
+				<span class="cs-topper">礼盒系列</span>
+				<h3 class="cs-line-title">节日礼赠，体面成盒</h3>
+			</div>
+			<div class="cs-gift-stack">
+				{gift.map((p) => (
+					p.image ? (
+						<article class="cs-gift-card">
 							<Picture
 								src={p.image}
 								alt={p.name}
-								width={400}
-								height={400}
+								width={1280}
+								height={420}
 								formats={["avif", "webp"]}
-								pictureAttributes={{ class: "cs-picture" }}
+								pictureAttributes={{ class: "cs-gift-img" }}
 							/>
-						) : (
-							<div class="cs-picture cs-picture-empty" aria-hidden="true">
-								<Icon name="service1" width="64" height="64" aria-hidden="true" />
+							<div class="cs-gift-body">
+								<h4 class="cs-feature-name">{p.name}</h4>
+								<p class="cs-feature-ingredients">{p.ingredients}</p>
+								<div class="cs-feature-meta">
+									<span class="cs-spec">{p.spec}</span>
+									<span class="cs-price">建议零售价 ¥{p.price}</span>
+								</div>
+								<a href="/contact/" class="cs-inquiry">提交询盘</a>
 							</div>
-						)
-					}
-					<span class="cs-line">{p.line}</span>
-					<h3 class="cs-name">{p.name}</h3>
-					<p class="cs-ingredients">{p.ingredients}</p>
-					<div class="cs-meta">
-						<span class="cs-spec">{p.spec}</span>
-						<span class="cs-price">
-							建议零售价 ¥{p.price}
-						</span>
-					</div>
-					<a href="/contact/" class="cs-inquiry">提交询盘</a>
-				</article>
-			))}
+						</article>
+					) : (
+						<article class="cs-gift-card cs-gift-plain">
+							<div class="cs-gift-body">
+								<h4 class="cs-feature-name">{p.name}</h4>
+								<p class="cs-feature-ingredients">{p.ingredients}</p>
+								<div class="cs-feature-meta">
+									<span class="cs-spec">{p.spec}</span>
+									<span class="cs-price">建议零售价 ¥{p.price}</span>
+								</div>
+								<a href="/contact/" class="cs-inquiry cs-inquiry-light">提交询盘</a>
+							</div>
+						</article>
+					)
+				))}
+			</div>
 		</div>
 	</div>
 </section>
 
 <style lang="less">
 	/*-- -------------------------- -->
-	<---       Product Grid        -->
+	<---      Product Catalog      -->
 	<--- -------------------------- -*/
 
 	/* Mobile - 360px */
 	@media only screen and (min-width: 0em) {
-		#product-grid {
+		#product-catalog {
 			padding: var(--sectionPadding);
 
 			.cs-container {
@@ -85,7 +201,7 @@ const { products } = Astro.props as Props;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				row-gap: (48/16rem);
+				row-gap: (72/16rem);
 			}
 
 			.cs-content {
@@ -101,7 +217,6 @@ const { products } = Astro.props as Props;
 			}
 
 			.cs-title {
-				/* 41px - 60px */
 				max-width: (621/16rem);
 				margin-bottom: (16/16rem);
 			}
@@ -110,44 +225,55 @@ const { products } = Astro.props as Props;
 				max-width: (750/16rem);
 			}
 
-			.cs-product-grid {
+			/* ---- line block ---- */
+			.cs-line-block {
 				width: 100%;
-				display: flex;
-				justify-content: center;
-				align-items: stretch;
-				flex-wrap: wrap;
-				gap: (32/16rem);
-			}
-
-			.cs-card {
-				/* mother: Reviews .review surface + Services .card top bar */
-				width: 100%;
-				max-width: (357/16em);
-				margin: auto;
-				box-sizing: border-box;
-				padding: 0 0 (24/16rem) 0;
-				background: #fff;
-				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
-				border-top: (6/16em) solid var(--primary);
-				border-radius: (5/16em);
-				overflow: hidden;
 				display: flex;
 				flex-direction: column;
-				transition: transform 0.3s, box-shadow 0.3s;
+				align-items: center;
+				row-gap: (32/16rem);
+			}
 
-				&:hover {
-					transform: translateY(-4px);
-					box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.1);
+			.cs-line-head {
+				width: 100%;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				.cs-topper {
+					margin-bottom: (8/16rem);
 				}
 			}
 
-			.cs-picture {
+			.cs-line-title {
+				font-size: clamp(1.5rem, 2.6vw, 2rem);
+				font-weight: 700;
+				line-height: 1.3em;
+				color: var(--headerColor);
+			}
+
+			/* ---- feature (hero product) ---- */
+			.cs-feature {
 				width: 100%;
-				height: (300/16rem);
-				margin-bottom: (20/16rem);
-				display: block;
+				max-width: (880/16rem);
+				margin: auto;
+				box-sizing: border-box;
+				padding: (24/16rem);
+				background: var(--bodyTextColorWhite);
+				border-top: (6/16rem) solid var(--primary);
+				border-radius: (5/16rem);
+				display: flex;
+				flex-direction: column;
+				gap: (24/16rem);
+			}
+
+			.cs-feature-picture {
+				width: 100%;
+				aspect-ratio: 4 / 3;
 				position: relative;
 				overflow: hidden;
+				border-radius: (5/16rem);
 
 				img {
 					width: 100%;
@@ -159,51 +285,45 @@ const { products } = Astro.props as Props;
 				}
 			}
 
-			.cs-picture-empty {
-				background: var(--secondary);
+			.cs-feature-body {
+				flex: 1;
 				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				svg {
-					opacity: 0.5;
-				}
+				flex-direction: column;
+				align-items: flex-start;
 			}
 
-			.cs-line {
-				font-size: (13/16rem);
+			.cs-feature-tag {
+				font-size: (12/16rem);
 				font-weight: 700;
-				line-height: 1.2em;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				margin: 0 0 (8/16rem);
-				padding: 0 (24/16rem);
-				color: var(--primary);
-				display: block;
+				line-height: (24/16rem);
+				margin-bottom: (10/16rem);
+				padding: 0 (10/16rem);
+				color: var(--secondary);
+				background-color: rgba(23, 63, 53, 0.08);
+				border-radius: (12/16rem);
+				display: inline-block;
 			}
 
-			.cs-name {
-				font-size: (22/16rem);
+			.cs-feature-name {
+				font-size: (26/16rem);
 				font-weight: 700;
 				line-height: 1.2em;
-				margin: 0 0 (10/16rem);
-				padding: 0 (24/16rem);
+				margin-bottom: (12/16rem);
 				color: var(--headerColor);
 			}
 
-			.cs-ingredients {
-				font-size: (14/16rem);
-				line-height: 1.6em;
-				margin: 0 0 (20/16rem);
-				padding: 0 (24/16rem);
+			.cs-feature-ingredients {
+				font-size: (15/16rem);
+				line-height: 1.7em;
+				margin-bottom: (20/16rem);
 				color: var(--bodyTextColor);
-				opacity: 0.75;
-				flex: 1;
+				opacity: 0.78;
 			}
 
-			.cs-meta {
-				margin: 0 (24/16rem) (16/16rem);
-				padding-top: (16/16rem);
+			.cs-feature-meta {
+				width: 100%;
+				margin-bottom: (20/16rem);
+				padding-top: (14/16rem);
 				border-top: 1px solid #e7e7e7;
 				display: flex;
 				justify-content: space-between;
@@ -226,43 +346,256 @@ const { products } = Astro.props as Props;
 				font-size: (14/16rem);
 				font-weight: 700;
 				line-height: (40/16rem);
-				text-align: center;
 				text-decoration: none;
-				width: auto;
 				height: (40/16rem);
-				margin: 0 (24/16rem);
 				padding: 0 (20/16rem);
 				color: var(--bodyTextColorWhite);
 				background-color: var(--secondary);
 				border-radius: (5/16rem);
-				display: block;
+				display: inline-block;
 				transition: background-color 0.3s;
 
 				&:hover {
 					background-color: var(--primary);
 				}
 			}
-		}
-	}
 
-	/* Tablet - 768px */
-	@media only screen and (min-width: 48rem) {
-		#product-grid {
-			.cs-card {
-				width: calc(50% - 1rem);
-				max-width: none;
+			.cs-inquiry-light {
+				background-color: var(--primary);
+			}
+
+			/* ---- catalog rows (classic tea) ---- */
+			.cs-catalog-list {
+				width: 100%;
+				max-width: (880/16rem);
 				margin: 0;
+				padding: 0;
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: (14/16rem);
+			}
+
+			.cs-catalog-item {
+				width: 100%;
+				box-sizing: border-box;
+				padding: (16/16rem);
+				background: #fff;
+				box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.05);
+				border-radius: (5/16rem);
+				display: flex;
+				align-items: center;
+				gap: (16/16rem);
+			}
+
+			.cs-thumb {
+				width: (72/16rem);
+				height: (72/16rem);
+				flex: none;
+				border-radius: (5/16rem);
+				overflow: hidden;
+				position: relative;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			.cs-thumb-empty {
+				background: var(--secondary);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				svg {
+					opacity: 0.5;
+				}
+			}
+
+			.cs-item-body {
+				flex: 1;
+				min-width: 0;
+			}
+
+			.cs-item-name {
+				font-size: (17/16rem);
+				font-weight: 700;
+				line-height: 1.3em;
+				margin-bottom: (4/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-item-ingredients {
+				font-size: (13/16rem);
+				line-height: 1.5em;
+				color: var(--bodyTextColor);
+				opacity: 0.72;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			.cs-item-spec {
+				font-size: (13/16rem);
+				color: var(--bodyTextColor);
+				opacity: 0.8;
+				flex: none;
+			}
+
+			.cs-item-price {
+				font-size: (15/16rem);
+				font-weight: 700;
+				color: var(--secondary);
+				flex: none;
+			}
+
+			.cs-item-inquiry {
+				font-size: (13/16rem);
+				font-weight: 700;
+				text-decoration: none;
+				color: var(--primary);
+				flex: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			/* ---- archival list (single flower teas) ---- */
+			.cs-line-archival {
+				.cs-archive-list {
+					width: 100%;
+					max-width: (880/16rem);
+					margin: 0;
+					padding: 0;
+					list-style: none;
+					border-top: 1px solid #e7e7e7;
+				}
+
+				.cs-archive-item {
+					width: 100%;
+					box-sizing: border-box;
+					padding: (18/16rem) (8/16rem);
+					border-bottom: 1px solid #e7e7e7;
+					display: flex;
+					align-items: center;
+					gap: (16/16rem);
+
+					.cs-thumb {
+						width: (56/16rem);
+						height: (56/16rem);
+					}
+				}
+			}
+
+			/* ---- gift wide cards ---- */
+			.cs-gift-stack {
+				width: 100%;
+				max-width: (880/16rem);
+				display: flex;
+				flex-direction: column;
+				gap: (24/16rem);
+			}
+
+			.cs-gift-card {
+				width: 100%;
+				box-sizing: border-box;
+				background: var(--bodyTextColorWhite);
+				border-top: (6/16rem) solid var(--primary);
+				border-radius: (5/16rem);
+				overflow: hidden;
+			}
+
+			.cs-gift-img {
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				position: relative;
+				overflow: hidden;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			.cs-gift-body {
+				padding: (24/16rem) (24/16rem) (28/16rem);
+			}
+
+			.cs-gift-plain {
+				background: var(--secondary);
+
+				.cs-feature-name {
+					color: var(--bodyTextColorWhite);
+				}
+
+				.cs-feature-ingredients {
+					color: var(--bodyTextColorWhite);
+					opacity: 0.85;
+				}
+
+				.cs-spec {
+					color: var(--bodyTextColorWhite);
+					opacity: 0.8;
+				}
+
+				.cs-price {
+					color: var(--primaryLight);
+				}
+
+				.cs-feature-meta {
+					border-top-color: rgba(250, 250, 246, 0.25);
+				}
 			}
 		}
 	}
 
 	/* Desktop - 1024px */
 	@media only screen and (min-width: 64rem) {
-		#product-grid {
-			.cs-card {
-				width: calc(33.333% - 1.375rem);
-				max-width: none;
-				margin: 0;
+		#product-catalog {
+			.cs-feature {
+				flex-direction: row;
+				align-items: center;
+
+				.cs-feature-picture {
+					width: 55%;
+					aspect-ratio: auto;
+					height: (380/16rem);
+				}
+			}
+
+			.cs-catalog-item {
+				.cs-item-spec {
+					width: (90/16rem);
+					text-align: center;
+				}
+
+				.cs-item-price {
+					width: (70/16rem);
+					text-align: center;
+				}
+			}
+
+			.cs-gift-card {
+				position: relative;
+
+				.cs-gift-img {
+					aspect-ratio: auto;
+					height: (340/16rem);
+				}
+
+				.cs-gift-body {
+					padding: (32/16rem) (40/16rem) (36/16rem);
+				}
 			}
 		}
 	}

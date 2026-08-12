@@ -37,7 +37,7 @@ const certifications = [
 ---
 
 <BaseLayout title="工厂实力" description="百草源工厂占地 15 亩，标准化生产车间 6000㎡，全自动袋泡茶生产线 4 条，十万级洁净车间，SC 与 ISO 22000 双认证。">
-	<Banner title="工厂实力" image={optimizedBanner} />
+	<Banner title="工厂实力" image={optimizedBanner} variant="industrial" tags={["SC 认证", "ISO 22000", "十万级洁净车间"]} />
 	<FactoryCapabilities capabilities={capabilities} />
 
 	<SideBySide
@@ -98,7 +98,12 @@ const certifications = [
 		]}
 	/>
 
-	<CTASimple />
+	<CTASimple
+		title="想实地看看产线？"
+		titleLineTwo="预约验厂，眼见为实"
+		text="批发与 OEM 客户可预约到厂参观原料仓、生产车间与检验室。"
+		buttonText="联系询盘"
+	/>
 </BaseLayout>
 
 <style lang="less">

@@ -17,7 +17,7 @@ const optimizedBanner = await getImage({ src: bannerImage, format: "webp" });
 ---
 
 <BaseLayout title="联系询盘" description="提交合作需求：产品目录、报价与 OEM 打样方案由销售团队一对一对接。">
-	<Banner title="联系询盘" image={optimizedBanner} />
+	<Banner title="联系询盘" image={optimizedBanner} variant="compact" />
 	<InquiryForm
 		email={BUSINESS.email}
 		oemEmail="oem@baicaoyuan-tea.com"

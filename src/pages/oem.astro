@@ -25,7 +25,7 @@ const steps = [
 ---
 
 <BaseLayout title="OEM/ODM 代工" description="百草源 OEM/ODM 一站式代工：配方研发、包装设计、贴牌生产，袋泡茶最小起订量 5000 包，常规产品 15-20 天交货。">
-	<Banner title="OEM / ODM" image={optimizedBanner} />
+	<Banner title="OEM / ODM" image={optimizedBanner} variant="industrial" tags={["SC 认证", "ISO 22000", "十万级洁净车间"]} />
 
 	<SideBySide
 		topper="OEM / ODM 服务"
@@ -70,5 +70,10 @@ const steps = [
 		]}
 	/>
 
-	<CTASimple />
+	<CTASimple
+		title="你的品牌，需要一个"
+		titleLineTwo="稳定的供应链"
+		text="从配方打样到批量量产，一次谈妥；提交需求后 1-2 个工作日响应。"
+		buttonText="获取 OEM 报价"
+	/>
 </BaseLayout>

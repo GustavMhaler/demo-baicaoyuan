@@ -2,30 +2,52 @@
 /**
  * * A simple banner used on every page except the homepage
  * * Takes a title and an image as props
+ * * Supports layout variants so interior pages don't all look identical:
+ *   - default    : centered title (Traceability)
+ *   - editorial  : left-aligned title + lead copy (About)
+ *   - industrial : taller, with capability tags (OEM, Factory)
+ *   - compact    : tighter, lower height (Products, Contact)
  */
 
 // Utils
 import { Picture } from "astro:assets";
 import type { GetImageResult } from "astro";
 
+type BannerVariant = "default" | "editorial" | "industrial" | "compact";
+
 interface Props {
 	title: string; // heading text
 	image: GetImageResult; // pre-optimized image from getImage()
+	variant?: BannerVariant;
+	lead?: string; // short supporting copy (editorial)
+	tags?: string[]; // capability labels (industrial)
 }
 
-const { title, image } = Astro.props;
+const { title, image, variant = "default", lead, tags = [] } = Astro.props as Props;
 ---
 
-<section id="int-hero">
-	<h1 id="home-h">{title}</h1>
+<section id="int-hero" class:list={[`cs-${variant}`]}>
+	<div class="cs-banner-content">
+		{
+			tags.length > 0 && (
+				<div class="cs-tags" aria-hidden="true">
+					{tags.map((t) => (
+						<span class="cs-tag">{t}</span>
+					))}
+				</div>
+			)
+		}
+		<h1 id="home-h">{title}</h1>
+		{lead && <p class="cs-lead">{lead}</p>}
+	</div>
 
 	<Picture src={image.src} width={image.attributes.width} height={image.attributes.height} formats={["avif", "webp"]} alt="" priority />
 </section>
 
 <style lang="less">
 	/*-- -------------------------- -->
-<---   Interior Page Header     -->
-<--- -------------------------- -*/
+	<---   Interior Page Header     -->
+	<--- -------------------------- -*/
 
 	/* Mobile */
 	@media only screen and (min-width: 0em) {
@@ -70,6 +92,16 @@ const { title, image } = Astro.props;
 				}
 			}
 
+			.cs-banner-content {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: 0 auto;
+				padding: 0 (16/16rem);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
 			h1 {
 				font-size: var(--headerFontSize);
 				text-align: center;
@@ -82,14 +114,75 @@ const { title, image } = Astro.props;
 				position: relative;
 			}
 
-			p {
+			.cs-lead {
 				text-align: center;
 				width: 96%;
-				max-width: (400/16rem);
-				margin: auto;
-				margin-bottom: (30/16rem);
-				color: #fff;
+				max-width: (560/16rem);
+				margin: 0 auto (36/16rem);
+				color: var(--bodyTextColorWhite);
+				opacity: 0.9;
 				display: block;
+			}
+
+			.cs-tags {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: (10/16rem);
+				margin-bottom: (4/16rem);
+			}
+
+			.cs-tag {
+				font-size: (13/16rem);
+				font-weight: 700;
+				line-height: (30/16rem);
+				padding: 0 (14/16rem);
+				color: var(--bodyTextColorWhite);
+				border: 1px solid rgba(250, 250, 246, 0.55);
+				border-radius: (15/16rem);
+				display: inline-block;
+			}
+
+			/* Variant: editorial - left aligned, lead copy */
+			&.cs-editorial {
+				min-height: 34vh;
+
+				.cs-banner-content {
+					align-items: flex-start;
+				}
+
+				h1 {
+					text-align: left;
+					max-width: (720/16rem);
+					margin: 0 0 (16/16rem);
+				}
+
+				.cs-lead {
+					text-align: left;
+					max-width: (520/16rem);
+					margin: 0 0 (40/16rem);
+				}
+			}
+
+			/* Variant: industrial - taller, capability tags */
+			&.cs-industrial {
+				min-height: 38vh;
+
+				h1 {
+					margin-top: (40/16rem);
+				}
+			}
+
+			/* Variant: compact - tighter */
+			&.cs-compact {
+				min-height: 22vh;
+
+				h1 {
+					font-size: clamp(1.5rem, 3vw, 2.25rem);
+					margin-top: (24/16rem);
+					margin-bottom: (24/16rem);
+				}
 			}
 		}
 	}
@@ -102,6 +195,21 @@ const { title, image } = Astro.props;
 			padding-top: (180/16rem);
 			background-attachment: fixed;
 			padding-block-end: (100/16rem);
+
+			&.cs-industrial {
+				min-height: (420/16rem);
+				padding-top: (200/16rem);
+			}
+
+			&.cs-editorial {
+				padding-top: (190/16rem);
+			}
+
+			&.cs-compact {
+				min-height: (220/16rem);
+				padding-top: (150/16rem);
+				padding-block-end: (70/16rem);
+			}
 		}
 	}
 </style>

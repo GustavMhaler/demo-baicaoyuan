@@ -1,7 +1,8 @@
 ---
-// SourcingAtlas: sourcing channel cards for the traceability page.
-// Business-specific component; card surface follows the Reviews mother
-// values (white, soft shadow, 5px radius, 5px brand left bar).
+// SourcingAtlas: sourcing system for the traceability page.
+// Desktop: a factory hub + six sourcing nodes on the left, and an archive
+// panel on the right that switches when a node is selected (vanilla JS,
+// astro:page-load). Mobile: plain vertical list with full records.
 // All styles are scoped.
 
 interface SourceItem {
@@ -24,24 +25,83 @@ const { sources } = Astro.props as Props;
 			<h2 class="cs-title">核心原料，产地直供</h2>
 			<p class="cs-text">六类核心原料均建立定点采购渠道，每一批原料入库前完成农残快检、水分检测与杂质筛选。</p>
 		</div>
-		<div class="cs-source-grid">
-			{sources.map((s) => (
-				<article class="cs-source">
-					<h3 class="cs-source-name">{s.name}</h3>
-					<span class="cs-source-origin">{s.origin}</span>
-					<p class="cs-source-mode">{s.mode}</p>
-				</article>
-			))}
+
+		<div class="cs-atlas">
+			<div class="cs-atlas-side" role="tablist" aria-label="原料产地列表">
+				<div class="cs-hub">
+					<span class="cs-hub-dot" aria-hidden="true"></span>
+					<div class="cs-hub-body">
+						<h3 class="cs-hub-name">百草源工厂</h3>
+						<p class="cs-hub-detail">亳州谯城花茶产业园</p>
+					</div>
+				</div>
+				<ul class="cs-node-list">
+					{sources.map((s, i) => (
+						<li class="cs-node">
+							<button
+								type="button"
+								class:list={["cs-node-btn", { "cs-active": i === 0 }]}
+								role="tab"
+								aria-selected={i === 0}
+								aria-controls={`source-panel-${i}`}
+								data-index={i}
+							>
+								<span class="cs-node-name">{s.name}</span>
+								<span class="cs-node-origin">{s.origin}</span>
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+
+			<div class="cs-atlas-panels">
+				{sources.map((s, i) => (
+					<article
+						id={`source-panel-${i}`}
+						class:list={["cs-panel", { "cs-active": i === 0 }]}
+						role="tabpanel"
+						aria-labelledby={`source-node-${i}`}
+					>
+						<span class="cs-panel-tag">产地档案 · Demo</span>
+						<h3 class="cs-panel-name">{s.name}</h3>
+						<p class="cs-panel-origin">{s.origin}</p>
+						<p class="cs-panel-mode">{s.mode}</p>
+						<span class="cs-panel-note">批号可在《批次溯源》中继续追踪到入厂检验记录。</span>
+					</article>
+				))}
+			</div>
 		</div>
 	</div>
 </section>
 
+<script>
+	// Vanilla tab switching for the sourcing atlas.
+	document.addEventListener("astro:page-load", () => {
+		const side = document.querySelector(".cs-atlas-side");
+		if (!side) return;
+		const buttons = Array.from(side.querySelectorAll(".cs-node-btn"));
+		const panels = Array.from(document.querySelectorAll(".cs-atlas-panels .cs-panel"));
+		for (const btn of buttons) {
+			btn.addEventListener("click", () => {
+				const index = Number(btn.dataset.index);
+				for (const b of buttons) {
+					b.classList.toggle("cs-active", b === btn);
+					b.setAttribute("aria-selected", String(b === btn));
+				}
+				for (const p of panels) {
+					p.classList.toggle("cs-active", p.id === `source-panel-${index}`);
+				}
+			});
+		}
+	});
+</script>
+
 <style lang="less">
 	/*-- -------------------------- -->
-	<---        Sourcing Grid      -->
+	<---      Sourcing Atlas       -->
 	<--- -------------------------- -*/
 
-	/* Mobile - 360px */
+	/* Mobile - 360px: vertical records */
 	@media only screen and (min-width: 0em) {
 		#sourcing {
 			padding: var(--sectionPadding);
@@ -77,73 +137,221 @@ const { sources } = Astro.props as Props;
 				max-width: (750/16rem);
 			}
 
-			.cs-source-grid {
+			.cs-atlas {
 				width: 100%;
-				display: flex;
-				justify-content: center;
-				align-items: stretch;
-				flex-wrap: wrap;
-				gap: (24/16rem);
+				max-width: (980/16rem);
 			}
 
-			.cs-source {
-				/* mother: Reviews .review surface (rows of sourcing channels) */
+			/* side: factory hub + nodes */
+			.cs-atlas-side {
 				width: 100%;
-				max-width: (410/16em);
-				margin: auto;
+				margin-bottom: (40/16rem);
+				position: relative;
+			}
+
+			.cs-hub {
+				display: flex;
+				align-items: center;
+				gap: (16/16rem);
+				padding: (16/16rem) (20/16rem);
+				background: var(--secondary);
+				border-radius: (5/16rem);
+			}
+
+			.cs-hub-dot {
+				width: (16/16rem);
+				height: (16/16rem);
+				flex: none;
+				background-color: var(--primaryLight);
+				border-radius: 50%;
+				display: block;
+			}
+
+			.cs-hub-name {
+				font-size: (18/16rem);
+				font-weight: 700;
+				line-height: 1.3em;
+				color: var(--bodyTextColorWhite);
+			}
+
+			.cs-hub-detail {
+				font-size: (14/16rem);
+				line-height: 1.5em;
+				color: var(--bodyTextColorWhite);
+				opacity: 0.8;
+			}
+
+			.cs-node-list {
+				margin: 0;
+				padding: (20/16rem) 0 0 (23/16rem);
+				list-style: none;
+				position: relative;
+
+				&:before {
+					content: "";
+					width: 2px;
+					height: calc(100% - (20/16rem));
+					background: rgba(23, 63, 53, 0.18);
+					display: block;
+					position: absolute;
+					top: (20/16rem);
+					left: 0;
+				}
+			}
+
+			.cs-node {
+				position: relative;
+				padding-bottom: (14/16rem);
+
+				&:last-of-type {
+					padding-bottom: 0;
+				}
+
+				&:before {
+					content: "";
+					width: (10/16rem);
+					height: (10/16rem);
+					background-color: #fff;
+					border: 2px solid var(--primary);
+					border-radius: 50%;
+					display: block;
+					position: absolute;
+					top: (16/16rem);
+					left: (-23/16rem);
+				}
+			}
+
+			.cs-node-btn {
+				font-size: (16/16rem);
+				text-align: left;
+				width: 100%;
 				box-sizing: border-box;
-				padding: (28/16rem) (28/16rem);
-				background: #fff;
-				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
-				border-left: (5/16em) solid var(--primary);
-				border-radius: (5/16em);
+				padding: (12/16rem) (16/16rem);
+				background-color: transparent;
+				color: var(--headerColor);
+				border: none;
+				border-radius: (5/16rem);
 				display: flex;
 				flex-direction: column;
+				gap: (2/16rem);
+				cursor: pointer;
+				transition: background-color 0.3s, color 0.3s;
+
+				&:hover {
+					background-color: rgba(23, 63, 53, 0.06);
+				}
+
+				&.cs-active {
+					background-color: var(--secondary);
+					color: var(--bodyTextColorWhite);
+				}
 			}
 
-			.cs-source-name {
-				font-size: (22/16rem);
+			.cs-node-name {
+				font-weight: 700;
+				line-height: 1.4em;
+			}
+
+			.cs-node-origin {
+				font-size: (13/16rem);
+				line-height: 1.4em;
+				opacity: 0.75;
+			}
+
+			/* archive panels (desktop only) */
+			.cs-atlas-panels {
+				display: none;
+			}
+		}
+	}
+
+	/* Desktop - 1024px: hub + nodes left, archive panel right */
+	@media only screen and (min-width: 64rem) {
+		#sourcing {
+			.cs-atlas {
+				display: flex;
+				align-items: stretch;
+				gap: (48/16rem);
+			}
+
+			.cs-atlas-side {
+				width: 46%;
+				margin-bottom: 0;
+				flex: none;
+			}
+
+			.cs-atlas-panels {
+				width: 54%;
+				display: block;
+				position: relative;
+			}
+
+			.cs-panel {
+				/* mother: Reviews .review surface */
+				width: 100%;
+				min-height: 100%;
+				box-sizing: border-box;
+				padding: (36/16rem) (32/16rem);
+				background: #fff;
+				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+				border-left: (6/16rem) solid var(--primary);
+				border-radius: (5/16rem);
+				opacity: 0;
+				visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: opacity 0.3s, visibility 0.3s;
+
+				&.cs-active {
+					opacity: 1;
+					visibility: visible;
+					position: relative;
+				}
+			}
+
+			.cs-panel-tag {
+				font-size: (13/16rem);
+				font-weight: 700;
+				line-height: (24/16rem);
+				margin-bottom: (16/16rem);
+				padding: 0 (10/16rem);
+				color: var(--secondary);
+				background-color: rgba(23, 63, 53, 0.08);
+				border-radius: (12/16rem);
+				display: inline-block;
+			}
+
+			.cs-panel-name {
+				font-size: (30/16rem);
 				font-weight: 700;
 				line-height: 1.2em;
-				margin-bottom: (6/16rem);
+				margin-bottom: (8/16rem);
 				color: var(--headerColor);
 			}
 
-			.cs-source-origin {
-				font-size: (14/16rem);
+			.cs-panel-origin {
+				font-size: (16/16rem);
 				font-weight: 700;
-				line-height: 1.4em;
-				margin-bottom: (10/16rem);
+				line-height: 1.5em;
+				margin-bottom: (16/16rem);
 				color: var(--primary);
 			}
 
-			.cs-source-mode {
-				font-size: (15/16rem);
+			.cs-panel-mode {
+				font-size: (16/16rem);
+				line-height: 1.8em;
+				margin-bottom: (20/16rem);
+				color: var(--bodyTextColor);
+				opacity: 0.8;
+			}
+
+			.cs-panel-note {
+				font-size: (13/16rem);
 				line-height: 1.6em;
 				color: var(--bodyTextColor);
-				opacity: 0.75;
-			}
-		}
-	}
-
-	/* Tablet - 768px */
-	@media only screen and (min-width: 48rem) {
-		#sourcing {
-			.cs-source {
-				width: calc(50% - 0.75rem);
-				max-width: none;
-				margin: 0;
-			}
-		}
-	}
-
-	/* Desktop - 1024px */
-	@media only screen and (min-width: 64rem) {
-		#sourcing {
-			.cs-source {
-				width: calc(33.333% - 1rem);
-				max-width: none;
-				margin: 0;
+				opacity: 0.6;
+				display: block;
 			}
 		}
 	}

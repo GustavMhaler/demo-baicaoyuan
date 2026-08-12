@@ -1,10 +1,12 @@
 ---
-// FactoryCapabilities: production capability cards for the factory page.
-// Business-specific component; card surface follows the Services mother
-// values. All styles are scoped.
+// FactoryCapabilities: production capability band for the factory page.
+// Big static numbers (no count-up effects), revealed in sequence by the
+// shared reveal layer. All styles are scoped.
 
 interface CapabilityItem {
-	title: string;
+	number: string;
+	unit: string;
+	name: string;
 	detail: string;
 }
 
@@ -22,12 +24,16 @@ const { capabilities } = Astro.props as Props;
 			<h2 class="cs-title">15 亩厂区，6000㎡ 洁净车间</h2>
 			<p class="cs-text">袋泡茶日产能 50 万包、罐装花茶 3 万罐、组合茶礼盒 1 万盒；原料处理区配备风选机、色选机、振动筛与臭氧清洗设备，全流程不落地生产。</p>
 		</div>
-		<div class="cs-cap-grid">
+		<div class="cs-cap-band">
 			{capabilities.map((c) => (
-				<article class="cs-cap">
-					<h3 class="cs-cap-title">{c.title}</h3>
+				<div class="cs-cap">
+					<span class="cs-cap-number">
+						{c.number}
+						<span class="cs-cap-unit">{c.unit}</span>
+					</span>
+					<h3 class="cs-cap-name">{c.name}</h3>
 					<p class="cs-cap-detail">{c.detail}</p>
-				</article>
+				</div>
 			))}
 		</div>
 	</div>
@@ -35,7 +41,7 @@ const { capabilities } = Astro.props as Props;
 
 <style lang="less">
 	/*-- -------------------------- -->
-	<---      Capability Grid      -->
+	<---    Capability Band        -->
 	<--- -------------------------- -*/
 
 	/* Mobile - 360px */
@@ -74,64 +80,65 @@ const { capabilities } = Astro.props as Props;
 				max-width: (750/16rem);
 			}
 
-			.cs-cap-grid {
+			.cs-cap-band {
 				width: 100%;
+				max-width: (1080/16rem);
+				padding: (8/16rem) 0 0 0;
+				border-top: 1px solid #e7e7e7;
 				display: flex;
-				justify-content: center;
+				justify-content: space-between;
 				align-items: stretch;
 				flex-wrap: wrap;
-				gap: (24/16rem);
+				gap: (28/16rem) (24/16rem);
 			}
 
 			.cs-cap {
-				/* mother: Services .card surface */
-				width: 100%;
-				max-width: (357/16em);
-				margin: auto;
+				width: calc(50% - 0.75rem);
 				box-sizing: border-box;
-				padding: (36/16rem) (24/16rem);
-				background: #fff;
-				box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
-				border-top: (6/16em) solid var(--primary);
-				border-radius: (5/16em);
-				text-align: center;
+				padding-top: (28/16rem);
+				border-top: 2px solid var(--primary);
+				display: flex;
+				flex-direction: column;
 			}
 
-			.cs-cap-title {
-				font-size: (20/16rem);
+			.cs-cap-number {
+				font-size: (52/16rem);
+				font-weight: 900;
+				line-height: 1em;
+				color: var(--secondary);
+				display: block;
+				margin-bottom: (10/16rem);
+			}
+
+			.cs-cap-unit {
+				font-size: (18/16rem);
+				font-weight: 700;
+				margin-left: (6/16rem);
+				color: var(--primary);
+			}
+
+			.cs-cap-name {
+				font-size: (17/16rem);
 				font-weight: 700;
 				line-height: 1.3em;
-				margin-bottom: (8/16rem);
+				margin-bottom: (6/16rem);
 				color: var(--headerColor);
 			}
 
 			.cs-cap-detail {
-				font-size: (15/16rem);
+				font-size: (14/16rem);
 				line-height: 1.5em;
 				color: var(--bodyTextColor);
-				opacity: 0.75;
+				opacity: 0.72;
 			}
 		}
 	}
 
-	/* Tablet - 768px */
-	@media only screen and (min-width: 48rem) {
-		#capability {
-			.cs-cap {
-				width: calc(50% - 0.75rem);
-				max-width: none;
-				margin: 0;
-			}
-		}
-	}
-
-	/* Desktop - 1024px */
+	/* Desktop - 1024px: one row */
 	@media only screen and (min-width: 64rem) {
 		#capability {
 			.cs-cap {
 				width: calc(25% - 1.125rem);
-				max-width: none;
-				margin: 0;
 			}
 		}
 	}

@@ -33,7 +33,12 @@ const products = [
 ---
 
 <BaseLayout title="产品中心" description="百草源产品体系：经典组合茶、单一花材茶与礼盒系列共 28 款 SKU，面向批发、经销与 OEM 客户供货。">
-	<Banner title="产品中心" image={optimizedBanner} />
+	<Banner title="产品中心" image={optimizedBanner} variant="compact" />
 	<ProductCatalog products={products} />
-	<CTASimple />
+	<CTASimple
+		title="想先拿样品"
+		titleLineTwo="试试水？"
+		text="样品按成本价供应，常规 3-5 天发出；批量订单确认后样品费可在货款中抵扣。"
+		buttonText="提交询盘"
+	/>
 </BaseLayout>

@@ -1,0 +1,216 @@
+---
+// BrandTimeline: brand story milestones for the about page.
+// Vertical timeline with year markers; desktop alternates sides,
+// mobile keeps a single rail. All styles are scoped.
+
+interface Milestone {
+	year: string;
+	title: string;
+	text: string;
+}
+
+interface Props {
+	milestones: Milestone[];
+}
+
+const { milestones } = Astro.props as Props;
+---
+
+<section id="brand-timeline">
+	<div class="cs-container">
+		<div class="cs-content">
+			<span class="cs-topper">品牌故事</span>
+			<h2 class="cs-title">从 20 平米摊位到 6000㎡ 工厂</h2>
+			<p class="cs-text">十年间，百草源从药材商行成长为具备完整 SC 生产资质的现代化花茶工厂。</p>
+		</div>
+		<ol class="cs-timeline">
+			{milestones.map((m, i) => (
+				<li class:list={["cs-milestone", { "cs-even": i % 2 === 1 }]}>
+					<span class="cs-year" aria-hidden="true">{m.year}</span>
+					<span class="cs-dot" aria-hidden="true"></span>
+					<div class="cs-milestone-body">
+						<h3 class="cs-milestone-title">{m.title}</h3>
+						<p class="cs-milestone-text">{m.text}</p>
+					</div>
+				</li>
+			))}
+		</ol>
+	</div>
+</section>
+
+<style lang="less">
+	/*-- -------------------------- -->
+	<---      Brand Timeline       -->
+	<--- -------------------------- -*/
+
+	/* Mobile - 360px */
+	@media only screen and (min-width: 0em) {
+		#brand-timeline {
+			padding: var(--sectionPadding);
+
+			.cs-container {
+				width: 100%;
+				max-width: (1280/16rem);
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				row-gap: (48/16rem);
+			}
+
+			.cs-content {
+				text-align: center;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cs-topper {
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-title {
+				max-width: (621/16rem);
+				margin-bottom: (16/16rem);
+			}
+
+			.cs-text {
+				max-width: (750/16rem);
+			}
+
+			.cs-timeline {
+				width: 100%;
+				max-width: (720/16rem);
+				margin: 0;
+				padding: (8/16rem) 0 0 0;
+				list-style: none;
+				position: relative;
+
+				&:before {
+					content: "";
+					width: 2px;
+					height: calc(100% - (24/16rem));
+					background: rgba(23, 63, 53, 0.18);
+					display: block;
+					position: absolute;
+					top: (12/16rem);
+					left: (23/16rem);
+				}
+			}
+
+			.cs-milestone {
+				position: relative;
+				display: flex;
+				align-items: flex-start;
+				gap: (24/16rem);
+				padding-bottom: (44/16rem);
+
+				&:last-of-type {
+					padding-bottom: 0;
+				}
+			}
+
+			.cs-dot {
+				width: (12/16rem);
+				height: (12/16rem);
+				flex: none;
+				margin-top: (6/16rem);
+				background-color: var(--primary);
+				border: 3px solid var(--bodyTextColorWhite);
+				border-radius: 50%;
+				box-shadow: 0 0 0 2px var(--primary);
+				display: block;
+				position: relative;
+				z-index: 1;
+			}
+
+			.cs-year {
+				font-size: (16/16rem);
+				font-weight: 700;
+				line-height: 1.2em;
+				width: (72/16rem);
+				flex: none;
+				margin-left: 0;
+				color: var(--primaryLight);
+				display: block;
+				position: relative;
+				z-index: 1;
+			}
+
+			.cs-milestone-body {
+				flex: 1;
+				padding-top: (2/16rem);
+			}
+
+			.cs-milestone-title {
+				font-size: (20/16rem);
+				font-weight: 700;
+				line-height: 1.3em;
+				margin-bottom: (8/16rem);
+				color: var(--headerColor);
+			}
+
+			.cs-milestone-text {
+				font-size: (15/16rem);
+				line-height: 1.7em;
+				color: var(--bodyTextColor);
+				opacity: 0.78;
+			}
+		}
+	}
+
+	/* Desktop - 1024px: alternating sides */
+	@media only screen and (min-width: 64rem) {
+		#brand-timeline {
+			.cs-timeline {
+				max-width: (980/16rem);
+
+				&:before {
+					left: 50%;
+					transform: translateX(-50%);
+				}
+			}
+
+			.cs-milestone {
+				width: 100%;
+				align-items: flex-start;
+
+				.cs-dot {
+					position: absolute;
+					left: 50%;
+					margin-left: (-6/16rem);
+					margin-top: (4/16rem);
+				}
+
+				.cs-year {
+					width: calc(50% - 2.5rem);
+					text-align: right;
+					margin-right: 2.5rem;
+				}
+
+				.cs-milestone-body {
+					width: calc(50% - 2.5rem);
+					flex: none;
+					margin-left: 2.5rem;
+				}
+
+				&.cs-even {
+					.cs-year {
+						order: 2;
+						text-align: left;
+						margin-left: 2.5rem;
+						margin-right: 0;
+					}
+
+					.cs-milestone-body {
+						order: 1;
+						text-align: right;
+						margin-left: 0;
+						margin-right: 2.5rem;
+					}
+				}
+			}
+		}
+	}
+</style>
